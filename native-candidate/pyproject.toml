@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=84.2.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "particle-sliders-flux-native95"
+version = "0.1.0a1"
+description = "Native full packed Flux ordinary-LoRA ParticleGAN0.9.5 source candidate"
+readme = "README.md"
+requires-python = ">=3.11,<3.15"
+dependencies = [
+  "particle-sliders-core @ git+https://github.com/HyperGAN/particle-sliders.git@41f6066f2d2644902670d5eb736de052e1a70553#subdirectory=packages/particle-sliders-core",
+  "particlegan==0.9.5",
+  "hypergan[train] @ git+https://github.com/HyperGAN/HyperGAN.git@5f368a3770cf5bdae0448995c9f76e29af8049f7",
+  "hndl==0.10.0",
+  "diffusers==0.38.0",
+  "transformers==4.57.6",
+  "accelerate==1.15.0",
+  "safetensors==0.8.0",
+  "pillow>=13.0.0",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<10"]
+
+[project.scripts]
+flux-native95 = "ps_flux_native95.cli:main"
+
+[project.entry-points."particle_sliders.response_backends"]
+flux_native_packed95 = "ps_flux_native95.lifecycle:BACKEND"
+
+[project.entry-points."particle_sliders.inference_backends"]
+flux_native_packed95 = "ps_flux_native95.lifecycle:NATIVE_BACKEND"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+ps_flux_native95 = ["*.hndl", "*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
