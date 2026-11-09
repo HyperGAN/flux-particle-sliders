@@ -1,4 +1,21 @@
-# Flux particle sliders — phase 1 prerequisite extraction
+# Flux particle sliders
+
+**Current measured guidance — 2026-11-09:** saved RAW32 **G0.012/G0.001 tie at0.0**
+on one matched native512/four-step soft-diffuse case; every OFF/ON was rated4/4.
+This completed comparison remains provisional (`trait_qualified:false`), with no
+unique/default/global optimum. Both FULL32 catastrophic guards pass separately.
+The critic execution histories differ (G0.012 CUDA update1 then CPU; G0.001 CPU
+from fresh), so no LR-only causal or bitwise-CUDA claim is made. See
+[the exact scopes and actual API how-to](docs/finished-output-learning-rates.md)
+and [portable rate/evidence summary](docs/finished-output-rate.json).
+
+The separately installable [current native project](native-candidate/README.md)
+uses full native packed geometry, scoped fresh-only PG0.9.5 initialization and
+RAW/noEMA. Retained pretrained training/native images now exist, without released
+weights or hosted Generate. The source-bound CPU/range execution wrappers are not
+public CLI options and do not migrate old FULL/RAW packets.
+
+## Historical phase1 PG0.9.4 prerequisite extraction
 
 This is the separate HyperGAN destination for the public modern Flux prerequisite
 preview from `HyperGAN/particle-sliders` at
