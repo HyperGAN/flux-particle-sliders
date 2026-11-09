@@ -1,0 +1,13 @@
+{
+  "diffusers_version": "0.38.0",
+  "native_sources": {
+    "models/attention.py": "0192998d3979533cdbc8eef9c8f783d0b4a4a547dec9e4388a17c9ae3b1c8ea8",
+    "models/attention_dispatch.py": "fc9967c0d8db1d19897c8b870e517cf68298206737ecc7a624533de095e20215",
+    "models/embeddings.py": "d7a90ef799569e3f0fab41cadde1ecba023abd053af956c022bbfc097662a302",
+    "models/modeling_utils.py": "a2a3a115d2b61ea396e196bb3b0fb545230b2cc42d6f64cf76d0a64a4dde0fbe",
+    "models/normalization.py": "e92ebbb130082578f3cff3361891a1adaa32331347e7bb09e4c70b208a0a6059",
+    "models/transformers/transformer_flux.py": "c537d690c63219979d2ad686a480f3553d7212e915c8c550b93a9f3b3efcbe83",
+    "pipelines/flux/pipeline_flux.py": "2088abcb66ce8c87c13a1ebed6abc4d27803999fec4b09f4fa6c968c2b92e4ba"
+  },
+  "lora_sha256": "c09bb012a479eb103dd3e710a8909251c0cb3a852f45a26112f2a9cc972a30e3"
+}
