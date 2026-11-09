@@ -11,10 +11,13 @@ rank>=3 penalty branch remains unchanged. Frozen positive native velocity on a
 neutral trajectory is this cohort's target; it does not migrate the historical
 scheduler-step latent objective.
 
-Implementation is not native qualification. Matching dependency/native CPU
-checks, a complete authenticated local model, actual prompt/cache preparation,
-and an admitted pretrained pilot are still needed. No model, training or
-finished render was executed by the Source author. The core dependency names the actual merged main PR205 commit
+All17 random-tiny native CPU checks passed at measured Source commit
+`01ac3bb2166656427252776b591ba47a82ba35d7` on2026-11-09 (0 failures/errors/skips,
+1.546 seconds). This includes real tiny native FULL/resume/RAW/PIL contracts,
+with no pretrained model or GPU use. See [the scoped actual evidence](docs/CPU17-VALIDATION.md).
+A complete authenticated local pretrained model, actual prompt/cache preparation
+and admitted pretrained/GPU pilot remain pending. No pretrained slider weights,
+finished pretrained examples or optimized LR are established. The core dependency names the actual merged main PR205 commit
 `41f6066f2d2644902670d5eb736de052e1a70553` (core0.14.1/PG0.9.5). The old top-level
 preview package and its core0.12/PG0.9.4 identity are unchanged. Use a new
 environment, not the old captured environment; do not coinstall incompatible
@@ -44,8 +47,8 @@ original weight Parameter with explicit a=1 Kaiming Uniform down/KEEP zero-up
 declarations. This preserves host forward behavior, Parameter identity and the
 shared helper's strict leaf boundary. No global initializer registration or
 shared-core relaxation is introduced. Fresh/resume receipts remain bound to
-the actual product initialization Source. The regression tests for this repair
-are authored; their actual CPU outcome must be recorded separately.
+the actual product initialization Source. All9 targeted HNDL regressions passed
+as part of the17-check actual CPU run; original failed results remain retained.
 
 Cache preparation accepts a JSON list of distinct `neutral`/`positive` strings:
 
