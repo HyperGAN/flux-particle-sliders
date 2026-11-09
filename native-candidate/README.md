@@ -139,3 +139,12 @@ qualified catastrophic-failure guard at an actual finished-output checkpoint
 boundary before more candidate updates/resume/promotion; weak effect is not
 failure, missing/error is unmeasured. This Source does not invent a universal
 renderer or claim automatic qualified all-product deployment.
+
+## Native T5 tokenizer dependencies
+
+The native package explicitly requires SentencePiece 0.2.3 and protobuf 7.36.2,
+which the staged Schnell T5 tokenizer needs for its configured slow-to-fast
+conversion. A fresh isolated environment passed the actual local tokenizer
+loader with these two additions and all61 previously qualified versions
+retained. See [the scoped validation](docs/TOKENIZER-VALIDATION.md). This check
+does not establish pretrained neural inference, training, GPU fit or LR quality.
