@@ -199,20 +199,45 @@ def test_cache_tamper_refused_before_update_and_no_teacher(tmp_path):
 def test_raw_actual_native_pipeline_pil_and_no_training_factory(tmp_path):
     import ps_flux_native95.lifecycle as life
     import ps_flux_native95.initialization as init
+    import ps_flux_native95.render as renderer
+    from particle_sliders.inference import InferenceSession
     runtime = FixtureRuntime(tmp_path)
     config = configuration(tmp_path, runtime)
     raw = tmp_path / "RAW.pt"
     with open_training(config, runtime=runtime) as session:
         session.train()
         session.export_inference(raw, selection="raw")
+    original_common_render = InferenceSession.render
+    original_native_render = renderer.render_image
+    bound_requests = []
+    rejected_reference_request = []
+    def common_render(self, **request):
+        if not rejected_reference_request:
+            # bool([]) is False, so only the actual product preflight can refuse
+            # this supplied reference value before native render. No extra
+            # successful native forward/render is introduced by the assertion.
+            with pytest.raises(ValueError, match="reference images are unsupported"):
+                original_common_render(self, images=[], **request)
+            rejected_reference_request.append(True)
+        return original_common_render(self, **request)
+    def native_render(*args, **request):
+        # The real core injects images=None on every render. Product validates
+        # and consumes that common field instead of leaking it to the native
+        # pipeline callback, whose signature deliberately has no image input.
+        assert "images" not in request
+        bound_requests.append(request["strength"])
+        return original_native_render(*args, **request)
     with patch.object(life, "NativeRuntime", side_effect=lambda *args, **kwargs: FixtureRuntime(tmp_path)), \
             patch.object(life, "ConditionalPG095", side_effect=AssertionError("no inference GAN/game")), \
             patch.object(life, "CachedResponses", side_effect=AssertionError("no inference teacher cache")), \
-            patch.object(init, "initialize_fresh_components", side_effect=AssertionError("no inference initialization")):
+            patch.object(init, "initialize_fresh_components", side_effect=AssertionError("no inference initialization")), \
+            patch.object(InferenceSession, "render", common_render), \
+            patch.object(renderer, "render_image", native_render):
         receipt = render_pair(artifact=raw, model_dir=tmp_path,
             model_lock_sha256=config.options["model_lock_sha256"], output=tmp_path / "finished",
             prompt="a x", steps=1, seed=7, strength=.25, device="cpu", precision="float32")
     assert receipt["status"] == "complete" and len(receipt["images"]) == 2
+    assert rejected_reference_request == [True] and bound_requests == [0., .25]
     assert receipt["training_updates"] == 0 and receipt["teacher_cache_used"] is False
     assert receipt["original_artifact_internal_sha256"]
     assert receipt["geometry"]["image_tokens"] == 16

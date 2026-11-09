@@ -111,8 +111,10 @@ def preflight_inference(options, request, spec):
     if request["operation"] == "render":
         from .render import validate_render_request
         native = request["native"]
-        if set(native) - {"prompt", "height", "width", "steps"}:
+        if set(native) - {"prompt", "height", "width", "steps", "images"}:
             raise ValueError("unknown native finished render arguments")
+        if native.get("images") is not None:
+            raise ValueError("native Flux finished render is text-only; reference images are unsupported")
         validate_render_request(geometry=spec.configuration["geometry"], prompt=native.get("prompt"),
             height=native.get("height"), width=native.get("width"), steps=native.get("steps", 4),
             strength=request["strength"], seed=0, output_type=request["output_type"])
@@ -140,7 +142,9 @@ def prepare_inference(options, spec):
         def response(*, strength, seed, condition, latent, timestep):
             with adapter.scaled(strength):
                 return backend._velocity(condition, latent, torch.as_tensor(timestep)).detach().clone()
-        def render(*, strength, seed, output_type="pil", **native):
+        def render(*, strength, seed, images=None, output_type="pil", **native):
+            if images is not None:
+                raise ValueError("native Flux finished render is text-only; reference images are unsupported")
             from .render import render_image
             return render_image(runtime, adapter, geometry=shape, strength=strength, seed=seed,
                                 output_type=output_type, **native)
