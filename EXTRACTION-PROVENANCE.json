@@ -1,0 +1,246 @@
+{
+  "active_cohort": "flux-packed-velocity-hndl010-prerequisite-v2",
+  "active_core_pin": "a794e3b4a8813b012f2c4faa3da82b78d4a90214",
+  "active_distribution": "particle-sliders-flux-packed-preview==0.2.0",
+  "coordinated_core_migration": {
+    "core_version": "0.12.0",
+    "old_preview_policy": "preserved in prior commit; no packet compatibility or relabeling",
+    "previous_local_head": "735977b704c82fe8b48da36c6b432497b0725f6d",
+    "publication": "public source snapshot only; no model execution admission",
+    "recursive_payload_files": 50,
+    "target_core_commit": "a794e3b4a8813b012f2c4faa3da82b78d4a90214",
+    "historical_publication_status": "held; local preparation only"
+  },
+  "destination_repository": "https://github.com/HyperGAN/flux-particle-sliders",
+  "excluded_source_files": [
+    {
+      "reason": "Prior run output/receipt; environment paths and run outputs are not exported",
+      "source_git_blob": "af6fe92bcaff80c9e30c23ff4864e6ccbb5198c3",
+      "source_path": "packages/particle-sliders-flux-packed/qualification/installed-sdist-torch214.txt"
+    },
+    {
+      "reason": "Prior run output/receipt; environment paths and run outputs are not exported",
+      "source_git_blob": "6b8c414b4949e7302959e4afdd4720581f39c697",
+      "source_path": "packages/particle-sliders-flux-packed/qualification/installed-wheel-torch214.txt"
+    },
+    {
+      "reason": "Prior run output/receipt; environment paths and run outputs are not exported",
+      "source_git_blob": "952eb199c4001276fc39361592cad49d6f2e5a5a",
+      "source_path": "packages/particle-sliders-flux-packed/qualification/installed-wheel-torch26.txt"
+    },
+    {
+      "reason": "Prior run output/receipt; environment paths and run outputs are not exported",
+      "source_git_blob": "c688d8ccdad82420475fc31cb40020cccfeeef2b",
+      "source_path": "packages/particle-sliders-flux-packed/qualification/pip-check-torch214.txt"
+    },
+    {
+      "reason": "Prior run output/receipt; environment paths and run outputs are not exported",
+      "source_git_blob": "c688d8ccdad82420475fc31cb40020cccfeeef2b",
+      "source_path": "packages/particle-sliders-flux-packed/qualification/pip-check-torch26.txt"
+    },
+    {
+      "reason": "Prior run output/receipt; environment paths and run outputs are not exported",
+      "source_git_blob": "23e7d5208e6cbf6d42bca34d55bfcf15cc18b225",
+      "source_path": "packages/particle-sliders-flux-packed/qualification/runtime-torch214.json"
+    },
+    {
+      "reason": "Prior run output/receipt; environment paths and run outputs are not exported",
+      "source_git_blob": "d0a50b016a60733fd9d4e62d03032ec3c2e66e31",
+      "source_path": "packages/particle-sliders-flux-packed/qualification/runtime-torch26.json"
+    }
+  ],
+  "generated_files": [
+    ".gitignore",
+    "MIGRATION.md",
+    "scripts/stage_historical_reference.py",
+    "tests/historical-reference.json",
+    "tests/test_extraction.py",
+    "EXTRACTION-PROVENANCE.json",
+    "CORE-MIGRATION.md",
+    "scripts/preflight_flux_readiness.py",
+    "tests/test_readiness.py",
+    "docs/GPU-READINESS.md",
+    "src/ps_flux_packed_preview/row_evidence.py",
+    "tests/test_row_evidence.py"
+  ],
+  "history_policy": "New scaffold/review commits only; upstream history is not mirrored",
+  "later_historical_migration": [
+    {
+      "source_git_blob": "933482c2ebd41cd4ac238fbe41ab2e740a4907ce",
+      "source_path": "conceptmod/textsliders/train_lora_flux.py",
+      "status": "later_tracked_migration; not required by installed modern runtime; not exported"
+    },
+    {
+      "source_git_blob": "b2c2ba6c5eac758179d50eb1a3d46a6309c2f09c",
+      "source_path": "conceptmod/textsliders/lora.py",
+      "status": "later_tracked_migration; not required by installed modern runtime; not exported"
+    },
+    {
+      "source_git_blob": "d4cfb527845d51ffa46f17fffe997e24918ebf8c",
+      "source_path": "conceptmod/textsliders/dora.py",
+      "status": "later_tracked_migration; not required by installed modern runtime; not exported"
+    },
+    {
+      "source_git_blob": "3f6d52498812d72a5252f0c8fd493c1e24cf7509",
+      "source_path": "conceptmod/textsliders/train_util.py",
+      "status": "later_tracked_migration; not required by installed modern runtime; not exported"
+    },
+    {
+      "source_git_blob": "b317d236b887a70ad6d4b5776e761680526c738d",
+      "source_path": "conceptmod/textsliders/model_util.py",
+      "status": "later_tracked_migration; not required by installed modern runtime; not exported"
+    },
+    {
+      "source_git_blob": "03a3293bc703a964a7101b53a9629e83ec326a83",
+      "source_path": "conceptmod/textsliders/prompt_util.py",
+      "status": "later_tracked_migration; not required by installed modern runtime; not exported"
+    },
+    {
+      "source_git_blob": "f121cb11642d5e75c1b97923780c3cb7a79f041d",
+      "source_path": "conceptmod/textsliders/config_util.py",
+      "status": "later_tracked_migration; not required by installed modern runtime; not exported"
+    },
+    {
+      "source_git_blob": "5b115093b0ad6625db2f9aedaaa90924cf7de468",
+      "source_path": "conceptmod/textsliders/debug_util.py",
+      "status": "later_tracked_migration; not required by installed modern runtime; not exported"
+    },
+    {
+      "source_git_blob": "c98f6a2350197b932be6ee33932ea93ffc61647f",
+      "source_path": "conceptmod/textsliders/data/prompts-flux.yaml",
+      "status": "later_tracked_migration; not required by installed modern runtime; not exported"
+    }
+  ],
+  "mappings": [
+    {
+      "action": "adapted_for_standalone_scope_or_coordinated_a794_v2_profile",
+      "destination_path": "MANIFEST.in",
+      "destination_sha256": "e9e2d429761810b3ff694155a4257d3138dd054e52cf6c2d96fec3945e8c9ab9",
+      "source_git_blob": "cdb381a3a217e009a810a6fe23b31a084307c357",
+      "source_path": "packages/particle-sliders-flux-packed/MANIFEST.in",
+      "source_sha256": "5d66b88962223135a5d17036f25cd17307ce5f12bf47acd677ec5c803c11eb93",
+      "source_url": "https://raw.githubusercontent.com/HyperGAN/particle-sliders/f150b28cb25ad55a99b37b06fa0ddc989f3428d9/packages/particle-sliders-flux-packed/MANIFEST.in"
+    },
+    {
+      "action": "adapted_for_standalone_scope_or_coordinated_a794_v2_profile",
+      "destination_path": "QUALIFICATION.md",
+      "destination_sha256": "339ed92a5a02ce7489cdf8d87e5995f163b2c31665a30e6ba537fcd0f27d8a9d",
+      "source_git_blob": "2a2d276f0b5e5ad536c9365d60eedde887281f9d",
+      "source_path": "packages/particle-sliders-flux-packed/QUALIFICATION.md",
+      "source_sha256": "014b7e38009a7a776cf5c4b35dc91661f5ba6b328126cddb1e82d176949c83a6",
+      "source_url": "https://raw.githubusercontent.com/HyperGAN/particle-sliders/f150b28cb25ad55a99b37b06fa0ddc989f3428d9/packages/particle-sliders-flux-packed/QUALIFICATION.md"
+    },
+    {
+      "action": "adapted_for_standalone_scope_or_coordinated_a794_v2_profile",
+      "destination_path": "README.md",
+      "destination_sha256": "20ea6d0f028dea456365b3ac11abfb6a6f7499b5f57996dd6df6d6e5ba7f53b1",
+      "source_git_blob": "f08c33d12af972cf61976c62bae67c39f55c0a25",
+      "source_path": "packages/particle-sliders-flux-packed/README.md",
+      "source_sha256": "413396c5c2367cb28e3c755ab124a3df87f962e8677128680de372438bc7dcd1",
+      "source_url": "https://raw.githubusercontent.com/HyperGAN/particle-sliders/f150b28cb25ad55a99b37b06fa0ddc989f3428d9/packages/particle-sliders-flux-packed/README.md"
+    },
+    {
+      "action": "adapted_for_standalone_scope_or_coordinated_a794_v2_profile",
+      "destination_path": "pyproject.toml",
+      "destination_sha256": "d295bde6a3fcbfeae4f841fc63f1765ae85ba8dcb850347210f085049c70af17",
+      "source_git_blob": "30367ae94f3535ab71c8e6bd80ff84fb9f6cf506",
+      "source_path": "packages/particle-sliders-flux-packed/pyproject.toml",
+      "source_sha256": "66bb35a07c95bb98a09702d913127f460e376a0e4957298d1c6d98b2fbcbc290",
+      "source_url": "https://raw.githubusercontent.com/HyperGAN/particle-sliders/f150b28cb25ad55a99b37b06fa0ddc989f3428d9/packages/particle-sliders-flux-packed/pyproject.toml"
+    },
+    {
+      "action": "adapted_for_standalone_scope_or_coordinated_a794_v2_profile",
+      "destination_path": "src/ps_flux_packed_preview/__init__.py",
+      "destination_sha256": "dbf4146010d655aee8a6fd049094afd06626c0736a0d8765c7ed64a857da04a5",
+      "source_git_blob": "2e0edd862713343151305eb36e2c84968f161ee4",
+      "source_path": "packages/particle-sliders-flux-packed/src/ps_flux_packed_preview/__init__.py",
+      "source_sha256": "86a0efaec9b6cf476bb0aa674f599b7cfc8c9f2b90e943d4997c709ea1de6aec",
+      "source_url": "https://raw.githubusercontent.com/HyperGAN/particle-sliders/f150b28cb25ad55a99b37b06fa0ddc989f3428d9/packages/particle-sliders-flux-packed/src/ps_flux_packed_preview/__init__.py"
+    },
+    {
+      "action": "copied_byte_for_byte",
+      "destination_path": "src/ps_flux_packed_preview/lora.hndl",
+      "destination_sha256": "c09bb012a479eb103dd3e710a8909251c0cb3a852f45a26112f2a9cc972a30e3",
+      "source_git_blob": "67f0816154957ccee61fe5db6102ec429e46dad9",
+      "source_path": "packages/particle-sliders-flux-packed/src/ps_flux_packed_preview/lora.hndl",
+      "source_sha256": "c09bb012a479eb103dd3e710a8909251c0cb3a852f45a26112f2a9cc972a30e3",
+      "source_url": "https://raw.githubusercontent.com/HyperGAN/particle-sliders/f150b28cb25ad55a99b37b06fa0ddc989f3428d9/packages/particle-sliders-flux-packed/src/ps_flux_packed_preview/lora.hndl"
+    },
+    {
+      "action": "copied_byte_for_byte",
+      "destination_path": "src/ps_flux_packed_preview/native.py",
+      "destination_sha256": "58ab452adce933f8a8bd6ab0b8894b82b569070ed81a287872e88b8303cd085a",
+      "source_git_blob": "7477aad6fd914b2b8e0fe53c41464ef272f2cbc3",
+      "source_path": "packages/particle-sliders-flux-packed/src/ps_flux_packed_preview/native.py",
+      "source_sha256": "58ab452adce933f8a8bd6ab0b8894b82b569070ed81a287872e88b8303cd085a",
+      "source_url": "https://raw.githubusercontent.com/HyperGAN/particle-sliders/f150b28cb25ad55a99b37b06fa0ddc989f3428d9/packages/particle-sliders-flux-packed/src/ps_flux_packed_preview/native.py"
+    },
+    {
+      "action": "adapted_for_standalone_scope_or_coordinated_a794_v2_profile",
+      "destination_path": "src/ps_flux_packed_preview/provenance.py",
+      "destination_sha256": "5fb536a581a3bd4c2d38df263b7735400136a48860fd703f95569a2d858c1767",
+      "source_git_blob": "96aa326723af48cfc2258a34a7b7d9ac34dd9a40",
+      "source_path": "packages/particle-sliders-flux-packed/src/ps_flux_packed_preview/provenance.py",
+      "source_sha256": "6a6d8a9963a77781aa6ed7863d5616f45c8901b6cd4da59f4f775a2a739c1843",
+      "source_url": "https://raw.githubusercontent.com/HyperGAN/particle-sliders/f150b28cb25ad55a99b37b06fa0ddc989f3428d9/packages/particle-sliders-flux-packed/src/ps_flux_packed_preview/provenance.py"
+    },
+    {
+      "action": "adapted_for_standalone_scope_or_coordinated_a794_v2_profile",
+      "destination_path": "src/ps_flux_packed_preview/sources.json",
+      "destination_sha256": "c01ce09611de4b0606cdf74132c7cafbb092cbea257c489bcbb3e950227d5b33",
+      "source_git_blob": "2cf298a9fab1d5d4ae655602e551abbce986d7db",
+      "source_path": "packages/particle-sliders-flux-packed/src/ps_flux_packed_preview/sources.json",
+      "source_sha256": "7bb34fe1883efd92b418bf435151b94201211e9e169a74034824ca93eb1f1781",
+      "source_url": "https://raw.githubusercontent.com/HyperGAN/particle-sliders/f150b28cb25ad55a99b37b06fa0ddc989f3428d9/packages/particle-sliders-flux-packed/src/ps_flux_packed_preview/sources.json"
+    },
+    {
+      "action": "adapted_for_standalone_scope_or_coordinated_a794_v2_profile",
+      "destination_path": "tests/test_native.py",
+      "destination_sha256": "cabb1271e0343f9842889c0f7e4a952cb1bae8716967d418dfd87786ba5f4e92",
+      "source_git_blob": "1b1b79425ab17ff1bf0f2c3446abc626eca3656d",
+      "source_path": "packages/particle-sliders-flux-packed/tests/test_native.py",
+      "source_sha256": "dc49036ae40c5fc5e76a458957c9810e40bdd85cc55c32ce30a8cd2ea9726760",
+      "source_url": "https://raw.githubusercontent.com/HyperGAN/particle-sliders/f150b28cb25ad55a99b37b06fa0ddc989f3428d9/packages/particle-sliders-flux-packed/tests/test_native.py"
+    },
+    {
+      "action": "copied_byte_for_byte",
+      "destination_path": "LICENSE",
+      "destination_sha256": "2b61d4a8dd7a958b99133a92e92eede6f5e8b0f7b44d234665f822051e530685",
+      "source_git_blob": "b2a2dca14d1a01ad6ad590db2486e0c3af5a32e5",
+      "source_path": "LICENSE",
+      "source_sha256": "2b61d4a8dd7a958b99133a92e92eede6f5e8b0f7b44d234665f822051e530685",
+      "source_url": "https://raw.githubusercontent.com/HyperGAN/particle-sliders/f150b28cb25ad55a99b37b06fa0ddc989f3428d9/LICENSE"
+    },
+    {
+      "action": "adapted_for_standalone_scope_or_coordinated_a794_v2_profile",
+      "destination_path": "docs/flux-packed-shared-gap.md",
+      "destination_sha256": "31b5610c24b1844c6356bd700956d0c261995f2aa41e3d1c99f6b87f1d9b00f3",
+      "source_git_blob": "19501577333ffd2626306ab7504887a4c4a5f08f",
+      "source_path": "docs/flux-packed-shared-gap.md",
+      "source_sha256": "18e692fd122e3ff7d8a0b3e7b0cbff8ed31bb0f175912dc7f82632e933fc55f3",
+      "source_url": "https://raw.githubusercontent.com/HyperGAN/particle-sliders/f150b28cb25ad55a99b37b06fa0ddc989f3428d9/docs/flux-packed-shared-gap.md"
+    }
+  ],
+  "native_bank_graph_objective_and_gates_unchanged": true,
+  "no_training_backend": true,
+  "preserved_import_namespace": "ps_flux_packed_preview",
+  "qualification": "Tiny CPU prerequisite software only; shared/native training/EMA/resume/export remains blocked",
+  "readiness_preparation": {
+    "branch": "readiness/flux-packed-admission",
+    "execution": "No model weights or GPU work are loaded or launched by this tool.",
+    "product_base_head": "8a80ace99ad5afa3f2b3d779b14cf55ed557ceb1",
+    "scope": "Metadata/source inspection and a permanently fail-closed preflight only. No runtime, native guard, objective, or cohort changes."
+  },
+  "row_evidence_preparation": {
+    "base_head": "c9c2e6ca2e0ec03a41e343fa1919db1f95622291",
+    "scope": "CPU-only staged row fingerprint evidence. A caller-provided model digest is explicitly unverified. No loader, native admission, or training lifecycle is added."
+  },
+  "runtime_payload_unchanged": false,
+  "schema": "flux-phase1-allowlisted-extraction-v1",
+  "source_cohort": "flux-packed-velocity-hndl010-prerequisite-v1",
+  "source_commit": "f150b28cb25ad55a99b37b06fa0ddc989f3428d9",
+  "source_core_pin": "7a8a321d04323d49319d0b08e6093a0ddce36b27",
+  "source_distribution": "particle-sliders-flux-packed-preview==0.1.0",
+  "source_product_root": "packages/particle-sliders-flux-packed/",
+  "source_repository": "https://github.com/HyperGAN/particle-sliders"
+}

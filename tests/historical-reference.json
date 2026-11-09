@@ -1,0 +1,10 @@
+{
+  "schema": "flux-historical-test-reference-v1",
+  "source_repository": "https://github.com/HyperGAN/particle-sliders",
+  "source_commit": "f150b28cb25ad55a99b37b06fa0ddc989f3428d9",
+  "source_path": "conceptmod/textsliders/lora.py",
+  "source_git_blob": "b2c2ba6c5eac758179d50eb1a3d46a6309c2f09c",
+  "sha256": "2bcf1a1267ca0369e0e2d4e2584db6821b2ab518c9cd3c535292d20a5e25d85d",
+  "raw_url": "https://raw.githubusercontent.com/HyperGAN/particle-sliders/f150b28cb25ad55a99b37b06fa0ddc989f3428d9/conceptmod/textsliders/lora.py",
+  "purpose": "External test-only reference; not exported, imported by runtime, installed, or migrated as historical product code"
+}

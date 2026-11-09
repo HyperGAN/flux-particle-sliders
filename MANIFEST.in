@@ -1,0 +1,4 @@
+include LICENSE QUALIFICATION.md EXTRACTION-PROVENANCE.json
+include tests/historical-reference.json
+recursive-include docs *.md
+recursive-include scripts *.py
