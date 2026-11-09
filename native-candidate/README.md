@@ -36,6 +36,17 @@ imports and model loads happen only in explicitly requested execution commands.
 Builder provenance pins the original two-line graph, HNDL0.10.0 and the exact
 clean external HyperGAN builder. No removed product bundle is required.
 
+The fresh initializer admits only the exact HNDL0.10 `Linear` with
+`equalized=False`, no bias, children, buffers or parametrizations. HNDL's class
+subclasses `nn.Linear`; it is not the literal PyTorch leaf accepted by the shared
+initializer. A parameter-only plain `nn.Module` holder registers the same
+original weight Parameter with explicit a=1 Kaiming Uniform down/KEEP zero-up
+declarations. This preserves host forward behavior, Parameter identity and the
+shared helper's strict leaf boundary. No global initializer registration or
+shared-core relaxation is introduced. Fresh/resume receipts remain bound to
+the actual product initialization Source. The regression tests for this repair
+are authored; their actual CPU outcome must be recorded separately.
+
 Cache preparation accepts a JSON list of distinct `neutral`/`positive` strings:
 
 ```sh

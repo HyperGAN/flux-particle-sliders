@@ -30,6 +30,30 @@ def parameter_seed(seed, name):
     return int.from_bytes(hashlib.sha256(f"{INITIALIZATION_POLICY}:{seed}:{name}".encode()).digest()[:8], "big") % 2**63
 
 
+def declared_hndl_weight(leaf):
+    """Expose one exact ordinary HNDL weight to the existing shared helper.
+
+    HNDL0.10 Linear is an EqualLinear subclass, not an exact nn.Linear leaf.
+    With equalized=False its real forward is the original nn.Linear forward.
+    A plain holder carries that SAME Parameter with complete explicit PG
+    declarations; no layer class, forward, optimizer or shared registry changes.
+    """
+    from hndl.operators.linear import Linear as HNDLLinear
+    if (type(leaf) is not HNDLLinear or getattr(leaf, "equalized", None) is not False
+            or leaf.bias is not None or any(leaf.children())
+            or nn.utils.parametrize.is_parametrized(leaf)
+            or list(leaf.buffers(recurse=False))
+            or set(leaf._parameters) != {"weight", "bias"}
+            or type(leaf.weight) is not nn.Parameter or not leaf.weight.requires_grad
+            or type(leaf.in_features) is not int or type(leaf.out_features) is not int
+            or leaf.in_features < 1 or leaf.out_features < 1
+            or tuple(leaf.weight.shape) != (leaf.out_features, leaf.in_features)):
+        raise ValueError("exact ordinary bias-free non-equalized HNDL Linear weight required")
+    holder = nn.Module()
+    holder.register_parameter("weight", leaf.weight)
+    return holder
+
+
 def policies(adapter, critic, seed):
     scopes = {}
     # Preserve the actual ordinary host's a=1 Kaiming declaration. The default
@@ -37,11 +61,10 @@ def policies(adapter, critic, seed):
     for index, branch in enumerate(adapter.branches):
         for node in ("down", "up"):
             leaf = branch.graph[node]
-            if type(leaf) is not nn.Linear or leaf.bias is not None:
-                raise ValueError("original ordinary bias-free Linear down/up leaves required")
+            holder = declared_hndl_weight(leaf)
             name = f"adapter.branch{index}.{node}"
             law = Uniform(-math.sqrt(3 / leaf.in_features), math.sqrt(3 / leaf.in_features)) if node == "down" else KEEP
-            scopes[name] = ComponentInitialization(leaf, "deterministic_orthogonal",
+            scopes[name] = ComponentInitialization(holder, "deterministic_orthogonal",
                 {"weight": parameter_seed(seed, name + ".weight")}, distributions={"weight": law})
     for name, leaf in critic.named_modules():
         if not any(p.requires_grad for p in leaf.parameters(recurse=False)):
