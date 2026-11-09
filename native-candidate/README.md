@@ -15,9 +15,12 @@ All17 random-tiny native CPU checks passed at measured Source commit
 `01ac3bb2166656427252776b591ba47a82ba35d7` on2026-11-09 (0 failures/errors/skips,
 1.546 seconds). This includes real tiny native FULL/resume/RAW/PIL contracts,
 with no pretrained model or GPU use. See [the scoped actual evidence](docs/CPU17-VALIDATION.md).
-A complete authenticated local pretrained model, actual prompt/cache preparation
-and admitted pretrained/GPU pilot remain pending. No pretrained slider weights,
-finished pretrained examples or optimized LR are established. The core dependency names the actual merged main PR205 commit
+Later retained actual pretrained RAW32 training and finished images support a
+[completed provisional comparison](../docs/finished-output-learning-rates.md):
+G0.012/G0.001 tie at0.0, one equal case, all OFF/ON levels4/4. Both corresponding
+FULL32 catastrophic guards pass. The trait remains unqualified; differing
+critic execution histories preclude an LR-only causal or bitwise-CUDA claim.
+No unique/default LR, released weight or ordinary hosted Generate is established. The core dependency names the actual merged main PR205 commit
 `41f6066f2d2644902670d5eb736de052e1a70553` (core0.14.1/PG0.9.5). The old top-level
 preview package and its core0.12/PG0.9.4 identity are unchanged. Use a new
 environment, not the old captured environment; do not coinstall incompatible
@@ -97,7 +100,8 @@ These are budgets/examples, not optimized settings or executed evidence.
 Optional `lr` is the common G LR and `d_lr_mult` its D multiplier; exact supplied
 scalar bits are forwarded unchanged to the official recipe. Omissions preserve
 its defaults. This ordinary adapter has no prior/bank, so `prior_lr_mult` must be
-omitted or null. No LR winner is selected by this package. Weight EMA is refused.
+omitted or null. The [saved provisional tie](../docs/finished-output-learning-rates.md) adds explicit
+measured guidance without changing these defaults. Weight EMA is refused.
 Fresh initialization uses the current shared scoped helper exactly once before
 optimizers: LoRA down keeps its true Kaiming(a=1) RMS law under named QR seeds,
 up remains zero/KEEP, and critic leaves retain their declared host RMS. Frozen

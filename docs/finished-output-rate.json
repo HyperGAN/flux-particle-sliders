@@ -1,0 +1,227 @@
+{
+  "schema": "particle-slider-scoped-finished-output-rate-guidance-v1",
+  "as_of": "2026-11-09",
+  "product_id": "flux-particle-sliders",
+  "concept": "Soft diffuse illumination",
+  "status": "completed_scoped_provisional_model_instrument_zero_tie",
+  "selection_metric": "Equal-case arithmetic mean of finished intended-effect intensity ON minus matched OFF; higher wins.",
+  "effect_units": "Original raw0..4 soft-diffuse level divided by4; compare normalized ON minus OFF.",
+  "selected_unique_G": null,
+  "tied_best_G": [
+    0.012,
+    0.001
+  ],
+  "provisional": true,
+  "trait_qualified": false,
+  "formal_semantic_validation": false,
+  "profile": {
+    "completed_updates": 32,
+    "horizon": 128,
+    "batch": 2,
+    "seed": 7,
+    "rank": 4,
+    "alpha": 1.0,
+    "height": 512,
+    "width": 512,
+    "image_tokens": 1024,
+    "text_tokens": 256,
+    "native_response_shape": [
+      1,
+      1024,
+      64
+    ],
+    "native_render_steps": 4,
+    "ON_strength": 1.0,
+    "OFF_strength": 0.0,
+    "native_prompt": "A red ceramic teapot on a wooden table, crisp directional afternoon window light, detailed photograph.",
+    "particle_bank": false,
+    "prior_lr_mult": null
+  },
+  "candidate_means": {
+    "G012": 0.0,
+    "G001": 0.0
+  },
+  "per_arm": [
+    {
+      "arm_id": "G012",
+      "rate_overrides": {
+        "lr": 0.012,
+        "d_lr_mult": 1.5,
+        "prior_lr_mult": null,
+        "ema_decay": null
+      },
+      "actual_rates": {
+        "G": 0.012,
+        "D": 0.018000000000000002,
+        "bank": null
+      },
+      "cases": [
+        {
+          "case_id": "teapot-seed7",
+          "weight": 1.0,
+          "OFF_level": 4,
+          "ON_level": 4,
+          "OFF_intensity": 1.0,
+          "ON_intensity": 1.0,
+          "gain": 0.0
+        }
+      ],
+      "mean_gain": 0.0,
+      "FULL": {
+        "role": "FULL_metadata_only",
+        "campaign_record": "CPU-range-FULL-000032.pt",
+        "bytes": 424395861,
+        "sha256": "fb60892ca8e64b807569e9c19e3f8f6f73b6abc684071677c44427ec2e8f32ff",
+        "availability": "Private retained campaign evidence, not bundled or a public download URL."
+      },
+      "RAW": {
+        "role": "RAW_metadata_only",
+        "campaign_record": "RAW-000032.pt",
+        "bytes": 19558855,
+        "sha256": "1d392d385d56b967d26dee3e0d3e5bf24a5ff2b44fde93d3aa8c33923559e978",
+        "availability": "Private retained campaign evidence, not bundled or a public download URL."
+      },
+      "checkpoint_kind": "Flux-authentic-CPUFULL2-range-FULL-v1",
+      "catastrophic_guard": "pass",
+      "critic_optimizer_execution": "CUDA critic update1 then same original CPU optimizer updates2..32"
+    },
+    {
+      "arm_id": "G001",
+      "rate_overrides": {
+        "lr": 0.001,
+        "d_lr_mult": 18.0,
+        "prior_lr_mult": null,
+        "ema_decay": null
+      },
+      "actual_rates": {
+        "G": 0.001,
+        "D": 0.018000000000000002,
+        "bank": null
+      },
+      "cases": [
+        {
+          "case_id": "teapot-seed7",
+          "weight": 1.0,
+          "OFF_level": 4,
+          "ON_level": 4,
+          "OFF_intensity": 1.0,
+          "ON_intensity": 1.0,
+          "gain": 0.0
+        }
+      ],
+      "mean_gain": 0.0,
+      "FULL": {
+        "role": "FULL_metadata_only",
+        "campaign_record": "CPU-range-FULL-000032.pt",
+        "bytes": 424571669,
+        "sha256": "b4d03fb839af64085af54489dd397f7471b7ba56ce20dfcf21fc270462fe2af7",
+        "availability": "Private retained campaign evidence, not bundled or a public download URL."
+      },
+      "RAW": {
+        "role": "RAW_metadata_only",
+        "campaign_record": "RAW-000032.pt",
+        "bytes": 19558855,
+        "sha256": "b168214c4f8c69a7762052cd708d9c8266ed0a6add9920578a4652b71e15cecc",
+        "availability": "Private retained campaign evidence, not bundled or a public download URL."
+      },
+      "checkpoint_kind": "Flux-new-G001-authentic-fresh-CPUFULL2-range-FULL-v1",
+      "catastrophic_guard": "pass",
+      "critic_optimizer_execution": "same original CPU optimizer from fresh update1..32"
+    }
+  ],
+  "mean_gain": 0.0,
+  "known_instrument_limit": "Single matched case; every OFF/ON level4/4, normalized1.0. Frozen coarse instrument is saturated, trait_qualified:false; no interval/direction calibration or formal semantic validation. No anchors/rerating or confirmation gate added.",
+  "execution_lineage_comparison": {
+    "G012": "CUDA critic update1 then same original CPU optimizer updates2..32",
+    "G001": "same original CPU optimizer from fresh update1..32",
+    "native_forwards_penalty_RNG": "original GPU1",
+    "bitwise_CUDA_claim": false,
+    "LR_only_causal_isolation_claim": false
+  },
+  "public_API_limits": "Public train accepts common G/D and exact ordinary FULL resume. Retained CPU-critic/range executions use separately bound wrappers/checkpoint schemas; no --cpu-critic or range-resume option exists. Do not retag those FULLs as ordinary public CLI packets.",
+  "source_identity": {
+    "product_scientific_commit": "01ac3bb2166656427252776b591ba47a82ba35d7",
+    "core_commit": "41f6066f2d2644902670d5eb736de052e1a70553",
+    "ParticleGAN": "0.9.5",
+    "native_model": "black-forest-labs/FLUX.1-schnell",
+    "native_model_revision": "741f7c3ce8b383c54771c7003378a50191e9efe9"
+  },
+  "source_records": [
+    {
+      "role": "completed_comparison_result",
+      "campaign_record": "output-effect-scoring/flux-new-G001-RAW32-two-missing-firsts-GPU1-actual-v1/result.json",
+      "bytes": 11878,
+      "sha256": "30a9924994bae6aa54c54a4eaee971328ee64fb8d27f9a7e76a22d6142bb8b4e",
+      "availability": "Private retained campaign evidence, not bundled or a public download URL."
+    },
+    {
+      "role": "actual_terminal",
+      "campaign_record": "output-effect-scoring/flux-new-G001-RAW32-two-missing-firsts-GPU1-actual-v1/root-actual-terminal-reap-resource0-v1.json",
+      "bytes": 4092,
+      "sha256": "2ba2b13ee1c626209fa33d20ce1590b674ee8407ac0f443ca7e1f7f774492113",
+      "availability": "Private retained campaign evidence, not bundled or a public download URL."
+    },
+    {
+      "role": "original_G012_result",
+      "campaign_record": "output-effect-scoring/flux-RAW32-arete-G001-RAW2-missing-firsts-GPU1-actual-v1/result.json",
+      "bytes": 7615,
+      "sha256": "2d617355630e562c2b8b6add39a3e25e3491346c1ae47b4028ffca7295be3e1b",
+      "availability": "Private retained campaign evidence, not bundled or a public download URL."
+    },
+    {
+      "role": "original_G012_FULL32_guard",
+      "campaign_record": "universal-failure/flux-CPUrangeFULL32-existing-firsts-actual-v1/Root-actual-CPUrangeFULL32-qualified-catastrophe-core-guard-integration.json",
+      "bytes": 8080,
+      "sha256": "66a9f8fa53c3df463943874ceb8376a53d26ec39f119a44fd6699acb96eb449c",
+      "availability": "Private retained campaign evidence, not bundled or a public download URL."
+    },
+    {
+      "role": "new_G001_FULL32_guard",
+      "campaign_record": "universal-failure/flux-new-G001-fresh-CPUrange-FULL32-two-firsts-actual-v1/Root-actual-new-G001-fresh-CPUrange-FULL32-qualified-catastrophe-core-guard-integration.json",
+      "bytes": 12622,
+      "sha256": "08a6769d1e4497ee33f820f56b362ace7e39e8e668757a17564562fd0f893b1e",
+      "availability": "Private retained campaign evidence, not bundled or a public download URL."
+    },
+    {
+      "role": "reused_OFF_effect_first",
+      "campaign_record": "output-effect-scoring/flux-RAW32-arete-G001-RAW2-missing-firsts-GPU1-actual-v1/flux-effect-00.first-observation.json",
+      "bytes": 6571,
+      "sha256": "58c2e34c05c660d98cd7e1ce9ce50b45681f8abdda01ec18e513d5c219ff5f2c",
+      "availability": "Private retained campaign evidence, not bundled or a public download URL."
+    },
+    {
+      "role": "new_G001_effect_first",
+      "campaign_record": "output-effect-scoring/flux-new-G001-RAW32-two-missing-firsts-GPU1-actual-v1/effect-00.first-observation.json",
+      "bytes": 6561,
+      "sha256": "dd2b16fe3d2ea7a4536de8aab3d36d33a02a6a705689d59f27b4586649e6c023",
+      "availability": "Private retained campaign evidence, not bundled or a public download URL."
+    },
+    {
+      "role": "reused16row_teacher_cache_metadata",
+      "campaign_record": "index.json",
+      "bytes": 7314,
+      "sha256": "06b30b493014dece2aaa7f71c75b335ea22737ba928919d9169d528bc2624b80",
+      "availability": "Private retained campaign evidence, not bundled or a public download URL."
+    },
+    {
+      "role": "frozen_effect_profile",
+      "campaign_record": "source-reviews/klein-soft-diffuse-first-effect-source-v1/instrument-profile.json",
+      "bytes": 1755,
+      "sha256": "0a296e50f3e13904fbbb4c1cb49897e407b9b9c198232523caa1402d906c80e4",
+      "availability": "Private retained campaign evidence, not bundled or a public download URL."
+    }
+  ],
+  "selection": "raw",
+  "weight_EMA": null,
+  "reuse_completed_searches": true,
+  "old_firsts_rerated": false,
+  "additional_fresh_confirmation_required": false,
+  "teacher_SSE_used_for_selection": false,
+  "catastrophic_gate": "Separate qualified categorical catastrophic-only eligibility; both FULL32 guards pass. This is not trait qualification or a ranking term.",
+  "package_defaults_changed": false,
+  "ordinary_Generate": false,
+  "released_weights": 0,
+  "LR_only_causal_isolation_claim": false,
+  "bitwise_CUDA_claim": false,
+  "checkpoint_availability": "Source-bound RAW/FULL/cache artifacts remain private; summary supplies scalar arithmetic and evidence hashes without weights or automatic checkpoint migration."
+}
