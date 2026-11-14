@@ -1,0 +1,158 @@
+{
+  "model_id": "black-forest-labs/FLUX.1-schnell",
+  "revision": "741f7c3ce8b383c54771c7003378a50191e9efe9",
+  "weight_tensor_bytes": {
+    "transformer": 23782357120,
+    "T5": 9524621312
+  },
+  "serialized_weight_upper_bytes": {
+    "CLIP": 246144352,
+    "VAE": 167666902
+  },
+  "calculations": {
+    "512": {
+      "image_tokens": 1024,
+      "text_tokens": 256,
+      "critic_condition_width": 3159556,
+      "critic_parameters": 101107201,
+      "adapter_parameters": 4669440,
+      "activation_envelope_bytes": 33470545920,
+      "trainable_budget_bytes": 8462131280,
+      "subtotal_gib": 61.20189495384693
+    },
+    "1024": {
+      "image_tokens": 4096,
+      "text_tokens": 256,
+      "critic_condition_width": 3187204,
+      "critic_parameters": 101991937,
+      "adapter_parameters": 4669440,
+      "activation_envelope_bytes": 113799856128,
+      "trainable_budget_bytes": 8532910160,
+      "subtotal_gib": 136.08031292259693
+    }
+  },
+  "architecture": {
+    "hidden": 3072,
+    "ff": 12288,
+    "heads": 24,
+    "double_layers": 19,
+    "single_layers": 38
+  },
+  "cache_bound_rows": 128,
+  "schema": "calculated-memory-inputs-v1",
+  "repository": "flux-particle-sliders",
+  "calculated_on": "2026-11-14",
+  "unit": "GiB=2^30 bytes",
+  "measured": false,
+  "profiles": [
+    {
+      "operation": "Native cached-response training",
+      "gpu_count": 1,
+      "vram_gib_per_gpu": 80,
+      "host_ram_gib": 40,
+      "limits": "B2; 512\u00b2; text256; BF16; no checkpointing",
+      "ledger": {
+        "frozen_gib": 22.149046063423157,
+        "activations_gib": 31.171875,
+        "trainable_and_update_gib": 7.880973890423775,
+        "workspace_gib": 8
+      },
+      "calculated_vram_subtotal_gib": 69.20189495384693,
+      "host_ledger_gib": {
+        "CPU_DiT": 22.1491,
+        "largest_shard": 9.2788,
+        "cache": 2,
+        "runtime": 4
+      },
+      "host_subtotal_gib": 37.4279
+    },
+    {
+      "operation": "Native cached-response training, largest declared canvas",
+      "gpu_count": 1,
+      "vram_gib_per_gpu": 160,
+      "host_ram_gib": 40,
+      "limits": "B2; 1024\u00b2; text256; BF16; no checkpointing",
+      "ledger": {
+        "frozen_gib": 22.149046063423157,
+        "activations_gib": 105.984375,
+        "trainable_and_update_gib": 7.946891859173775,
+        "workspace_gib": 12
+      },
+      "calculated_vram_subtotal_gib": 148.08031292259693,
+      "host_ledger_gib": {
+        "CPU_DiT": 22.1491,
+        "largest_shard": 9.2788,
+        "cache": 2,
+        "runtime": 4
+      },
+      "host_subtotal_gib": 37.4279
+    },
+    {
+      "operation": "Finished-image sampling",
+      "gpu_count": 1,
+      "vram_gib_per_gpu": 48,
+      "host_ram_gib": 48,
+      "limits": "B1; up to 1024\u00b2; text256; BF16; whole pipeline resident",
+      "ledger": {
+        "frozen_gib": 31.404932668432593,
+        "live_forward_decode_gib": 7,
+        "workspace_gib": 7
+      },
+      "calculated_vram_subtotal_gib": 45.40493266843259,
+      "host_ledger_gib": {
+        "CPU_pipeline": 31.405,
+        "largest_shard": 9.2788,
+        "cache": 2,
+        "runtime": 4
+      },
+      "host_subtotal_gib": 46.683800000000005
+    },
+    {
+      "operation": "Conditioning / teacher preparation",
+      "gpu_count": 1,
+      "vram_gib_per_gpu": 32,
+      "host_ram_gib": 48,
+      "limits": "512\u00b2; one native teacher call at a time; encoders on CPU",
+      "ledger": {
+        "frozen_gpu_gib": 22.149046063423157,
+        "no_grad_forward_gib": 4,
+        "workspace_gib": 4
+      },
+      "calculated_vram_subtotal_gib": 30.149046063423157,
+      "host_ledger_gib": {
+        "CPU_pipeline": 31.405,
+        "largest_shard": 9.2788,
+        "cache": 2,
+        "runtime": 4
+      },
+      "host_subtotal_gib": 46.683800000000005
+    }
+  ],
+  "source_records": [
+    {
+      "path": "native-candidate/src/ps_flux_native95/contracts.py",
+      "bytes": 8969,
+      "sha256": "1c11221dec392b36afebde7f3cd88dff32d11c2c76374affe0a8555c51f2694d"
+    },
+    {
+      "path": "native-candidate/src/ps_flux_native95/native.py",
+      "bytes": 8613,
+      "sha256": "4aa558f7889366ee2c1bcc28cc857143240fd85708439c44b2b2ec38340d7252"
+    },
+    {
+      "path": "native-candidate/src/ps_flux_native95/adapter.py",
+      "bytes": 8732,
+      "sha256": "7352b66694f250d134a3b3998972baf4db0f9f49667d95b2320ce9ac6435475f"
+    },
+    {
+      "path": "native-candidate/src/ps_flux_native95/critic.py",
+      "bytes": 1714,
+      "sha256": "5d214655de9f71d5fa35b950fd7769e0e3aced098e96469a0b928623fcdc7203"
+    },
+    {
+      "path": "native-candidate/src/ps_flux_native95/cache.py",
+      "bytes": 12845,
+      "sha256": "06a99218324796637e27257b413a620a6f2eaa98fb8192b48bd718237bbe4f46"
+    }
+  ]
+}
