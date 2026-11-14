@@ -1,5 +1,11 @@
 # Flux particle sliders
 
+**Memory (calculated):** native BF16 training: 1 GPU, plan **80 GiB at 512²** or **160 GiB at 1024²**, plus **40 GiB RAM** (batch2, no checkpointing); sampling up to1024²: **48 GiB VRAM /48 GiB RAM**. See [MEMORY.md](MEMORY.md) for the complete budgets and assumptions.
+
+
+
+
+
 **Current measured guidance — 2026-11-09:** saved RAW32 **G0.012/G0.001 tie at0.0**
 on one matched native512/four-step soft-diffuse case; every OFF/ON was rated4/4.
 This completed comparison remains provisional (`trait_qualified:false`), with no
