@@ -9,8 +9,8 @@ description = "Native full packed Flux ordinary-LoRA ParticleGAN0.9.5 source can
 readme = "README.md"
 requires-python = ">=3.11,<3.15"
 dependencies = [
-  "particle-sliders-core @ git+https://github.com/HyperGAN/particle-sliders.git@41f6066f2d2644902670d5eb736de052e1a70553#subdirectory=packages/particle-sliders-core",
-  "particlegan==0.9.5",
+  "particle-sliders-core @ git+https://github.com/HyperGAN/particle-sliders.git@119d7e0559bacdc49847961c1b243ac08daa013c#subdirectory=packages/particle-sliders-core",
+  "particlegan==0.10.1",
   "hypergan[train] @ git+https://github.com/HyperGAN/HyperGAN.git@5f368a3770cf5bdae0448995c9f76e29af8049f7",
   "hndl==0.10.0",
   "diffusers==0.38.0",
