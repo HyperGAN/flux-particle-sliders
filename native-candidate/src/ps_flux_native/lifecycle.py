@@ -6,7 +6,7 @@ import torch
 from particle_sliders.lifecycle import Binding, Capabilities, UnsupportedOperation, native_cleanup
 from particle_sliders.response import ResponseBackend, ResponseCapabilities
 from particle_sliders.inference import InferenceBackend, InferenceBinding, native_identity
-from particle_sliders.pg095 import ConditionalPG095, engine_options
+from particle_sliders.engine import ConditionalParticleGAN, engine_options
 from particle_sliders.restoration import _restore_all
 from .contracts import (BACKEND_NAME, PROTOCOL, SOURCE_PROFILE, INITIALIZATION_POLICY, WEIGHT_POLICY,
                         digest, geometry, rate_overrides, validate_options)
@@ -20,7 +20,7 @@ from .cache import CachedResponses
 def capabilities(options):
     shape = geometry(options)
     return ResponseCapabilities("adapter_gan", "image", "native-packed-velocity", "continuous_packed",
-        (1, shape["image_tokens"], 64), "0.9.5", "release-0.9.5", penalty_input_domain="auto",
+        (1, shape["image_tokens"], 64), "0.11.0", "release-0.11.0", penalty_input_domain="auto",
         base_precisions=("float32", "bfloat16"), qualification="New native Source; matching CPU/pretrained/GPU checks pending")
 
 
@@ -73,7 +73,7 @@ def prepare(options, *, runtime=None, construction=None):
             adapter.attach()
             backend = PackedFluxResponse(runtime, adapter)
             backend.fresh_initialization = receipt.as_dict()
-        game = ConditionalPG095(backend, rows, critic, particles=None, response_domain="continuous_packed",
+        game = ConditionalParticleGAN(backend, rows, critic, particles=None, response_domain="continuous_packed",
             batch_size=options.get("batch", 2), total_steps=options.get("steps", 4), seed=options.get("seed", 7),
             sigma=options.get("sigma", 1.), response_scale=options.get("response_scale", 1.),
             recipe_overrides=rate_overrides(options), **engine_options(options))

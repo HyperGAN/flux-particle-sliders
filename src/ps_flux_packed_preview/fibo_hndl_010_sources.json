@@ -1,11 +1,4 @@
 {
-  "attribution": {
-    "license": "MIT",
-    "original_external_closure_metadata_sha256": "69e65e3daf18ac5c99154fd735d0b6fc8e8c95433c5b0618a074cdd203ed6251",
-    "repository": "https://github.com/HyperGAN/particle-sliders",
-    "scope": "Only general verified_builder version/source/provenance verification statements; no product math, graphs or profile claim",
-    "source_module": "packages/particle-sliders-core/src/particle_sliders/fibo_hndl.py"
-  },
   "hndl": {
     "__init__.py": "6f08e04b69254863d396dc26b317932d57ec490767f9a44c750988f73c989b38",
     "__main__.py": "e2af0a31091237c497186883bb9f758c4c04ea8cefbd530aedebb33d52b625e7",
@@ -116,8 +109,8 @@
     "torch.py": "aeeb5b68d643d4da3a12485195d2d0940821acd3387dfc53625ac88b344e30c3",
     "types.py": "6a2a562a7490c3807718159c8639748d3e01c2315c07a33ae4f9a44719e794eb"
   },
-  "hndl_requirement": "hndl==0.10.0",
   "hndl_version": "0.10.0",
+  "hndl_wheel_sha256": "e36a92da0cd34304c05c477a81d37c61dbab10d724bd07b421149f93b3b8c188",
   "hypergan": {
     "__init__.py": "dcb4a85c9fa6b6835dbf94427d01537793ea4031de8ffc9c111abb38ff03bdf0",
     "diff_augment.py": "c24718e79fbc31b98d2f3654a89fdd742b31e32a0443ba03d603ccdf7d507a5b",
@@ -127,12 +120,9 @@
     "pretrained_providers.py": "d1af92d47fddc603938eaedd73c625c7d7ba0c0c315fb3e44f8eb1581b065817"
   },
   "hypergan_commit": "5f368a3770cf5bdae0448995c9f76e29af8049f7",
-  "hypergan_distribution": "hypergan",
+  "hypergan_ref": "develop",
   "hypergan_repository": "https://github.com/HyperGAN/HyperGAN",
-  "hypergan_requirement": "hypergan[train] @ git+https://github.com/HyperGAN/HyperGAN.git@5f368a3770cf5bdae0448995c9f76e29af8049f7",
-  "lora_sha256": "c09bb012a479eb103dd3e710a8909251c0cb3a852f45a26112f2a9cc972a30e3",
-  "profile": "flux-native95-product-hndl010-builder-v1",
-  "schema": "flux-native95-product-builder-source-closure-v1",
-  "scope": "External builder and local two-line LoRA graph identity only. No core package closure, ParticleGAN runtime version, native model, training, checkpoint or render qualification claim.",
-  "source_policy": "all-hndl-python-and-declared-hypergan-builder-files-v1"
+  "particlegan_version": "0.11.0",
+  "profile": "hypergan-hndl-v2",
+  "schema": "particle-sliders-hypergan-hndl-profile-v2"
 }

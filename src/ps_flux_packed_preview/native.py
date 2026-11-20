@@ -14,7 +14,7 @@ from pathlib import Path
 
 import torch
 from torch import nn
-from particle_sliders.pg09_backends import FrozenResponseAdapter
+from particle_sliders.backends import FrozenResponseAdapter
 
 from . import COHORT
 from .provenance import ROOT, checked_builder, check_native
@@ -46,16 +46,16 @@ def preflight_training(response_shape, *, model=None, cohort=COHORT):
     shape = tuple(response_shape)
     if len(shape) != 3 or shape[0] != 1 or shape[2] != 64 or any(type(v) is not int or v < 1 for v in shape):
         raise ValueError("native Flux response must be [1,image_tokens,64]")
-    from particle_sliders.pg094 import validate_pg09_domain
+    from particle_sliders.engine import validate_engine_domain
     try:
-        validate_pg09_domain(shape, response_domain="continuous_field")
+        validate_engine_domain(shape, response_domain="continuous_field")
     except RuntimeError as exc:
         raise FluxSourceMismatch(
-            "Flux preflight requires the exact ParticleGAN0.9.4 release source; "
+            "Flux preflight requires the exact ParticleGAN 0.11.0 release source; "
             "installed version/source verification failed: " + str(exc)) from exc
     except ValueError as exc:
         raise PackedTrainingUnavailable(
-            "core0.12/PG0.9.4 continuous_field rank gate rejects native packed rank3 responses; "
+            "core 0.15.1 / ParticleGAN 0.11.0 continuous_field rank gate rejects native packed rank3 responses; "
             "Flux shared training/resume/EMA/export remain unavailable. "
             "No hooks or weights were changed; no response axes were recast.") from exc
     # A future core must be separately source-qualified; its new API is not

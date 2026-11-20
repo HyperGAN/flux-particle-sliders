@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 import torch
-from particle_sliders.pg09_backends import ResponseRow
+from particle_sliders.backends import ResponseRow
 
 
 path = Path(__file__).parents[1] / "src/ps_flux_packed_preview/row_evidence.py"

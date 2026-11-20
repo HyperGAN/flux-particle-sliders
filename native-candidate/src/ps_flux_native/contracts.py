@@ -4,12 +4,12 @@ import json
 import math
 from pathlib import Path
 
-# Actual main PR205 packed-admission Source; package/core version remains0.14.1.
-CORE_REVISION = "41f6066f2d2644902670d5eb736de052e1a70553"
+# Actual main PR205 packed-admission Source; package/core version remains0.15.1.
+CORE_REVISION = "c13890f8e2a1ecf1dc8eb9f2a37f9187cb9fea78"
 MODEL = "black-forest-labs/FLUX.1-schnell"
 MODEL_REVISION = "741f7c3ce8b383c54771c7003378a50191e9efe9"
-BACKEND_NAME = "flux_native_packed95"
-SOURCE_PROFILE = "flux-native-packed64-ordinary-hndl010-pg095-v1"
+BACKEND_NAME = "flux_native_packed"
+SOURCE_PROFILE = "flux-native-packed64-ordinary-hndl010-engine-v1"
 PROTOCOL = "flux-native-packed64-positive-velocity-v1"
 INITIALIZATION_POLICY = "flux-hndl-kaiming-a1-QR-zero-up-critic-host-RMS-v1"
 WEIGHT_POLICY = "raw-current-no-weight-ema"
@@ -51,8 +51,8 @@ def validate_policy(options):
         raise ValueError("RAW-only Flux requires explicit ema_decay=None; weight EMA is refused")
     if (options.get("pg_version"), options.get("pg_source_profile"),
             options.get("penalty_input_domain"), options.get("initialization_policy")) != (
-            "0.9.5", "release-0.9.5", "auto", INITIALIZATION_POLICY):
-        raise ValueError("explicit native packed PG0.9.5/auto/fresh-init source cohort required")
+            "0.11.0", "release-0.11.0", "auto", INITIALIZATION_POLICY):
+        raise ValueError("explicit native packed PG0.11.0/auto/fresh-init source cohort required")
     rate_overrides(options)
 
 

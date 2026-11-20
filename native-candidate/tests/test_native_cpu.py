@@ -16,15 +16,15 @@ from diffusers import (AutoencoderKL, FluxPipeline, FluxTransformer2DModel,
 from transformers import CLIPTextConfig, CLIPTextModel, CLIPTokenizer, T5Config, T5EncoderModel, T5TokenizerFast
 from tokenizers import Tokenizer, models, pre_tokenizers
 from particle_sliders.lifecycle import SessionConfig
-from particle_sliders.pg09_backends import ResponseRow
-from particle_sliders.pg09 import _hash
+from particle_sliders.backends import ResponseRow
+from particle_sliders.engine import _hash
 
-from ps_flux_native95.adapter import FluxLoRA
-from ps_flux_native95.cache import CONDITION_POLICY, CachedResponses, write_row
-from ps_flux_native95.contracts import INITIALIZATION_POLICY, PROTOCOL, file_hash, geometry
-from ps_flux_native95.native import NativeRuntime, PackedFluxResponse
-from ps_flux_native95.lifecycle import open_training, NATIVE_BACKEND
-from ps_flux_native95.render import native_pipeline_state, render_pair
+from ps_flux_native.adapter import FluxLoRA
+from ps_flux_native.cache import CONDITION_POLICY, CachedResponses, write_row
+from ps_flux_native.contracts import INITIALIZATION_POLICY, PROTOCOL, file_hash, geometry
+from ps_flux_native.native import NativeRuntime, PackedFluxResponse
+from ps_flux_native.lifecycle import open_training, NATIVE_BACKEND
+from ps_flux_native.render import native_pipeline_state, render_pair
 
 
 @pytest.fixture(autouse=True)
@@ -102,12 +102,12 @@ def fixture_cache(root, runtime):
 def configuration(root, runtime):
     cache = fixture_cache(root, runtime)
     lock = root / "flux-model.lock.json"; lock.write_text('{"qualification":"fixture only"}\n')
-    return SessionConfig("flux_native_packed95", "tiny-native-packed-CPU-only",
+    return SessionConfig("flux_native_packed", "tiny-native-packed-CPU-only",
         model_dir=str(root), model_lock_sha256=file_hash(lock), cache_dir=str(cache),
         cache_index_sha256=file_hash(cache / "index.json"), device="cpu", base_precision="float32",
         height=64, width=64, text_tokens=3, steps=2, batch=2, seed=19, critic_width=4,
         lr=.0004, d_lr_mult=.5000000000000001, prior_lr_mult=None, ema_decay=None,
-        pg_version="0.9.5", pg_source_profile="release-0.9.5", penalty_input_domain="auto",
+        pg_version="0.11.0", pg_source_profile="release-0.11.0", penalty_input_domain="auto",
         initialization_policy=INITIALIZATION_POLICY)
 
 
@@ -142,7 +142,7 @@ def test_actual_native_ordinary_adapter_off_geometry_and_cleanup(tmp_path):
 
 
 def test_full_exact_resume_raw_and_fresh_before_optimizer(tmp_path):
-    import ps_flux_native95.initialization as init
+    import ps_flux_native.initialization as init
     runtime = FixtureRuntime(tmp_path)
     config = configuration(tmp_path, runtime)
     original_init = init.initialize_fresh_components
@@ -197,9 +197,9 @@ def test_cache_tamper_refused_before_update_and_no_teacher(tmp_path):
 
 
 def test_raw_actual_native_pipeline_pil_and_no_training_factory(tmp_path):
-    import ps_flux_native95.lifecycle as life
-    import ps_flux_native95.initialization as init
-    import ps_flux_native95.render as renderer
+    import ps_flux_native.lifecycle as life
+    import ps_flux_native.initialization as init
+    import ps_flux_native.render as renderer
     from particle_sliders.inference import InferenceSession
     runtime = FixtureRuntime(tmp_path)
     config = configuration(tmp_path, runtime)
@@ -228,7 +228,7 @@ def test_raw_actual_native_pipeline_pil_and_no_training_factory(tmp_path):
         bound_requests.append(request["strength"])
         return original_native_render(*args, **request)
     with patch.object(life, "NativeRuntime", side_effect=lambda *args, **kwargs: FixtureRuntime(tmp_path)), \
-            patch.object(life, "ConditionalPG095", side_effect=AssertionError("no inference GAN/game")), \
+            patch.object(life, "ConditionalParticleGAN", side_effect=AssertionError("no inference GAN/game")), \
             patch.object(life, "CachedResponses", side_effect=AssertionError("no inference teacher cache")), \
             patch.object(init, "initialize_fresh_components", side_effect=AssertionError("no inference initialization")), \
             patch.object(InferenceSession, "render", common_render), \

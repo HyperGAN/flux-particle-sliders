@@ -16,16 +16,19 @@ from fresh), so no LR-only causal or bitwise-CUDA claim is made. See
 and [portable rate/evidence summary](docs/finished-output-rate.json).
 
 The separately installable [current native project](native-candidate/README.md)
-uses full native packed geometry, scoped fresh-only PG0.9.5 initialization and
+uses full native packed geometry, scoped fresh-only ParticleGAN 0.11.0 initialization and
 RAW/noEMA. Retained pretrained training/native images now exist, without released
 weights or hosted Generate. The source-bound CPU/range execution wrappers are not
 public CLI options and do not migrate old FULL/RAW packets.
+
+Both currently installable packages pin core 0.15.1 at `c13890f8`. The packed
+preview retains its planning-only boundary and packages its HNDL assets.
 
 ## Historical phase1 PG0.9.4 prerequisite extraction
 
 This is the separate HyperGAN destination for the public modern Flux prerequisite
 preview from `HyperGAN/particle-sliders` at
-`f150b28cb25ad55a99b37b06fa0ddc989f3428d9`. The active 0.2.0 / v2 cohort applies the coordinated core migration to exact
+`f150b28cb25ad55a99b37b06fa0ddc989f3428d9`. The historical 0.2.0 / v2 migration used core commit
 `a794e3b4a8813b012f2c4faa3da82b78d4a90214`. Native response code and the LoRA
 graph retain original bytes; only dependency/profile identity and recursive
 source/data admission change. Prior 0.1.0 / v1 remains at local commit
