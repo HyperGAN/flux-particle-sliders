@@ -1,9 +1,9 @@
-# Native packed Flux PG0.9.5 candidate
+# Native packed Flux PG0.11.0 candidate
 
 This is a new, separately installable Source candidate. It preserves native
 `[1,image_tokens,64]` velocity responses and the ordinary rank4/alpha1 HNDL
 down/up LoRA from the published Flux prerequisite. It supplies a genuine shared
-`ResponseBackend`, full native teacher cache, official PG0.9.5 `adapter_gan`
+`ResponseBackend`, full native teacher cache, official PG0.11.0 `adapter_gan`
 updates, exact FULL restore, RAW-only native inference and the official
 Diffusers Flux finished-image pipeline. No response projection, subsampling,
 token-axis reinterpretation or synthetic particle bank is used. The official
@@ -21,7 +21,7 @@ G0.012/G0.001 tie at0.0, one equal case, all OFF/ON levels4/4. Both correspondin
 FULL32 catastrophic guards pass. The trait remains unqualified; differing
 critic execution histories preclude an LR-only causal or bitwise-CUDA claim.
 No unique/default LR, released weight or ordinary hosted Generate is established. The core dependency names the actual merged main PR205 commit
-`41f6066f2d2644902670d5eb736de052e1a70553` (core0.14.1/PG0.9.5). The old top-level
+`c13890f8e2a1ecf1dc8eb9f2a37f9187cb9fea78` (core0.15.1/PG0.11.0). The old top-level
 preview package and its core0.12/PG0.9.4 identity are unchanged. Use a new
 environment, not the old captured environment; do not coinstall incompatible
 core/HNDL profiles or reinterpret old packets.
@@ -37,7 +37,7 @@ config, factor8/latent16 VAE and native source. There is no download fallback.
 A lock is a preparation receipt, not pretrained or native execution evidence.
 
 Install this subdirectory in the new admitted environment and use
-`flux-native95 check` for an allocation-free profile description. Framework
+`flux-native check` for an allocation-free profile description. Framework
 imports and model loads happen only in explicitly requested execution commands.
 Builder provenance pins the original two-line graph, HNDL0.10.0 and the exact
 clean external HyperGAN builder. No removed product bundle is required.
@@ -56,7 +56,7 @@ as part of the17-check actual CPU run; original failed results remain retained.
 Cache preparation accepts a JSON list of distinct `neutral`/`positive` strings:
 
 ```sh
-flux-native95 cache --model-dir MODEL --model-lock-sha256 LOCK_SHA \
+flux-native cache --model-dir MODEL --model-lock-sha256 LOCK_SHA \
   --pairs pairs.json --output NEW_CACHE --height 512 --width 512 \
   --text-tokens 256 --steps 4 --seeds 7 19 --device cuda:0 --base-precision bfloat16
 ```
@@ -79,8 +79,8 @@ factory call refuses rather than guessing whether a packet will later restore.
 
 ```python
 from particle_sliders.lifecycle import SessionConfig
-from ps_flux_native95.lifecycle import open_training
-from ps_flux_native95.contracts import INITIALIZATION_POLICY
+from ps_flux_native.lifecycle import open_training
+from ps_flux_native.contracts import INITIALIZATION_POLICY
 
 config = SessionConfig("flux_native_packed95", "my-new-flux-cohort",
     model_dir="MODEL", model_lock_sha256="LOCK_SHA",
@@ -88,7 +88,7 @@ config = SessionConfig("flux_native_packed95", "my-new-flux-cohort",
     device="cuda:0", base_precision="bfloat16",
     height=512, width=512, text_tokens=256,
     steps=32, batch=2, seed=7, ema_decay=None,
-    pg_version="0.9.5", pg_source_profile="release-0.9.5",
+    pg_version="0.11.0", pg_source_profile="release-0.11.0",
     penalty_input_domain="auto", initialization_policy=INITIALIZATION_POLICY)
 with open_training(config) as session:
     session.train()
@@ -110,7 +110,7 @@ the original receipt and never call that helper; temporary constructor values
 are replaced by exact saved state, never used to reset a loaded checkpoint.
 
 Use `open_training(config, resume="FULL.pt")` for exact continuation of the
-original fixed budget. The CLI counterpart is `flux-native95 train --config
+original fixed budget. The CLI counterpart is `flux-native train --config
 config.json --output NEW_OUTPUT [--resume FULL.pt] [--stop-after N]`; its config
 is `SessionConfig.as_dict()`. It saves each actual step as a distinct FULL and
 one RAW export. Interrupted unsaved work is not claimed durable by the CLI.
@@ -123,7 +123,7 @@ It loads both text encoders and VAE once and explicitly moves the full render
 pipeline to the selected device, so admission must budget that placement.
 
 ```sh
-flux-native95 render-pair --artifact RAW.pt --model-dir MODEL \
+flux-native render-pair --artifact RAW.pt --model-dir MODEL \
   --model-lock-sha256 LOCK_SHA --output NEW_PREVIEW --prompt "a windswept traveler" \
   --steps 4 --seed 7 --strength 1 --device cuda:0 --precision bfloat16
 ```

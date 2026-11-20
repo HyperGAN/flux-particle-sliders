@@ -10,8 +10,8 @@ import torch
 from torch import nn
 from hndl.operators.linear import Linear as HNDLLinear
 from particlegan.init import KEEP, Uniform
-from ps_flux_native95.contracts import digest
-from ps_flux_native95.initialization import (Construction, declared_hndl_weight,
+from ps_flux_native.contracts import digest
+from ps_flux_native.initialization import (Construction, declared_hndl_weight,
                                            initialize_owned, policies)
 
 
@@ -84,7 +84,7 @@ def test_original_receipt_restores_without_reinitializing_actual_hndl():
     with torch.random.fork_rng(devices=[]):
         torch.manual_seed(23);restored_adapter,restored_critic=owned()
     before=[p.detach().clone()for root in(restored_adapter,restored_critic)for p in root.parameters()]
-    with patch("ps_flux_native95.initialization.initialize_fresh_components",side_effect=AssertionError("no initializer on restore")):
+    with patch("ps_flux_native.initialization.initialize_fresh_components",side_effect=AssertionError("no initializer on restore")):
         resumed=initialize_owned(restored_adapter,restored_critic,
             Construction("resume",config.cohort,config.options_sha256,original.canonical_json),options)
     assert resumed.canonical_json==original.canonical_json

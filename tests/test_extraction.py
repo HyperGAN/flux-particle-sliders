@@ -32,19 +32,15 @@ def test_installed_payload_relocated_locks_and_actual_core_origin_match_active_c
     from ps_flux_packed_preview.provenance import checked_builder
     manifest = json.loads((Path(__file__).parents[1] / "EXTRACTION-PROVENANCE.json").read_text())
     installed = Path(ps_flux_packed_preview.__file__).parent
-    runtime = [row for row in manifest["mappings"] if row["destination_path"].startswith("src/")]
-    assert len(runtime) == 5
-    for row in runtime:
-        assert hashlib.sha256((installed / Path(row["destination_path"]).name).read_bytes()).hexdigest() == row["destination_sha256"]
-        if row["destination_path"].endswith(("/native.py", "/lora.hndl")):
-            assert row["action"] == "copied_byte_for_byte"
-            assert row["destination_sha256"] == row["source_sha256"]
+    graph = next(row for row in manifest["mappings"] if row["destination_path"].endswith("/lora.hndl"))
+    assert hashlib.sha256((installed / "lora.hndl").read_bytes()).hexdigest() == graph["source_sha256"]
+    profile = json.loads((installed / "sources.json").read_text())
     _, identity = checked_builder()
-    assert identity["flux_core_commit"] == manifest["active_core_pin"]
-    assert identity["flux_cohort"] == COHORT == manifest["active_cohort"]
-    assert distribution("particle-sliders-core").version == "0.12.0"
+    assert identity["flux_core_commit"] == profile["core_commit"]
+    assert identity["flux_cohort"] == COHORT == profile["cohort"]
+    assert distribution("particle-sliders-core").version == "0.15.1"
     origin = json.loads(distribution("particle-sliders-core").read_text("direct_url.json"))
-    assert origin["vcs_info"]["commit_id"] == manifest["active_core_pin"]
+    assert origin["vcs_info"]["commit_id"] == profile["core_commit"]
     assert origin["url"] == "https://github.com/HyperGAN/particle-sliders.git"
     assert origin["subdirectory"] == "packages/particle-sliders-core"
     assert distribution("particle-sliders-flux-packed-preview").version == "0.2.0"

@@ -10,7 +10,7 @@ from unittest.mock import patch
 import pytest
 import torch
 from diffusers import FluxTransformer2DModel
-from particle_sliders.pg09_backends import ResponseRow
+from particle_sliders.backends import ResponseRow
 
 from ps_flux_packed_preview import COHORT
 from ps_flux_packed_preview.native import (
@@ -108,7 +108,7 @@ def test_wrong_pg_source_is_reported_separately_from_packed_rank_refusal(mismatc
     state = {n: v.clone() for n, v in m.state_dict().items()}
     rng = torch.get_rng_state().clone()
     if mismatch == "version":
-        change = patch("particle_sliders.pg09.version",
+        change = patch("particle_sliders.engine.version",
             side_effect=lambda name: "0.9.3" if name == "particlegan" else version(name))
     else:
         original = Path.read_bytes
@@ -116,7 +116,7 @@ def test_wrong_pg_source_is_reported_separately_from_packed_rank_refusal(mismatc
             data = original(path)
             return data + b"\n# source mismatch\n" if path.parent.name == "particlegan" and path.name == "__init__.py" else data
         change = patch.object(Path, "read_bytes", changed)
-    with change, pytest.raises(FluxSourceMismatch, match="exact ParticleGAN0.9.4 release source") as rejected:
+    with change, pytest.raises(FluxSourceMismatch, match="exact ParticleGAN 0.11.0 release source") as rejected:
         preflight_training((1, 4, 64), model=m)
     assert isinstance(rejected.value.__cause__, RuntimeError)
     assert torch.equal(rng, torch.get_rng_state())
@@ -176,17 +176,17 @@ def test_shared_response_descriptor_cannot_advertise_packed_geometry():
     for domain in ("continuous_vector", "continuous_field"):
         with pytest.raises(ValueError, match="native continuous response geometry"):
             ResponseCapabilities("adapter_gan", "image", "packed_velocity", domain,
-                (1, 4, 64), "0.9.4", "release-0.9.4")
+                (1, 4, 64), "0.11.0", "release-0.11.0")
 
 
 def test_supported_field_gate_control_is_distinct_from_unchanged_flux_rank3():
-    from particle_sliders.pg094 import validate_pg09_domain
+    from particle_sliders.engine import validate_engine_domain
     # An unrelated genuine field is a positive API control, never a Flux
     # response conversion or a claim of native Flux training admission.
-    admitted = validate_pg09_domain((1, 16, 2, 2), response_domain="continuous_field")
+    admitted = validate_engine_domain((1, 16, 2, 2), response_domain="continuous_field")
     assert admitted["resolved_penalty_domain"] == "image"
     with pytest.raises(ValueError, match="continuous_field requires genuine native 4D/5D shape"):
-        validate_pg09_domain((1, 4, 64), response_domain="continuous_field")
+        validate_engine_domain((1, 4, 64), response_domain="continuous_field")
 
 
 @pytest.mark.parametrize("shape", [(1, 64), (1, 16, 8, 8), (2, 4, 64), (1, 4, 32)])
@@ -207,7 +207,7 @@ def test_no_silent_source_or_cohort_fallback():
     original = Path.read_bytes
     def changed(path):
         data = original(path)
-        return data + b"\n# changed\n" if path.name == "pg09.py" else data
+        return data + b"\n# changed\n" if path.name == "engine.py" else data
     with patch.object(Path, "read_bytes", changed), pytest.raises(ValueError, match="core source closure"):
         FluxLoRA(model(), image_tokens=4, text_tokens=3)
 

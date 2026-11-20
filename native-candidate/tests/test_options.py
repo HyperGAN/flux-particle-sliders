@@ -7,11 +7,11 @@ import sys
 from unittest.mock import patch
 
 import pytest
-from ps_flux_native95.contracts import INITIALIZATION_POLICY, geometry, rate_overrides, validate_options
+from ps_flux_native.contracts import INITIALIZATION_POLICY, geometry, rate_overrides, validate_options
 
 
 def test_import_check_has_no_framework_side_effect():
-    source = "from ps_flux_native95.cli import main; main(['check']); import sys; assert 'torch' not in sys.modules"
+    source = "from ps_flux_native.cli import main; main(['check']); import sys; assert 'torch' not in sys.modules"
     result = subprocess.run([sys.executable, "-c", source], capture_output=True, text=True, check=True, env=os.environ.copy())
     assert json.loads(result.stdout)["ema_decay"] is None
 
@@ -30,7 +30,7 @@ def test_rate_literals_and_no_phantom_prior():
 
 
 def test_policy_refuses_before_paths():
-    policy = {"pg_version": "0.9.5", "pg_source_profile": "release-0.9.5", "penalty_input_domain": "auto",
+    policy = {"pg_version": "0.11.0", "pg_source_profile": "release-0.11.0", "penalty_input_domain": "auto",
               "initialization_policy": INITIALIZATION_POLICY, "ema_decay": None}
     with patch.object(Path, "is_dir", side_effect=AssertionError("must reject before filesystem")):
         for changes in ({"ema_decay": .9}, {"pg_version": "0.9.4"}, {"lr": True}, {"prior_lr_mult": .1}):

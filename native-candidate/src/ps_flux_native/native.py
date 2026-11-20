@@ -5,7 +5,7 @@ from importlib.metadata import version
 from pathlib import Path
 
 import torch
-from particle_sliders.pg09_backends import FrozenResponseAdapter
+from particle_sliders.backends import FrozenResponseAdapter
 from .contracts import PROTOCOL, SOURCE_PROFILE, file_hash, verify_model
 from .provenance import check_native
 

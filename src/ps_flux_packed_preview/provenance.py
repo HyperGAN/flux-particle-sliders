@@ -7,17 +7,17 @@ from pathlib import Path
 from . import COHORT
 
 ROOT = Path(__file__).parent
-CORE_COMMIT = "a794e3b4a8813b012f2c4faa3da82b78d4a90214"
-CORE_VERSION = "0.12.0"
+CORE_COMMIT = "c13890f8e2a1ecf1dc8eb9f2a37f9187cb9fea78"
+CORE_VERSION = "0.15.1"
 CORE_PAYLOAD_POLICY = "recursive-files-except-pycache-and-bytecode-v1"
 
 
 def checked_builder():
     import particle_sliders
-    from particle_sliders.fibo_hndl import verified_builder
+    from .fibo_hndl import verified_builder
     expected = json.loads((ROOT / "sources.json").read_text())
     if version("particle-sliders-core") != CORE_VERSION or expected.get("core_version") != CORE_VERSION:
-        raise ValueError("Flux prerequisite requires exact core0.12 source cohort")
+        raise ValueError("Flux prerequisite requires exact core 0.15.1 source cohort")
     if (expected.get("cohort"), expected.get("core_payload_policy")) != (COHORT, CORE_PAYLOAD_POLICY):
         raise ValueError("Flux prerequisite shared-core profile differs")
     core_root = Path(particle_sliders.__file__).parent

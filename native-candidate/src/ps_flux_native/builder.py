@@ -13,11 +13,11 @@ from pathlib import Path
 import sys
 
 ROOT = Path(__file__).parent
-PROFILE = "flux-native95-product-hndl010-builder-v1"
+PROFILE = "flux-native-product-hndl010-builder-v1"
 HYPERGAN_COMMIT = "5f368a3770cf5bdae0448995c9f76e29af8049f7"
 HNDL_VERSION = "0.10.0"
 LORA_SHA256 = "c09bb012a479eb103dd3e710a8909251c0cb3a852f45a26112f2a9cc972a30e3"
-BUILDER_SOURCES_SHA256 = "96aab47343ef6fed938be056845d5f1b3bfdfeacd36da247c10ab907b3bf46c7"
+BUILDER_SOURCES_SHA256 = "0e346b772dc63eb26422f1d708a32c39d0fec5d096ce5a413f00677429d28462"
 
 
 def _sha(path):
@@ -41,7 +41,7 @@ def checked_builder():
     if (expected.get("schema"), expected.get("profile"),
             expected.get("hndl_version"), expected.get("hypergan_commit"),
             expected.get("lora_sha256"), expected.get("source_policy")) != (
-            "flux-native95-product-builder-source-closure-v1", PROFILE,
+            "flux-native-product-builder-source-closure-v1", PROFILE,
             HNDL_VERSION, HYPERGAN_COMMIT, LORA_SHA256,
             "all-hndl-python-and-declared-hypergan-builder-files-v1"):
         raise ValueError("Flux builder source manifest contradicts the binding")
@@ -52,7 +52,7 @@ def checked_builder():
         from hypergan.hndl_networks import build_network
     except ModuleNotFoundError as exc:
         raise ImportError(
-            "Flux requires explicit hndl==0.10.0 and the pinned HyperGAN train dependency"
+            "Flux requires explicit hndl==0.10.0 and the pinned HyperGAN builder dependency"
         ) from exc
     if version("hndl") != HNDL_VERSION:
         raise ValueError("Flux requires hndl==0.10.0")
