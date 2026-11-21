@@ -134,9 +134,10 @@ The RAW bytes, original packet checksum and full native/factory identity are
 strictly checked. Partial outputs and truthful failure metadata are retained;
 there is no retry or posthoc latent interpolation.
 
-The RAW Python session accepts `step_gains` in `session.render(...)`. Pass
-one gain per native step, with each `strength * gain` in `[0, 1]`. Read the
-actual sigma grid and applied strengths from `image.info["strength_schedule"]`.
+Pass an open RAW Python session to `ps_flux_native.scheduled_render.render`
+with `step_gains` and the original render arguments. Supply one gain per native
+step, with each `strength * gain` in `[0, 1]`. Read the actual sigma grid and
+applied strengths from `image.info["strength_schedule"]`.
 Constant gains matched the original finished pixels in the tiny native CPU
 fixture. The matched pretrained effect comparison is pending.
 
