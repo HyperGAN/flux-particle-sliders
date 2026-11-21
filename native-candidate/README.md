@@ -139,7 +139,18 @@ with `step_gains` and the original render arguments. Supply one gain per native
 step, with each `strength * gain` in `[0, 1]`. Read the actual sigma grid and
 applied strengths from `image.info["strength_schedule"]`.
 Constant gains matched the original finished pixels in the tiny native CPU
-fixture. The matched pretrained effect comparison is pending.
+fixture.
+
+For the measured **Ink Wash RAW18** panel at 512×512 with four native BF16
+Euler steps, use nominal strength `2 / 3` and
+`step_gains=[0.5, 0.5, 1.5, 1.5]`. The applied strengths were
+`[1/3, 1/3, 1, 1]` on sigmas `[1, 0.75, 0.5, 0.25, 0]`. Across eight
+matched cases, the mean finished Ink Wash effect relative to the shared
+neutral outputs was +0.001493 for late-heavy strength, +0.000475 for
+early-heavy strength, +0.000304 for equal-dose constant strength, and
++0.000696 for constant strength 1. All matched outputs passed independent
+integrity checks. These settings apply to this checkpoint and tested sampling
+profile. [Per-case scores and image hashes](docs/ink-wash-raw18-scheduled-strength.json).
 
 For LR work, rank only the equal-case intended-effect ON−OFF mean in finished
 outputs. Preserve ties/zeros/negatives and reuse existing completed measurements.

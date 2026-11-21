@@ -1,0 +1,197 @@
+{
+  "profile": "Flux Ink Wash RAW18",
+  "sampler": "Native BF16 Euler, four steps",
+  "height": 512,
+  "width": 512,
+  "raw_checkpoint_sha256": "8a8fcaa08d2f1eef2431058917a7bf7dd2524d1bf99541f226f8ae8c1e5e32b0",
+  "ema_decay": null,
+  "matched_cases": 8,
+  "sigmas": [
+    1,
+    0.75,
+    0.5,
+    0.25,
+    0
+  ],
+  "nominal_strength": 0.6666666666666666,
+  "applied_step_strengths": {
+    "constant": [
+      0.6666666666666666,
+      0.6666666666666666,
+      0.6666666666666666,
+      0.6666666666666666
+    ],
+    "early": [
+      1,
+      1,
+      0.3333333333333333,
+      0.3333333333333333
+    ],
+    "late": [
+      0.3333333333333333,
+      0.3333333333333333,
+      1,
+      1
+    ]
+  },
+  "scheduled_integrated_strength": 0.6666666666666666,
+  "strength_one_applied_step_strengths": [
+    1,
+    1,
+    1,
+    1
+  ],
+  "metric": "Equal-case mean of finished Ink Wash ON minus OFF",
+  "mean_effect_gains": {
+    "strength_1": 0.0006956490251468495,
+    "constant": 0.00030442535353358835,
+    "early": 0.0004749646031996235,
+    "late": 0.0014933500642655417
+  },
+  "late_gain_over_equal_dose": 0.0011889247107319534,
+  "late_gain_over_strength_one": 0.0007977010391186923,
+  "late_improved_cases_vs_equal_dose": 6,
+  "late_improved_cases_vs_strength_one": 3,
+  "selected_profile": "late",
+  "categorical_integrity": "All matched OFF and ON images passed",
+  "new_optimizer_updates": 0,
+  "new_teacher_calls": 0,
+  "cases": [
+    {
+      "case": "6e816cc770642a2f2f872e5957db269a24a841f583d198499c9333b0b83c6501",
+      "seed": 917301,
+      "neutral_png_sha256": "adbce593973dd4e11e72aeb0467513001e962d5a978ab6689cd6ccf00a293853",
+      "on_png_sha256": {
+        "strength_1": "9d5f5435d6970b4323b34793ca37edaa844803a615f853739d66f82158578365",
+        "constant": "2a3170a37556f8ae22be23789be71c4d1c81fd558e3f59ddee45ef77780478d3",
+        "early": "a947afd83053eae9309c118b45b4386da186706a2bfe53f305d75caef12642a7",
+        "late": "f96c13a586fdceb5927ab6fe80cf0f127e7668e70c14a71d8ca065aaa095f266"
+      },
+      "effect_gains": {
+        "strength_1": -0.000560763175599277,
+        "constant": -0.0038386211963370442,
+        "early": -0.0003326406003907323,
+        "late": 0.007601522956974804
+      }
+    },
+    {
+      "case": "58f6ac9f3026c689d2e47e119d43b4377532bacf18329af7f5ad9efa2eb050ef",
+      "seed": 917301,
+      "neutral_png_sha256": "008bf4cf10224858e61cbe856942f2bcb7b3459d98821a619249547c30ae0d1a",
+      "on_png_sha256": {
+        "strength_1": "f5a1b57fa6aa53d5d88384a197fc8eca04aa1fe1110f42e72109e03c077fa21d",
+        "constant": "05e66ab64384bea3c51d6b056a3e529698eb4cd394598d8d33997258e8bec654",
+        "early": "15def74ad7b340e0454fba223fcbd583a258b0c99a83c704e5496d50774f39aa",
+        "late": "da46b52cc3744361a47a62b9cbdb9a228e3367dd32af5ef99d48a0adbd7c8081"
+      },
+      "effect_gains": {
+        "strength_1": 0.0005178761202841997,
+        "constant": -0.000568384537473321,
+        "early": 0.0008483566343784332,
+        "late": -0.00024566706269979477
+      }
+    },
+    {
+      "case": "3acc43f7f3d0ee1bbc0c2d383b7ada0a8d56976de59363eaee6dba350ffa1068",
+      "seed": 917302,
+      "neutral_png_sha256": "b340e1467f3a23261c3db859b6307e6712d1a4d1fb281cad65ce0fe311eacf5b",
+      "on_png_sha256": {
+        "strength_1": "c963161d5a6b0906b34e18fc2d6635bef5cd883ab1e1ad9f09e66abe8ba65cc3",
+        "constant": "db792f73d6bd487eabce71fa5feb6c6cf2f3447633b96898eb32ccd27d2fc589",
+        "early": "c1e13867aead3fcdb75b34c13e542899eba5327257479dd7d42633f00d353f5b",
+        "late": "77980a77d17f36ab07df2f2bc4867ceacd9b54a59dd7127dbc06c2b5e595d886"
+      },
+      "effect_gains": {
+        "strength_1": -0.0013682113494724035,
+        "constant": 5.608564242720604e-05,
+        "early": -0.001777789555490017,
+        "late": 0.0005293113645166159
+      }
+    },
+    {
+      "case": "6eb87c116dd900b48fae5f09030ccd61f9a2b572c3b1d4fc7724c041e34c254b",
+      "seed": 917302,
+      "neutral_png_sha256": "7071d627c5fe51043eec0562ba10aeb1b6936963b061f0d1e90b90f867ab92b5",
+      "on_png_sha256": {
+        "strength_1": "77f76c06f790c184b5255d5133f73c143165830d6c9397c72ec5207cb9bfaf83",
+        "constant": "546bbb14dccbff66076104b5d3a7b2bfa1d20536708e43a124c3c1e6033641fa",
+        "early": "619035767d0ee5b050e3296e08965faac142656d98ddc87b82866fa48c95a633",
+        "late": "2d5accf2edc498105fd3c32e6e8137f659a3264dceae8f1162931dd9340cfd5f"
+      },
+      "effect_gains": {
+        "strength_1": -0.005122191738337278,
+        "constant": 0.0010610769968479872,
+        "early": -0.004977820441126823,
+        "late": 0.0016703726723790169
+      }
+    },
+    {
+      "case": "0bd69d866f7d0d9c61d27b8e2e47e22f5a2c8289ab6f7ae3c8a43fde20f5fde8",
+      "seed": 917303,
+      "neutral_png_sha256": "bf8d37636aef0b8b367fa95f0f9c08e5548715214b951ef4baa205d55f24550c",
+      "on_png_sha256": {
+        "strength_1": "50a1ca11480d561b2405e52e84aca887a750d7907208c51d38ded0878914440b",
+        "constant": "bc90cba7aa30492f68e81340a2d5a889cf0586448d64e696e77abf927fa074c2",
+        "early": "0669f4dff0621bce47a83da874f4b9e79cbea4324c64ab328f923bbbf35fa20e",
+        "late": "565c7c52f113366513a13d092f58122ff65a94922dfc9e65106fc6f9a7a5ff7e"
+      },
+      "effect_gains": {
+        "strength_1": 0.002360542304813862,
+        "constant": 0.0011627848725765944,
+        "early": 0.002385874046012759,
+        "late": 0.0012482497841119766
+      }
+    },
+    {
+      "case": "34e559cae054201593db701f518a8f7f61dd9dfd8fd37c5b5833d32e00796098",
+      "seed": 917303,
+      "neutral_png_sha256": "ac2936b6610b14b6487b59a38ebe0a5301a60c8ae6c02180d34b5bff9a34258a",
+      "on_png_sha256": {
+        "strength_1": "fe62b08e2f77659de64c2022d0a2468478623e790e2d8d59a634928f8f5800fb",
+        "constant": "f82b8799635ecf2a8ce3d5431af57eac970660d6e0489110c9261031c0562095",
+        "early": "f9ec33cfe4bccc9cd9c317a5c744d999ededcfbe83254f3e598706af4a3fd15d",
+        "late": "402462be71d67fe78f354888926b79bd9cd123a6d000280afb198259cc60582e"
+      },
+      "effect_gains": {
+        "strength_1": 0.004055544501170516,
+        "constant": 0.00401897937990725,
+        "early": 0.0036194329150021076,
+        "late": -0.00039537250995635986
+      }
+    },
+    {
+      "case": "9800ea847cfe128fc2fc3bfebabd152d3914f7808473c291ba00274c86d07e54",
+      "seed": 917304,
+      "neutral_png_sha256": "88f8434f24d9870563fb7c7b9963d35d5dca0b0cfd591914b1cd1131bb05895e",
+      "on_png_sha256": {
+        "strength_1": "a75d2bac131509ac869b14a38f0b4db87d23d7d2de6e3dd92c24b95fe31eb7b3",
+        "constant": "d7166565e71bb0fab26b414397f9a3c55999a0a6fd701b2681a36cfc5aa48efc",
+        "early": "7899179405b05a8da0bcf89b9eb2c33a9685cb10dc019433abc9130c027dc65e",
+        "late": "31d62d93c673dd23f5bbf31b19deddf1fa232196bd0bddef1daff45a70427e60"
+      },
+      "effect_gains": {
+        "strength_1": 0.0038766157813370228,
+        "constant": -9.864568710327148e-05,
+        "early": 0.00309290480799973,
+        "late": 0.001511244336143136
+      }
+    },
+    {
+      "case": "9ce3b2144de3e9430ccfd602c3fbe5659da39a3de763b14002aae9a6a225095b",
+      "seed": 917304,
+      "neutral_png_sha256": "f67fddd5f125cb64bc697aa8f501af2bd18db5857be8a65c1a1d27c4ea87dcce",
+      "on_png_sha256": {
+        "strength_1": "fd26cf19a07700dabf9a1192634a99a8ed192076c3df4cf045714419e498c534",
+        "constant": "bd9e6db0d880f63b8741e92dc35e8d9d69d342019f0d17cfef3851a502ca056c",
+        "early": "8d043db816be1f8ceb7c4a5c8be70617e8656173a933c80fe6d8acedd6963a95",
+        "late": "7cea28f31e73647a6e8a497bfe2e7354eec9291c0df035cbc5d48be6545f9dd2"
+      },
+      "effect_gains": {
+        "strength_1": 0.0018057797569781542,
+        "constant": 0.0006421273574233055,
+        "early": 0.0009413990192115307,
+        "late": 2.7138972654938698e-05
+      }
+    }
+  ]
+}
