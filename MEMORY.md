@@ -66,7 +66,7 @@ Pinned config/index/size metadata is captured in [docs/memory](docs/memory/input
 
 Training figures freeze pretrained weights, use RAW current adapters and explicitly
 disable weight EMA. They include no full-base gradients or EMA shadow model.
-The archived ParticleGAN release `bispf_optimized` recipe uses zero-momentum DualNorm, not Adam's two
+The ParticleGAN 0.11.1 `bispf_optimized` recipe uses zero-momentum DualNorm, not Adam's two
 full-size moment tensors. Its direction blend still retains protected gradients,
 clones originals/displacements, and converts up to two protected normals to
 FP64. For a conservative planning allowance, the tables reserve **80 bytes per
@@ -75,9 +75,9 @@ and 56 for protected FP32 gradients, FP32/FP64 direction/projection/polar,
 rollback and serialization temporaries. This is an explicit allowance, not a claim
 that every temporary is simultaneously allocated or that it is an exact peak.
 Small scalar optimizer statistics remain enabled. Recipe changes need a new ledger.
-See released [archived ParticleGAN recipes](https://github.com/255BITS/ParticleGAN/blob/1b8355b184b21bb7d81104ee590813c262f6df0a/particlegan/recipes.py),
-[DualNorm](https://github.com/255BITS/ParticleGAN/blob/1b8355b184b21bb7d81104ee590813c262f6df0a/particlegan/optim/dualnorm.py)
-and [direction blend](https://github.com/255BITS/ParticleGAN/blob/1b8355b184b21bb7d81104ee590813c262f6df0a/particlegan/optim/direction_blend.py).
+See the [ParticleGAN recipes](https://github.com/255BITS/ParticleGAN/blob/d5dec2fe005305082acf382f0939a4bdb51c7131/particlegan/recipes.py),
+[DualNorm](https://github.com/255BITS/ParticleGAN/blob/d5dec2fe005305082acf382f0939a4bdb51c7131/particlegan/optim/dualnorm.py)
+and [direction blend](https://github.com/255BITS/ParticleGAN/blob/d5dec2fe005305082acf382f0939a4bdb51c7131/particlegan/optim/direction_blend.py).
 
 Activation entries below are architecture-based envelopes. Fused/memory-efficient
 SDPA is assumed for the pretrained model; a math attention fallback that materializes
