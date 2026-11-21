@@ -38,7 +38,7 @@ def test_installed_payload_relocated_locks_and_actual_core_origin_match_active_c
     _, identity = checked_builder()
     assert identity["flux_core_commit"] == profile["core_commit"]
     assert identity["flux_cohort"] == COHORT == profile["cohort"]
-    assert distribution("particle-sliders-core").version == "0.15.1"
+    assert distribution("particle-sliders-core").version == "0.15.2"
     origin = json.loads(distribution("particle-sliders-core").read_text("direct_url.json"))
     assert origin["vcs_info"]["commit_id"] == profile["core_commit"]
     assert origin["url"] == "https://github.com/HyperGAN/particle-sliders.git"

@@ -24,7 +24,7 @@ only the genuinely missing new ON observation was added.
 Both authentic FULL32 candidates separately passed their qualified categorical
 catastrophic guards. That is an eligibility check for catastrophic failure, not
 an effect score or formal trait validation. Weak/absent illumination gain is not
-failure. The [portable summary](finished-output-rate.json) retains per-case
+failure. The [portable summary](https://github.com/HyperGAN/flux-particle-sliders/blob/5c188fbdc0af7054c1088bfdd61c77ee1d2742aa/docs/finished-output-rate.json) retains per-case
 levels, exact rate products, original result/guard hashes and RAW/FULL metadata.
 Retained checkpoints, teacher tensors and original first responses are private;
 this repository does not bundle a trained slider, public weight download or
@@ -49,8 +49,8 @@ the public checkpoint contract or move an old source-bound RAW to a new factory.
 ## Actual public options and how-to
 
 The current native project is [native-candidate](../native-candidate/README.md),
-namespace `ps_flux_native95`, PG0.9.5/core0.14.1 at the captured core41f Source.
-The original root PG0.9.4 prerequisite remains separate. The two literal
+namespace `ps_flux_native95`, the archived ParticleGAN release/core0.14.1 at the captured core41f Source.
+The original root the archived ParticleGAN release prerequisite remains separate. The two literal
 `SessionConfig.options` fragments accepted by the native product are:
 
 ```json

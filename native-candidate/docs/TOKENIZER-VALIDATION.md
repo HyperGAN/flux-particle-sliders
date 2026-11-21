@@ -6,7 +6,7 @@ with SentencePiece 0.2.3 and protobuf 7.36.2. It encoded all four declared promp
 strings to fixed `[4,256]` coordinates and produced nonempty decoded text.
 The actual class was
 `transformers.models.t5.tokenization_t5_fast.T5TokenizerFast`.
-[The portable evidence record](tokenizer-evidence.json) retains the actual
+[The portable evidence record](https://github.com/HyperGAN/flux-particle-sliders/blob/5c188fbdc0af7054c1088bfdd61c77ee1d2742aa/native-candidate/docs/tokenizer-evidence.json) retains the actual
 receipt hashes, two wheel identities and relevant 63-version ledger.
 
 The original pretrained pipeline attempt failed before any teacher row or

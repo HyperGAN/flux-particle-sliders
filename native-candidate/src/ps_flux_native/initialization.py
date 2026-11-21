@@ -89,7 +89,7 @@ def validate_receipt(value, cohort):
             or value.get("restored_from") is not None or value.get("source_identity") != source_identity()
             or value.get("helper_source") != {"file": Path(shared.__file__).name,
                 "bytes": Path(shared.__file__).stat().st_size, "sha256": file_hash(shared.__file__)}
-            or value.get("particlegan", {}).get("version") != "0.11.0"
+            or value.get("particlegan", {}).get("version") != "0.11.1"
             or value.get("particlegan", {}).get("initializer_source", {}).get("sha256") !=
                "3534ff23efa413cdf8b4125b91e0d30671d873b3e2958547d4e744b750454b9b"):
         raise ValueError("receipt is not this new Flux fresh-initialization lineage")
@@ -135,7 +135,7 @@ def construction_for(config, packet):
     if packet["schema"] != TRAINING or packet["manifest"]["config"] != config.as_dict():
         raise ValueError("resume requires exact native response FULL packet/config, no migration")
     game = packet["payload"]["game"]
-    if game["config"].get("pg_version") != "0.11.0":
+    if game["config"].get("pg_version") != "0.11.1":
         raise ValueError("historical PG packets retain their original loaders")
     receipt = validate_receipt(deepcopy(game["config"]["backend"]["fresh_initialization"]), config.cohort)
     return Construction("resume", config.cohort, digest(config.options), receipt.canonical_json)

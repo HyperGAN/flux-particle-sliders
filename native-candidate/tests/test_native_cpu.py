@@ -107,7 +107,7 @@ def configuration(root, runtime):
         cache_index_sha256=file_hash(cache / "index.json"), device="cpu", base_precision="float32",
         height=64, width=64, text_tokens=3, steps=2, batch=2, seed=19, critic_width=4,
         lr=.0004, d_lr_mult=.5000000000000001, prior_lr_mult=None, ema_decay=None,
-        pg_version="0.11.0", pg_source_profile="release-0.11.0", penalty_input_domain="auto",
+        pg_version="0.11.1", pg_source_profile="release-0.11.1", penalty_input_domain="auto",
         initialization_policy=INITIALIZATION_POLICY)
 
 
