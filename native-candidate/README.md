@@ -152,6 +152,64 @@ early-heavy strength, +0.000304 for equal-dose constant strength, and
 integrity checks. These settings apply to this checkpoint and tested sampling
 profile. [Per-case scores and image hashes](docs/ink-wash-raw18-scheduled-strength.json).
 
+### Activation-gated RAW rendering
+
+Use the same open RAW session and original native flow renderer with an explicit
+`LatentGatePlan`. In the single conditioned forward of each Schnell Euler
+interval, the renderer reads the live `[1, image_tokens, 64]` packed latent
+before the DiT's adapter and averages its spatial tokens in FP32. The shared
+CFP or CLABS gate projects that vector onto the supplied unit direction. A
+firing applies the declared nominal strength to the existing RAW LoRA for
+that forward. Otherwise the step runs at exact OFF. The native sigma grid,
+conditioning, scheduler and VAE still own generation. This uses the paper's
+allocation equations for the native LoRA edit at diffusion intervals.
+
+```python
+from ps_flux_native.activation_gate import LatentGatePlan
+from ps_flux_native.scheduled_render import render
+
+plan = LatentGatePlan(
+    core_wheel=verified_core_269_wheel,
+    method="cfp",
+    parameter=calibration.parameter,
+    direction=flux_packed_channel_unit_direction,
+    calibration_sha256=calibration_record_sha256,
+)
+image = render(raw_session, prompt=prompt, steps=steps, seed=seed,
+               strength=nominal_strength, gate_plan=plan)
+receipt = image.info["strength_schedule"]
+```
+
+The [shared calibration workflow](https://github.com/HyperGAN/particle-sliders/blob/b1f780decc516808cfd3019d5e5b674457161f86/docs/strength-schedules.md#activation-dependent-steering)
+provides `contrastive_sae_direction` and active `calibrate_gate_budget`. Fit
+against separate positive/neutral trajectory captures at this exact Flux
+readout. The saved velocity cache pairs two velocities on the same neutral
+latent, so dedicated positive latent captures and a fitted Flux direction
+are required. Use a disjoint set of matched prompts and initial noise for
+active threshold or bias calibration. Record the fitted probe, exact model
+and saved RAW identities, precision, geometry, solver grid and calibration
+cases in the record whose SHA-256 goes into the plan.
+
+For CLABS, pass `method="clabs"`, the calibrated bias as `parameter`, a local
+gate `seed`, and an explicit dictionary with `mean`, `std`, `epsilon`,
+`setpoint`, `proportional_gain`, `integral_gain` and `beta`. For the matched
+random control use `method="random"`, target firing rate as `parameter`, and
+a local `seed`. Each request starts a fresh gate. Read the projections,
+probabilities, decisions and effective strengths per interval and the
+realized firing rate and sigma-weighted strength from the receipt. Save it
+alongside the image. For fixed replay divide the logged strengths by the
+nominal strength and pass them as `step_gains` in a separate request.
+
+Build the [pinned core wheel](https://github.com/HyperGAN/particle-sliders/pull/269)
+from commit `b1f780decc516808cfd3019d5e5b674457161f86` and supply it as a file.
+The product authenticates the steering module's SHA-256 before loading it
+into a private namespace. Its installed core and strict RAW/FULL initialization
+receipts retain the existing dependency pin. The older Ink Wash RAW18 panel
+belongs to its archived runtime. Keep the eight recorded case/seed pairs out
+of fitting and calibration and use their frozen finished Ink Wash effect and
+separate integrity checks when evaluating that archive in its source-bound
+runtime. Native adaptive output gain is unmeasured.
+
 For LR work, rank only the equal-case intended-effect ON−OFF mean in finished
 outputs. Preserve ties/zeros/negatives and reuse existing completed measurements.
 Teacher SSE and GAN diagnostics are not selectors. Integrate the shared

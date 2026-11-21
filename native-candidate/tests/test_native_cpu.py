@@ -7,6 +7,7 @@ The tiny loader fixture is labeled synthetic and never claims a model lock.
 from copy import deepcopy
 import json
 from pathlib import Path
+from statistics import fmean, pstdev
 from unittest.mock import patch
 
 import pytest
@@ -287,3 +288,108 @@ def test_schedule_uses_original_native_pipeline_and_reports_its_sigma_grid(tmp_p
             assert len(timed.info["strength_schedule"]["sigmas"]) == 3
             assert reopened.pipe.scheduler is original_scheduler
             assert not reopened.transformer._forward_pre_hooks and not reopened.transformer._forward_hooks
+
+
+@pytest.fixture
+def flux_steering_wheel():
+    import os
+
+    path = os.environ.get("FLUX_TEST_STEERING_WHEEL")
+    if not path:
+        pytest.skip("supply the verified core #269 wheel to exercise opt-in Flux steering")
+    return Path(path)
+
+
+def test_steering_wheel_rejects_changed_source(tmp_path):
+    from zipfile import ZipFile
+
+    from ps_flux_native.activation_gate import CORE_MODULE, LatentGatePlan
+
+    forged = tmp_path / "unverified.whl"
+    with ZipFile(forged, "w") as archive:
+        archive.writestr(CORE_MODULE, "raise AssertionError('never execute changed wheel bytes')\n")
+    with pytest.raises(ValueError, match="exact shared steering module"):
+        LatentGatePlan(core_wheel=forged, method="random", parameter=0,
+                       seed=0, calibration_sha256="a" * 64)
+
+
+def test_actual_native_live_gate_replay_off_and_scope_restore(tmp_path, flux_steering_wheel):
+    from particle_sliders.inference import open_inference
+    import ps_flux_native.lifecycle as life
+    from ps_flux_native.activation_gate import LatentGatePlan
+    from ps_flux_native.scheduled_render import render
+
+    runtime = FixtureRuntime(tmp_path)
+    config = configuration(tmp_path, runtime)
+    with open_training(config, runtime=runtime) as training:
+        training.step()
+        raw = training.export_inference(selection="raw")
+    reopened = FixtureRuntime(tmp_path)
+    original_scheduler = reopened.pipe.scheduler
+    native = dict(prompt="a x", steps=4, strength=0.5, seed=7)
+    options = {key: config.options[key] for key in ("model_dir", "model_lock_sha256", "device", "base_precision")}
+    probe = torch.nn.functional.one_hot(torch.tensor(0), num_classes=64).float()
+    settings = dict(core_wheel=flux_steering_wheel, calibration_sha256="1" * 64)
+    off_gate = LatentGatePlan(**settings, method="random", parameter=0, seed=0)
+    mixed_gate = LatentGatePlan(**settings, method="random", parameter=0.5, seed=0)
+
+    with patch.object(life, "NativeRuntime", return_value=reopened):
+        with open_inference(raw, backend=NATIVE_BACKEND, options=options,
+                            native_request=dict(prompt="a x", steps=4)) as inference:
+            observed = []
+
+            def input_probe(_model, _args, kwargs):
+                latent = kwargs["hidden_states"]
+                observed.append(float(latent.mean(dim=(0, 1), dtype=torch.float32) @ probe))
+
+            with reopened.transformer.register_forward_pre_hook(input_probe, with_kwargs=True):
+                off = inference.render(**{**native, "strength": 0.0})
+            off_scores = list(observed)
+            assert len(set(off_scores)) > 1
+            adaptive_off = render(inference, **native, gate_plan=off_gate)
+            assert adaptive_off.tobytes() == off.tobytes()
+            assert adaptive_off.info["strength_schedule"]["fired"] == 0
+
+            mixed = render(inference, **native, gate_plan=mixed_gate)
+            receipt = mixed.info["strength_schedule"]
+            assert [step["interval"] for step in receipt["decisions"]] == list(range(4))
+            assert [step["fired"] for step in receipt["decisions"]] == [False, False, True, True]
+            assert receipt["effective_strengths"] == [0, 0, 0.5, 0.5]
+            assert receipt["gate_rate"] == 0.5
+            assert receipt["sigma_weighted_strength"] == pytest.approx(
+                0.5 * (receipt["sigmas"][2] - receipt["sigmas"][-1]))
+            assert render(inference, **native, gate_plan=mixed_gate).tobytes() == mixed.tobytes()
+            replay = render(inference, **native, step_gains=[0, 0, 1, 1])
+            assert replay.tobytes() == mixed.tobytes()
+
+            observed.clear()
+            threshold = (min(off_scores) + max(off_scores)) / 2
+            cfp = LatentGatePlan(**settings, method="cfp", parameter=threshold, direction=probe)
+            with reopened.transformer.register_forward_pre_hook(input_probe, with_kwargs=True):
+                cfp_result = render(inference, **native, gate_plan=cfp)
+            cfp_trace = cfp_result.info["strength_schedule"]["decisions"]
+            assert [step["projection"] for step in cfp_trace] == observed
+            assert [step["fired"] for step in cfp_trace] == [value <= threshold for value in observed]
+            assert any(step["fired"] for step in cfp_trace)
+
+            clabs = LatentGatePlan(**settings, method="clabs", parameter=0.5, seed=0, direction=probe,
+                clabs=dict(mean=fmean(off_scores), std=pstdev(off_scores),
+                           epsilon=torch.finfo(torch.float32).eps, setpoint=0.0,
+                           proportional_gain=1.0, integral_gain=0.5, beta=0.5))
+            clabs_result = render(inference, **native, gate_plan=clabs)
+            clabs_trace = clabs_result.info["strength_schedule"]
+            assert clabs_trace["eligible"] == 4
+            assert all(0 <= step["probability"] <= 1 for step in clabs_trace["decisions"])
+            replay_gains = [value / native["strength"] for value in clabs_trace["effective_strengths"]]
+            assert render(inference, **native, step_gains=replay_gains).tobytes() == clabs_result.tobytes()
+
+            def fail(_model, _args, _output):
+                raise RuntimeError("synthetic native render failure")
+
+            with reopened.transformer.register_forward_hook(fail):
+                with pytest.raises(RuntimeError, match="synthetic native render failure"):
+                    render(inference, **native, gate_plan=cfp)
+            assert reopened.pipe.scheduler is original_scheduler
+            assert inference.binding.network.strength == 0.0
+            assert not reopened.transformer._forward_pre_hooks and not reopened.transformer._forward_hooks
+            assert render(inference, **native, gate_plan=off_gate).tobytes() == off.tobytes()
