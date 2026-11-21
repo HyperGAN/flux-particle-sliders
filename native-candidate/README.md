@@ -1,9 +1,9 @@
-# Native packed Flux PG0.11.0 candidate
+# Native packed Flux PG0.11.1 candidate
 
 This is a new, separately installable Source candidate. It preserves native
 `[1,image_tokens,64]` velocity responses and the ordinary rank4/alpha1 HNDL
 down/up LoRA from the published Flux prerequisite. It supplies a genuine shared
-`ResponseBackend`, full native teacher cache, official PG0.11.0 `adapter_gan`
+`ResponseBackend`, full native teacher cache, official PG0.11.1 `adapter_gan`
 updates, exact FULL restore, RAW-only native inference and the official
 Diffusers Flux finished-image pipeline. No response projection, subsampling,
 token-axis reinterpretation or synthetic particle bank is used. The official
@@ -20,11 +20,9 @@ Later retained actual pretrained RAW32 training and finished images support a
 G0.012/G0.001 tie at0.0, one equal case, all OFF/ON levels4/4. Both corresponding
 FULL32 catastrophic guards pass. The trait remains unqualified; differing
 critic execution histories preclude an LR-only causal or bitwise-CUDA claim.
-No unique/default LR, released weight or ordinary hosted Generate is established. The core dependency names the actual merged main PR205 commit
-`c13890f8e2a1ecf1dc8eb9f2a37f9187cb9fea78` (core0.15.1/PG0.11.0). The old top-level
-preview package and its core0.12/PG0.9.4 identity are unchanged. Use a new
-environment, not the old captured environment; do not coinstall incompatible
-core/HNDL profiles or reinterpret old packets.
+No unique/default LR, released weight or ordinary hosted Generate is established. The core dependency pins the shared runtime at
+`ec1161f5d74481be3540cb0dfa63d0e8f8b54e90` (core0.15.2/PG0.11.1). The original preview remains at its archived source revision. Use a fresh
+environment for the current runtime and keep old packets with their original dependencies.
 
 Native model scope is the declared `black-forest-labs/FLUX.1-schnell` revision
 `741f7c3ce8b383c54771c7003378a50191e9efe9`. A preparation owner must stage the
@@ -88,7 +86,7 @@ config = SessionConfig("flux_native_packed95", "my-new-flux-cohort",
     device="cuda:0", base_precision="bfloat16",
     height=512, width=512, text_tokens=256,
     steps=32, batch=2, seed=7, ema_decay=None,
-    pg_version="0.11.0", pg_source_profile="release-0.11.0",
+    pg_version="0.11.1", pg_source_profile="release-0.11.1",
     penalty_input_domain="auto", initialization_policy=INITIALIZATION_POLICY)
 with open_training(config) as session:
     session.train()

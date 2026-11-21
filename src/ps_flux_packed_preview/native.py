@@ -51,11 +51,11 @@ def preflight_training(response_shape, *, model=None, cohort=COHORT):
         validate_engine_domain(shape, response_domain="continuous_field")
     except RuntimeError as exc:
         raise FluxSourceMismatch(
-            "Flux preflight requires the exact ParticleGAN 0.11.0 release source; "
+            "Flux preflight requires the exact ParticleGAN 0.11.1 release source; "
             "installed version/source verification failed: " + str(exc)) from exc
     except ValueError as exc:
         raise PackedTrainingUnavailable(
-            "core 0.15.1 / ParticleGAN 0.11.0 continuous_field rank gate rejects native packed rank3 responses; "
+            "core 0.15.2 / ParticleGAN 0.11.1 continuous_field rank gate rejects native packed rank3 responses; "
             "Flux shared training/resume/EMA/export remain unavailable. "
             "No hooks or weights were changed; no response axes were recast.") from exc
     # A future core must be separately source-qualified; its new API is not

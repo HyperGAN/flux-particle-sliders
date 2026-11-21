@@ -10,7 +10,7 @@ Test-module authorship notes remain byte-identical to the measured Source;
 this receipt records their later actual execution.
 
 The tests exercise actual tiny Diffusers Flux/VAE and Transformers CLIP/T5
-components, the exact HNDL builder and official ParticleGAN0.9.5. They cover
+components, the exact HNDL builder and the archived ParticleGAN release. They cover
 native packed responses, fresh-before-optimizer initialization, exact FULL
 resume, RAW export/inference, cache reuse/tamper refusal, real tiny pipeline PIL
 rendering and cleanup. Actual HNDL Linear subclasses are admitted through plain

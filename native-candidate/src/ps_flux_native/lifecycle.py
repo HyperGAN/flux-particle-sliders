@@ -20,7 +20,7 @@ from .cache import CachedResponses
 def capabilities(options):
     shape = geometry(options)
     return ResponseCapabilities("adapter_gan", "image", "native-packed-velocity", "continuous_packed",
-        (1, shape["image_tokens"], 64), "0.11.0", "release-0.11.0", penalty_input_domain="auto",
+        (1, shape["image_tokens"], 64), "0.11.1", "release-0.11.1", penalty_input_domain="auto",
         base_precisions=("float32", "bfloat16"), qualification="New native Source; matching CPU/pretrained/GPU checks pending")
 
 

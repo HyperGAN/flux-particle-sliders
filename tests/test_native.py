@@ -109,14 +109,14 @@ def test_wrong_pg_source_is_reported_separately_from_packed_rank_refusal(mismatc
     rng = torch.get_rng_state().clone()
     if mismatch == "version":
         change = patch("particle_sliders.engine.version",
-            side_effect=lambda name: "0.9.3" if name == "particlegan" else version(name))
+            side_effect=lambda name: "99.0.0" if name == "particlegan" else version(name))
     else:
         original = Path.read_bytes
         def changed(path):
             data = original(path)
             return data + b"\n# source mismatch\n" if path.parent.name == "particlegan" and path.name == "__init__.py" else data
         change = patch.object(Path, "read_bytes", changed)
-    with change, pytest.raises(FluxSourceMismatch, match="exact ParticleGAN 0.11.0 release source") as rejected:
+    with change, pytest.raises(FluxSourceMismatch, match="exact ParticleGAN 0.11.1 release source") as rejected:
         preflight_training((1, 4, 64), model=m)
     assert isinstance(rejected.value.__cause__, RuntimeError)
     assert torch.equal(rng, torch.get_rng_state())
@@ -176,7 +176,7 @@ def test_shared_response_descriptor_cannot_advertise_packed_geometry():
     for domain in ("continuous_vector", "continuous_field"):
         with pytest.raises(ValueError, match="native continuous response geometry"):
             ResponseCapabilities("adapter_gan", "image", "packed_velocity", domain,
-                (1, 4, 64), "0.11.0", "release-0.11.0")
+                (1, 4, 64), "0.11.1", "release-0.11.1")
 
 
 def test_supported_field_gate_control_is_distinct_from_unchanged_flux_rank3():

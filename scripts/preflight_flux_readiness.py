@@ -10,7 +10,7 @@ from pathlib import Path
 import re
 
 PRODUCT_BASE = "8a80ace99ad5afa3f2b3d779b14cf55ed557ceb1"
-CORE_COMMIT = "c13890f8e2a1ecf1dc8eb9f2a37f9187cb9fea78"
+CORE_COMMIT = "ec1161f5d74481be3540cb0dfa63d0e8f8b54e90"
 MAX_METADATA_BYTES = 1024 * 1024
 COMPONENTS = ("transformer", "text_encoder", "text_encoder_2", "vae")
 METADATA = ("model_index.json", "transformer/config.json", "text_encoder/config.json",
