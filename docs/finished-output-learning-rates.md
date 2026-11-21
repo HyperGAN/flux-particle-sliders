@@ -59,7 +59,7 @@ The original root the archived ParticleGAN release prerequisite remains separate
 ```
 
 G=`lr`, D=`lr*d_lr_mult`; the product forwards these exact G/D literals through
-`ConditionalPG095(recipe_overrides=...)`. A non-null `prior_lr_mult` is refused:
+`ConditionalParticleGAN(recipe_overrides=...)`. A non-null `prior_lr_mult` is refused:
 no bank is inserted. The official `adapter_gan` objective, complete packed
 rank>=3 penalty and optimizer law are unchanged. Omitted options preserve upstream
 defaults, not optimized rates. Copy saved literals rather than rounded quotients.
