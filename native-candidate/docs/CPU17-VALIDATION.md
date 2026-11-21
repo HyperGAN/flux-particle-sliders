@@ -3,7 +3,7 @@
 On2026-11-09, source commit `01ac3bb2166656427252776b591ba47a82ba35d7`
 passed all17 random-tiny native CPU checks in1.546 seconds:0 failures,0 errors,
 0 skips. The original8 checks plus9 HNDL initialization regressions ran once
-against the repaired Source. [cpu17-evidence.json](cpu17-evidence.json) records
+against the repaired Source. [cpu17-evidence.json](https://github.com/HyperGAN/flux-particle-sliders/blob/5c188fbdc0af7054c1088bfdd61c77ee1d2742aa/native-candidate/docs/cpu17-evidence.json) records
 the measured file hashes, dependency identities, scope and sanitized evidence
 identities. The original failed8-check result (5pass/3fail) remains retained.
 Test-module authorship notes remain byte-identical to the measured Source;
