@@ -261,3 +261,23 @@ def test_scheduler_and_native_state_restore_on_render_failure(tmp_path):
     assert pipe.scheduler is old_scheduler and "_current_timestep" not in vars(pipe)
     assert torch.equal(old_scheduler.timesteps, before_times) and torch.equal(old_scheduler.sigmas, before_sigmas)
     assert dict(old_scheduler.config) == before_config
+
+
+def test_schedule_uses_original_native_pipeline_and_reports_its_sigma_grid(tmp_path):
+    from ps_flux_native.render import render_image
+    from ps_flux_native.scheduled_render import render
+
+    runtime = FixtureRuntime(tmp_path)
+    shape = geometry({"height": 64, "width": 64, "text_tokens": 3})
+    adapter = FluxLoRA(runtime.transformer, image_tokens=16, text_tokens=3)
+    native = dict(geometry=shape, prompt="a x", steps=2, strength=0.5, seed=7)
+    original_scheduler = runtime.pipe.scheduler
+    with adapter.borrowed():
+        default = render_image(runtime, adapter, **native)
+        constant = render(runtime, adapter, **native, step_gains=[1.0, 1.0])
+        assert constant.tobytes() == default.tobytes()
+        timed = render(runtime, adapter, **native, step_gains=[1.5, 0.5])
+        assert timed.info["strength_schedule"]["effective_strengths"] == [0.75, 0.25]
+        assert len(timed.info["strength_schedule"]["sigmas"]) == 3
+        assert runtime.pipe.scheduler is original_scheduler
+        assert not runtime.transformer._forward_pre_hooks and not runtime.transformer._forward_hooks

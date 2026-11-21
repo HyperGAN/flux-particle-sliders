@@ -111,13 +111,16 @@ def preflight_inference(options, request, spec):
     if request["operation"] == "render":
         from .render import validate_render_request
         native = request["native"]
-        if set(native) - {"prompt", "height", "width", "steps", "images"}:
+        if set(native) - {"prompt", "height", "width", "steps", "images", "step_gains"}:
             raise ValueError("unknown native finished render arguments")
         if native.get("images") is not None:
             raise ValueError("native Flux finished render is text-only; reference images are unsupported")
         validate_render_request(geometry=spec.configuration["geometry"], prompt=native.get("prompt"),
             height=native.get("height"), width=native.get("width"), steps=native.get("steps", 4),
             strength=request["strength"], seed=0, output_type=request["output_type"])
+        if "step_gains" in native:
+            from .scheduled_render import resolve
+            resolve(request["strength"], native.get("steps", 4), native["step_gains"])
     elif request["native"] and set(request["native"]) != {"condition", "latent", "timestep"}:
         raise ValueError("native response requires exact condition/latent/timestep together")
 
@@ -145,6 +148,10 @@ def prepare_inference(options, spec):
         def render(*, strength, seed, images=None, output_type="pil", **native):
             if images is not None:
                 raise ValueError("native Flux finished render is text-only; reference images are unsupported")
+            if "step_gains" in native:
+                from .scheduled_render import render as render_scheduled
+                return render_scheduled(runtime, adapter, geometry=shape, strength=strength,
+                                        seed=seed, output_type=output_type, **native)
             from .render import render_image
             return render_image(runtime, adapter, geometry=shape, strength=strength, seed=seed,
                                 output_type=output_type, **native)
