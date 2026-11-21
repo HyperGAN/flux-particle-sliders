@@ -1,0 +1,175 @@
+{
+  "profile": "Flux Ink Wash RAW18",
+  "scope": "Exploratory native comparison limited to this RAW checkpoint, sampler, two fit pairs, one calibration case and two held-out cases. Generalization remains unmeasured.",
+  "model": {
+    "id": "black-forest-labs/FLUX.1-schnell",
+    "revision": "741f7c3ce8b383c54771c7003378a50191e9efe9"
+  },
+  "raw_checkpoint_sha256": "8a8fcaa08d2f1eef2431058917a7bf7dd2524d1bf99541f226f8ae8c1e5e32b0",
+  "ema_decay": null,
+  "sampler": {
+    "name": "Native BF16 Euler",
+    "steps": 4,
+    "guidance_scale": 0,
+    "true_cfg_scale": 1,
+    "height": 512,
+    "width": 512,
+    "image_tokens": 1024,
+    "sigmas": [
+      1,
+      0.75,
+      0.5,
+      0.25,
+      0
+    ],
+    "nominal_strength": 0.6666666666666666,
+    "eligible_intervals_per_case": 4
+  },
+  "probe": {
+    "signal": "mean pre-edit packed Flux latent channels in FP32",
+    "fit_families": [
+      "musician",
+      "fisherman"
+    ],
+    "fit_vectors": 16,
+    "dimension": 64,
+    "dictionary_width": 128,
+    "sweeps": 1,
+    "direction_encoding": "Little-endian IEEE 754 binary32 in packed channel order",
+    "direction_sha256": "0bfaa92067261421af20d23c1394ff1afc34a70aa50e4ca63c0867ddfe793eff",
+    "shared_core_revision": "b1f780decc516808cfd3019d5e5b674457161f86",
+    "shared_core_module_sha256": "5fc2a5256a935eca9cecc365d9ac62e5e94cdc375d2ab33c5dc26eb344241814",
+    "archive_probe_receipt_sha256": "738ba9d24d3a95ddbcfe823279a48896ae982399d8c2431e91ec1d6c9ae77a57"
+  },
+  "calibration": {
+    "family": "pilgrim",
+    "case": "6eb87c116dd900b48fae5f09030ccd61f9a2b572c3b1d4fc7724c041e34c254b",
+    "noise_seed": 917302,
+    "target_firing_fraction": 0.5,
+    "active_native_rollouts": 8,
+    "protocol_sha256": "fc5c05b3e3faec84b4a0a37893582a943094648b2c566caa22e8d6cfa61d3d67",
+    "result_sha256": "73d3a5f6ba4aff8dc896742937dfa0f117ad0fe98a85b3bbc0d52a6c3c3c8076",
+    "verified_receipt_sha256": "73eddf506d93334ff49f8c47326721c39f5d5639af43dbea74ac31ebd105db9d",
+    "methods": {
+      "cfp": {
+        "threshold": 0.42423152178525925,
+        "fired": 2,
+        "eligible": 4
+      },
+      "clabs": {
+        "bias": -0.05587855788433127,
+        "fired": 2,
+        "eligible": 4,
+        "controller": {
+          "mean": 0.358528058975935,
+          "std": 0.2637349801931543,
+          "epsilon": 1e-06,
+          "setpoint": 0.75,
+          "proportional_gain": 1.0,
+          "integral_gain": 0.2,
+          "beta": 0.2
+        }
+      }
+    }
+  },
+  "metric": "Equal-case mean of finished Ink Wash ON minus OFF using the mean SigLIP2 positive-minus-neutral margin over four rubric pairs",
+  "summary": {
+    "matched_cases": 2,
+    "mean_effect_ON_minus_OFF": {
+      "equal_dose_constant": 0.002330553368665278,
+      "cfp": 0.002330553368665278,
+      "clabs": 0.002330553368665278
+    },
+    "mean_effect_gain_vs_equal_dose_constant": {
+      "cfp": 0.0,
+      "clabs": 0.0
+    },
+    "categorical_integrity_passed_cases": 2
+  },
+  "cases": [
+    {
+      "case": "34e559cae054201593db701f518a8f7f61dd9dfd8fd37c5b5833d32e00796098",
+      "family": "tea-vendor",
+      "noise_seed": 917303,
+      "OFF_png_sha256": "ac2936b6610b14b6487b59a38ebe0a5301a60c8ae6c02180d34b5bff9a34258a",
+      "shared_ON_png_sha256": "f82b8799635ecf2a8ce3d5431af57eac970660d6e0489110c9261031c0562095",
+      "finished_latents_bitwise_equal_to_constant": true,
+      "categorical_integrity_passed": true,
+      "equal_dose_constant": {
+        "interval_strength": 0.6666666666666666,
+        "sigma_weighted_strength": 0.6666666666666666,
+        "effect_ON_minus_OFF": 0.00401897937990725
+      },
+      "methods": {
+        "cfp": {
+          "fired_intervals": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "sigma_weighted_strength": 0.6666666666666666,
+          "effect_ON_minus_OFF": 0.00401897937990725,
+          "effect_gain_vs_equal_dose_constant": 0.0
+        },
+        "clabs": {
+          "fired_intervals": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "sigma_weighted_strength": 0.6666666666666666,
+          "effect_ON_minus_OFF": 0.00401897937990725,
+          "effect_gain_vs_equal_dose_constant": 0.0,
+          "gate_seed_uint64": "3811551387520868373"
+        }
+      }
+    },
+    {
+      "case": "9ce3b2144de3e9430ccfd602c3fbe5659da39a3de763b14002aae9a6a225095b",
+      "family": "rooftop-cat",
+      "noise_seed": 917304,
+      "OFF_png_sha256": "f67fddd5f125cb64bc697aa8f501af2bd18db5857be8a65c1a1d27c4ea87dcce",
+      "shared_ON_png_sha256": "bd9e6db0d880f63b8741e92dc35e8d9d69d342019f0d17cfef3851a502ca056c",
+      "finished_latents_bitwise_equal_to_constant": true,
+      "categorical_integrity_passed": true,
+      "equal_dose_constant": {
+        "interval_strength": 0.6666666666666666,
+        "sigma_weighted_strength": 0.6666666666666666,
+        "effect_ON_minus_OFF": 0.0006421273574233055
+      },
+      "methods": {
+        "cfp": {
+          "fired_intervals": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "sigma_weighted_strength": 0.6666666666666666,
+          "effect_ON_minus_OFF": 0.0006421273574233055,
+          "effect_gain_vs_equal_dose_constant": 0.0
+        },
+        "clabs": {
+          "fired_intervals": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "sigma_weighted_strength": 0.6666666666666666,
+          "effect_ON_minus_OFF": 0.0006421273574233055,
+          "effect_gain_vs_equal_dose_constant": 0.0,
+          "gate_seed_uint64": "11305075289905948995"
+        }
+      }
+    }
+  ],
+  "source_receipt_sha256": {
+    "cfp_heldout": "f7bc64e3ae827a04888753c433e11d0fba79f56f2264e75d63132868ae36ef85",
+    "clabs_native": "e5978aa9f71fef8306f12fae9d115faf5fe7c1e555fa65b80cac48956f3cd3f4",
+    "verified_heldout": "dc853488722c92907f6a3b96bd818dfbc56848a967c568d475feb548e50b8570",
+    "independent_cpu_audit": "45ba62d977c183271638c621d5a65bbad5fa83048a1267ad4a1a0cd8e9873811"
+  }
+}
