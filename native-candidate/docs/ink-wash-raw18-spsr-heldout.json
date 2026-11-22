@@ -1,0 +1,292 @@
+{
+  "schema": "flux-ink-wash-raw18-spsr-heldout-v1",
+  "article": "https://proceedings.mlr.press/v306/heyman26a.html",
+  "shared_core_revision": "7b26e5b06f5db91e8d3f51a1602d4e459f0f6a22",
+  "published_flux_native_hook": "467f06f46457c2f684757a4e90b86c0e9737c2be",
+  "recorded_native_owner": "Original legacy RAW18 BF16 owner with the merged Euler velocity hook",
+  "profile": {
+    "geometry": {
+      "height": 512,
+      "image_tokens": 1024,
+      "text_tokens": 256,
+      "width": 512
+    },
+    "sigmas": [
+      1,
+      0.75,
+      0.5,
+      0.25,
+      0
+    ],
+    "raw_sha256": "8a8fcaa08d2f1eef2431058917a7bf7dd2524d1bf99541f226f8ae8c1e5e32b0",
+    "fixed_RAW_strength": 0.6666666666666666,
+    "weights": "raw",
+    "ema_decay": null
+  },
+  "fit": {
+    "families": [
+      "musician",
+      "fisherman"
+    ],
+    "distinct_fit_noise_seeds": 1,
+    "paired_native_positions": 8,
+    "affine_design_shape": [
+      8,
+      65
+    ],
+    "affine_design_rank": 8,
+    "fit_artifact_sha256": "5289bfda9df905f848610ae135d8950c1a6b5447e75803126bbbe323f2a06f40",
+    "fit_coefficients": [
+      [
+        0.7909834384918213,
+        0.0016759037971496582,
+        0.0,
+        0.0
+      ],
+      [
+        1.2050588130950928,
+        0.0,
+        0.0009735822677612305,
+        0.0
+      ]
+    ],
+    "fit_optimizer_updates": 30
+  },
+  "comparison": {
+    "coefficient_dose": "Exact FP32 applied coefficient times each native sigma interval width. Both S-PSR and the constant use the same fitted direction. RAW strength stays fixed including OFF, where S-PSR contributes zero.",
+    "heldout_families": 4,
+    "heldout_disjoint_from_fit": true,
+    "distinct_decoded_images": 10,
+    "independent_intended_effect_scores": 10,
+    "independent_integrity_passes": 9,
+    "independent_categorical_failures": 1,
+    "outcome": "categorical_failure",
+    "full_panel_adaptive_minus_off": null,
+    "full_panel_adaptive_minus_constant": null,
+    "full_panel_constant_minus_off": 0.004711238143499941,
+    "qualified_three_case_adaptive_minus_off": 0.00020834198221564293,
+    "qualified_three_case_adaptive_minus_constant": -0.001578711283703645
+  },
+  "categorical_failure": {
+    "case": "5e08313ffb7f522d4f7ccc58a222f7504e97342c13e4421986711017c60272cf",
+    "family": "classroom-chalkboard",
+    "arm": "adaptive",
+    "description": "The image is a near-uniform light gray field with faint vertical edge artifact on the right.",
+    "same_case_off_and_constant_passed": true,
+    "diagnostic_luma_stats": {
+      "off": {
+        "luma_stddev": 42.78104191960218,
+        "gray_range": [
+          26,
+          251
+        ],
+        "most_common_gray_fraction": 0.032520294189453125
+      },
+      "adaptive": {
+        "luma_stddev": 2.357848352937242,
+        "gray_range": [
+          237,
+          255
+        ],
+        "most_common_gray_fraction": 0.20730972290039062
+      },
+      "constant": {
+        "luma_stddev": 14.667007394053696,
+        "gray_range": [
+          140,
+          255
+        ],
+        "most_common_gray_fraction": 0.056232452392578125
+      }
+    }
+  },
+  "cases": [
+    {
+      "id": "a24490b5cc70079e75a52f1ae6ebef628d4a1e21f162025c4968106e3decd946",
+      "family": "empty-playground",
+      "seed": 2722402485,
+      "adaptive_FP32_coefficients": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "exact_coefficient_dose": [
+        0,
+        1
+      ],
+      "matched_constant_FP32_coefficient": 0.0,
+      "arms": {
+        "off": {
+          "PNG_sha256": "aa22d648e9cdbb190fb51578c0215a65ed3b790fe21b57dedc5d408b066ea73c",
+          "effect_receipt_sha256": "0b71e05c9f73b7649736086b3cbddd494eb0e4c7dc2d10635e93e883d2b1280e",
+          "integrity_receipt_sha256": "609b3a1800075232aea6ba8f057b2d79c39e1ae5d00ad937a120e739a833c74d",
+          "integrity": "pass",
+          "categorical_failure": false,
+          "measured_intensity": -0.04849180253222585
+        },
+        "adaptive": {
+          "PNG_sha256": "aa22d648e9cdbb190fb51578c0215a65ed3b790fe21b57dedc5d408b066ea73c",
+          "effect_receipt_sha256": "0b71e05c9f73b7649736086b3cbddd494eb0e4c7dc2d10635e93e883d2b1280e",
+          "integrity_receipt_sha256": "609b3a1800075232aea6ba8f057b2d79c39e1ae5d00ad937a120e739a833c74d",
+          "integrity": "pass",
+          "categorical_failure": false,
+          "measured_intensity": -0.04849180253222585
+        },
+        "constant": {
+          "PNG_sha256": "aa22d648e9cdbb190fb51578c0215a65ed3b790fe21b57dedc5d408b066ea73c",
+          "effect_receipt_sha256": "0b71e05c9f73b7649736086b3cbddd494eb0e4c7dc2d10635e93e883d2b1280e",
+          "integrity_receipt_sha256": "609b3a1800075232aea6ba8f057b2d79c39e1ae5d00ad937a120e739a833c74d",
+          "integrity": "pass",
+          "categorical_failure": false,
+          "measured_intensity": -0.04849180253222585
+        }
+      },
+      "qualified_adaptive_minus_off": 0.0,
+      "qualified_constant_minus_off": 0.0,
+      "qualified_adaptive_minus_constant": 0.0
+    },
+    {
+      "id": "5e08313ffb7f522d4f7ccc58a222f7504e97342c13e4421986711017c60272cf",
+      "family": "classroom-chalkboard",
+      "seed": 1577595199,
+      "adaptive_FP32_coefficients": [
+        2.5736632347106934,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "exact_coefficient_dose": [
+        5397363,
+        8388608
+      ],
+      "matched_constant_FP32_coefficient": 0.6434158086776733,
+      "arms": {
+        "off": {
+          "PNG_sha256": "fc78a9e01d3683b9a5f98929e384739ff15aeb4716e6939069a815b3ad763408",
+          "effect_receipt_sha256": "6cfe1af7c9264f4289888caeb722574496afb1f7d2acddddd5a98951e56c890b",
+          "integrity_receipt_sha256": "01dea03a94e41eaa80d3df990b6f729ee7e99f6466d420223b54600ef444977e",
+          "integrity": "pass",
+          "categorical_failure": false,
+          "measured_intensity": -0.06128779309801757
+        },
+        "adaptive": {
+          "PNG_sha256": "3c1a8edd276df29816dd96c90a442abc9b045c0f4c32c5376f1acaf51fa51ebb",
+          "effect_receipt_sha256": "e0a2f4e87f7e4c2d00d38097cd1549d928460711f6cdc1227f0bdca7395eb755",
+          "integrity_receipt_sha256": "cdc7d9503d52d8fb079bae4599782be18224dfd756999caf1d508124f0b3e470",
+          "integrity": "fail",
+          "categorical_failure": true,
+          "measured_intensity": -0.008870741352438927
+        },
+        "constant": {
+          "PNG_sha256": "389b67383af50a629a147b1606332ed8b0655eb5b347d23ae5ff8c65f757954d",
+          "effect_receipt_sha256": "751b3f2878a76a03e058e7779fabc8667bc8aac5866863352987de402c643b19",
+          "integrity_receipt_sha256": "58fa4deab298645c5684dd1bf195c4b94214f41f85aa002cae9e957dc1dacb4d",
+          "integrity": "pass",
+          "categorical_failure": false,
+          "measured_intensity": -0.047804000321775675
+        }
+      },
+      "qualified_adaptive_minus_off": null,
+      "qualified_constant_minus_off": 0.013483792776241899,
+      "qualified_adaptive_minus_constant": null
+    },
+    {
+      "id": "1dc90fa64bacee02ddc3f02cc35e39806d554fbcafcaa98ca3da5196a0c64e8b",
+      "family": "parking-elevator",
+      "seed": 499716006,
+      "adaptive_FP32_coefficients": [
+        0.7743962407112122,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "exact_coefficient_dose": [
+        12992213,
+        67108864
+      ],
+      "matched_constant_FP32_coefficient": 0.19359906017780304,
+      "arms": {
+        "off": {
+          "PNG_sha256": "4047ed980202e23d77705010ff2d6bea0ea5dd45e6cb951e1c9c90c904de90fc",
+          "effect_receipt_sha256": "32c34da4d2d20d83515d1722f9f9ba21eda7b40fd1d8b3c1d43419f96de0f3a5",
+          "integrity_receipt_sha256": "cac1bdf2d1b9e1b5d9afbbb6a7ef7245368114289812343033e0cde7118af13b",
+          "integrity": "pass",
+          "categorical_failure": false,
+          "measured_intensity": -0.05293369619175792
+        },
+        "adaptive": {
+          "PNG_sha256": "4dec9ee1de0a97ee505c50def6773019dd0b8b283c44d82eeadf2582c24539de",
+          "effect_receipt_sha256": "a6dc320185d12e35c6884de9da5eb695003543f5055efbd3d83ce03ea55730f8",
+          "integrity_receipt_sha256": "dcbdb8eedd649531a85247d1ed6c64a7a9e490c5d5536ea1544c5eef42b1b8d6",
+          "integrity": "pass",
+          "categorical_failure": false,
+          "measured_intensity": -0.0476969126611948
+        },
+        "constant": {
+          "PNG_sha256": "1a68cd5f5cb9ffa4f997e0266d6743ad4b07e0ffeaff082f7ea9d1792c59f762",
+          "effect_receipt_sha256": "ed6d6707e3354129b05aa88b87f907223be5bb1daef6c2d9c1f31f67d6afee9a",
+          "integrity_receipt_sha256": "4adec5cb1be9b8ec8e0f2bb0d187ddca3ca2eed89eb5ce727b174971eabd8da0",
+          "integrity": "pass",
+          "categorical_failure": false,
+          "measured_intensity": -0.047171651385724545
+        }
+      },
+      "qualified_adaptive_minus_off": 0.005236783530563116,
+      "qualified_constant_minus_off": 0.005762044806033373,
+      "qualified_adaptive_minus_constant": -0.0005252612754702568
+    },
+    {
+      "id": "7d22664b573eba5c9cc5da4b6f3569b0ca9a3b2b520358c9c1615accd22fc331",
+      "family": "printing-press",
+      "seed": 2099406411,
+      "adaptive_FP32_coefficients": [
+        0.9849370121955872,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "exact_coefficient_dose": [
+        16524501,
+        67108864
+      ],
+      "matched_constant_FP32_coefficient": 0.2462342530488968,
+      "arms": {
+        "off": {
+          "PNG_sha256": "aaf7f2ee401bfefac8a8d5c8023ba8ace77467b51bd4a0751b8f85bf978a4471",
+          "effect_receipt_sha256": "6ff13645a1e894f4f4f1f2d1c954d7dde587080f70d1b1bcb9d17fea82227228",
+          "integrity_receipt_sha256": "63b624c397835aad2d15b341de569e5013d93c00038d980b3f9580afbeccb9a9",
+          "integrity": "pass",
+          "categorical_failure": false,
+          "measured_intensity": -0.02149267867207527
+        },
+        "adaptive": {
+          "PNG_sha256": "0dbc8d1e207f3aa1b3f887949339e4d80066e3ef892bf936164138cd6d758a34",
+          "effect_receipt_sha256": "5019113e58d48ce82d7bf477b3a31425cc726fca07f62655a0953a00166fa633",
+          "integrity_receipt_sha256": "b395074dddbb3c1b68abdb46eca967035b362c45e336afd2285e433a335a918f",
+          "integrity": "pass",
+          "categorical_failure": false,
+          "measured_intensity": -0.02610443625599146
+        },
+        "constant": {
+          "PNG_sha256": "db3674a583b835ff37199d7bef0fdc182bfa4bb5fbd9bbbd06453524359ee418",
+          "effect_receipt_sha256": "1f75e0271bb2145c0f9795a2637560042a2145358520c931ef1d77847dfb0589",
+          "integrity_receipt_sha256": "0dc1384b7a323e0e9940b5afba07e7934f2cef6bbe14f666704ece4f2c802628",
+          "integrity": "pass",
+          "categorical_failure": false,
+          "measured_intensity": -0.02189356368035078
+        }
+      },
+      "qualified_adaptive_minus_off": -0.004611757583916187,
+      "qualified_constant_minus_off": -0.0004008850082755089,
+      "qualified_adaptive_minus_constant": -0.004210872575640678
+    }
+  ],
+  "provenance": {
+    "frozen_panel_sha256": "551734e9b381e5b9e44cd387901bcd963db1b762dfadbabe5bbe32e576b97be5",
+    "native_sample_terminal_sha256": "b81befb92aca24212fb8e0ae061f8c72ad2f55aa3472bf4244f71c679798cdde",
+    "recovered_effect_terminal_sha256": "0421fe8a958c4106ce06da4b2655c7796e414923559f485943ea46d472b51aaa",
+    "original_integrity_terminal_sha256": "8dc88a1c06d4d2d9eba07605bfa54a3f59d697dcc8522269fefa6695f49b7db7",
+    "checked_receipts_sha256": "bb34ae7a62b41d4f94c65c089aea543f8c69788222354e7b36cc10e70114e2ed"
+  }
+}

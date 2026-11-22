@@ -264,8 +264,7 @@ and the fitted `PromptSteering.state_dict()` as `probe`. It records the measured
 `model_identity_sha256` from
 `ps_flux_native.contracts.digest(inference.binding.identity["model"])`. Flux
 checks those identities and the actual native grid at replay. Keep fit families
-and seeds separate from finished-output evaluation. This interface has no
-measured Flux preset or demonstrated effect gain.
+and seeds separate from finished-output evaluation.
 
 ```python
 from ps_flux_native.scheduled_render import render
@@ -294,6 +293,15 @@ L2 dose.
 This public interface binds the modern strict RAW packet. A historical RAW18
 experiment uses its separately authenticated original native owner to call the
 same private Euler hook.
+
+The four-family Ink Wash RAW18 pilot kept RAW strength at 2/3 and matched the
+applied coefficient dose exactly in each pair. Nine of ten distinct images
+passed independent integrity. S-PSR rendered the classroom case as a
+near-uniform field while its OFF and constant images passed. That case was
+the only positive timing difference before integrity qualification. The
+other three cases gave one tie and two losses, with a mean of −0.00158
+against the same-dose constant. The fit is rejected for this profile.
+[Per-case results](docs/ink-wash-raw18-spsr-heldout.json).
 
 ## Native T5 tokenizer dependencies
 
