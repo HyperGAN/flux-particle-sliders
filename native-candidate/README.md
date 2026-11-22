@@ -204,11 +204,20 @@ Build the [pinned core wheel](https://github.com/HyperGAN/particle-sliders/pull/
 from commit `b1f780decc516808cfd3019d5e5b674457161f86` and supply it as a file.
 The product authenticates the steering module's SHA-256 before loading it
 into a private namespace. Its installed core and strict RAW/FULL initialization
-receipts retain the existing dependency pin. The older Ink Wash RAW18 panel
-belongs to its archived runtime. Keep the eight recorded case/seed pairs out
-of fitting and calibration and use their frozen finished Ink Wash effect and
-separate integrity checks when evaluating that archive in its source-bound
-runtime. Native adaptive output gain is unmeasured.
+receipts retain the existing dependency pin. The Ink Wash RAW18 studies use
+the archived runtime. The probe fit uses the musician and fisherman pairs,
+active calibration uses the pilgrim, and evaluation uses the existing
+measured tea vendor and rooftop cat cases. [Half-budget study](docs/ink-wash-raw18-activation-gates.json).
+
+For the lower-budget pilot, one firing in four native intervals was the
+closest feasible count to the paper’s 20% target. The shared solver reached
+that count on the pilgrim for both CFP and CLABS. On the two held-out cases,
+both calibrated gates fired on all four steps in an exact replay of the
+saved fully-active trajectories. This qualified reuse of the original
+native latents, finished PNGs, effect scores, and independent integrity
+checks. The replay made zero new render or scorer calls. Each method averaged
++0.002331 over OFF and tied the equal-dose constant on both cases.
+[Lower-budget replay and resolved strengths](docs/ink-wash-raw18-lower-budget-replay.json).
 
 For LR work, rank only the equal-case intended-effect ON−OFF mean in finished
 outputs. Preserve ties/zeros/negatives and reuse existing completed measurements.

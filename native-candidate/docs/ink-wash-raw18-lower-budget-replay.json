@@ -1,0 +1,197 @@
+{
+  "profile": "Flux Ink Wash RAW18",
+  "scope": "Exploratory lower-budget replay on the existing two held-out cases, separate from the fitting and calibration families.",
+  "model": {
+    "id": "black-forest-labs/FLUX.1-schnell",
+    "revision": "741f7c3ce8b383c54771c7003378a50191e9efe9"
+  },
+  "raw_checkpoint_sha256": "8a8fcaa08d2f1eef2431058917a7bf7dd2524d1bf99541f226f8ae8c1e5e32b0",
+  "weights": "raw",
+  "ema_decay": null,
+  "sampler": {
+    "name": "Native BF16 Euler",
+    "steps": 4,
+    "guidance_scale": 0,
+    "true_cfg_scale": 1,
+    "height": 512,
+    "width": 512,
+    "image_tokens": 1024,
+    "sigmas": [
+      1,
+      0.75,
+      0.5,
+      0.25,
+      0
+    ],
+    "nominal_strength": 0.6666666666666666,
+    "eligible_intervals_per_case": 4
+  },
+  "probe": {
+    "signal": "mean pre-edit packed Flux latent channels in FP32",
+    "fit_families": [
+      "musician",
+      "fisherman"
+    ],
+    "fit_vectors": 16,
+    "dimension": 64,
+    "dictionary_width": 128,
+    "sweeps": 1,
+    "direction_encoding": "Little-endian IEEE 754 binary32 in packed channel order",
+    "direction_sha256": "0bfaa92067261421af20d23c1394ff1afc34a70aa50e4ca63c0867ddfe793eff",
+    "shared_core_revision": "b1f780decc516808cfd3019d5e5b674457161f86",
+    "shared_core_module_sha256": "5fc2a5256a935eca9cecc365d9ac62e5e94cdc375d2ab33c5dc26eb344241814",
+    "archive_probe_receipt_sha256": "738ba9d24d3a95ddbcfe823279a48896ae982399d8c2431e91ec1d6c9ae77a57"
+  },
+  "metric": "Equal-case mean of finished Ink Wash ON minus OFF using the mean SigLIP2 positive-minus-neutral margin over four rubric pairs",
+  "previous_half_budget_evidence_sha256": "aff35c437582e646d2ff9c1413943d66c786cb3165d97df2c801a0d397c99b8d",
+  "calibration": {
+    "family": "pilgrim",
+    "case": "6eb87c116dd900b48fae5f09030ccd61f9a2b572c3b1d4fc7724c041e34c254b",
+    "noise_seed": 917302,
+    "paper_target_firing_fraction": 0.2,
+    "native_target_firing_fraction": 0.25,
+    "quantization": "One of four intervals is the closest feasible count to the paper’s 20% target. The count was fixed before evaluation.",
+    "retained_exact_native_trials": 6,
+    "new_native_trials": 2,
+    "protocol_sha256": "f6eb9b7901cf32622ed63be44fb38bcbe23cec73fd7624f146e525c968eda8fa",
+    "guarded_result_sha256": "827ff9f393e01df08f011c4fa1976740b698a031fab9beb798c49786db4b3e40",
+    "guard_terminal_sha256": "a83f4f306f48761a577ed5f63ac3e2b8c9f87ab35b5f9b326e4f061fb77d777b",
+    "methods": {
+      "cfp": {
+        "threshold": 0.21290140226483345,
+        "fired": 1,
+        "eligible": 4
+      },
+      "clabs": {
+        "bias": -1.1217398127352878,
+        "fired": 1,
+        "eligible": 4,
+        "controller": {
+          "mean": 0.358528058975935,
+          "std": 0.2637349801931543,
+          "epsilon": 1e-06,
+          "setpoint": 0.75,
+          "proportional_gain": 1.0,
+          "integral_gain": 0.2,
+          "beta": 0.2
+        }
+      }
+    }
+  },
+  "summary": {
+    "matched_cases": 2,
+    "mean_effect_ON_minus_OFF": {
+      "equal_dose_constant": 0.002330553368665278,
+      "cfp": 0.002330553368665278,
+      "clabs": 0.002330553368665278
+    },
+    "mean_effect_gain_vs_equal_dose_constant": {
+      "cfp": 0.0,
+      "clabs": 0.0
+    },
+    "categorical_integrity_passed_cases": 2
+  },
+  "qualification": {
+    "method": "Replay exact CFP and CLABS decisions on saved projections. All four effective strengths agree with the original fully-active native trajectory for each case. The replay shares the archived fully-active terminal latent, finished ON PNG, and its original measurements with the equal-dose constant.",
+    "new_heldout_denoiser_calls": 0,
+    "new_heldout_VAE_calls": 0,
+    "new_heldout_observer_calls": 0,
+    "optimizer_updates": 0,
+    "verified_receipt_sha256": "f0c71f9a107404df45be46edd3a7667a33a6e352f35c63190f26cb921ff39542",
+    "archived_native_result_sha256": "e5978aa9f71fef8306f12fae9d115faf5fe7c1e555fa65b80cac48956f3cd3f4"
+  },
+  "cases": [
+    {
+      "case": "34e559cae054201593db701f518a8f7f61dd9dfd8fd37c5b5833d32e00796098",
+      "family": "tea-vendor",
+      "noise_seed": 917303,
+      "OFF_png_sha256": "ac2936b6610b14b6487b59a38ebe0a5301a60c8ae6c02180d34b5bff9a34258a",
+      "shared_ON_png_sha256": "f82b8799635ecf2a8ce3d5431af57eac970660d6e0489110c9261031c0562095",
+      "methods": {
+        "cfp": {
+          "fired_intervals": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "effective_strengths": [
+            0.6666666666666666,
+            0.6666666666666666,
+            0.6666666666666666,
+            0.6666666666666666
+          ],
+          "sigma_weighted_strength": 0.6666666666666666,
+          "effect_ON_minus_OFF": 0.00401897937990725,
+          "effect_gain_vs_equal_dose_constant": 0.0,
+          "categorical_integrity_passed": true
+        },
+        "clabs": {
+          "fired_intervals": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "effective_strengths": [
+            0.6666666666666666,
+            0.6666666666666666,
+            0.6666666666666666,
+            0.6666666666666666
+          ],
+          "sigma_weighted_strength": 0.6666666666666666,
+          "effect_ON_minus_OFF": 0.00401897937990725,
+          "effect_gain_vs_equal_dose_constant": 0.0,
+          "categorical_integrity_passed": true,
+          "gate_seed_uint64": "3811551387520868373"
+        }
+      }
+    },
+    {
+      "case": "9ce3b2144de3e9430ccfd602c3fbe5659da39a3de763b14002aae9a6a225095b",
+      "family": "rooftop-cat",
+      "noise_seed": 917304,
+      "OFF_png_sha256": "f67fddd5f125cb64bc697aa8f501af2bd18db5857be8a65c1a1d27c4ea87dcce",
+      "shared_ON_png_sha256": "bd9e6db0d880f63b8741e92dc35e8d9d69d342019f0d17cfef3851a502ca056c",
+      "methods": {
+        "cfp": {
+          "fired_intervals": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "effective_strengths": [
+            0.6666666666666666,
+            0.6666666666666666,
+            0.6666666666666666,
+            0.6666666666666666
+          ],
+          "sigma_weighted_strength": 0.6666666666666666,
+          "effect_ON_minus_OFF": 0.0006421273574233055,
+          "effect_gain_vs_equal_dose_constant": 0.0,
+          "categorical_integrity_passed": true
+        },
+        "clabs": {
+          "fired_intervals": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "effective_strengths": [
+            0.6666666666666666,
+            0.6666666666666666,
+            0.6666666666666666,
+            0.6666666666666666
+          ],
+          "sigma_weighted_strength": 0.6666666666666666,
+          "effect_ON_minus_OFF": 0.0006421273574233055,
+          "effect_gain_vs_equal_dose_constant": 0.0,
+          "categorical_integrity_passed": true,
+          "gate_seed_uint64": "11305075289905948995"
+        }
+      }
+    }
+  ]
+}
