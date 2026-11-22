@@ -1,0 +1,702 @@
+{
+  "schema": "flux-ink-wash-raw18-family-disjoint-50pct-v1",
+  "profile": "Flux Ink Wash RAW18",
+  "scope": "Four preregistered prompt families and noise seeds disjoint from the archived fit, active calibration and earlier evaluation.",
+  "model": {
+    "id": "black-forest-labs/FLUX.1-schnell",
+    "revision": "741f7c3ce8b383c54771c7003378a50191e9efe9"
+  },
+  "raw_checkpoint_sha256": "8a8fcaa08d2f1eef2431058917a7bf7dd2524d1bf99541f226f8ae8c1e5e32b0",
+  "raw_checkpoint_bytes": 19065095,
+  "weights": "raw",
+  "ema_decay": null,
+  "sampler": {
+    "name": "Native BF16 Euler",
+    "steps": 4,
+    "guidance_scale": 0,
+    "true_cfg_scale": 1,
+    "height": 512,
+    "width": 512,
+    "image_tokens": 1024,
+    "sigmas": [
+      1,
+      0.75,
+      0.5,
+      0.25,
+      0
+    ],
+    "nominal_strength": 0.6666666666666666,
+    "eligible_intervals_per_case": 4
+  },
+  "probe": {
+    "signal": "mean pre-edit packed Flux latent channels in FP32",
+    "fit_families": [
+      "musician",
+      "fisherman"
+    ],
+    "fit_vectors": 16,
+    "dimension": 64,
+    "dictionary_width": 128,
+    "sweeps": 1,
+    "direction_encoding": "Little-endian IEEE 754 binary32 in packed channel order",
+    "direction_sha256": "0bfaa92067261421af20d23c1394ff1afc34a70aa50e4ca63c0867ddfe793eff",
+    "shared_core_revision": "b1f780decc516808cfd3019d5e5b674457161f86",
+    "shared_core_module_sha256": "5fc2a5256a935eca9cecc365d9ac62e5e94cdc375d2ab33c5dc26eb344241814",
+    "archive_probe_receipt_sha256": "738ba9d24d3a95ddbcfe823279a48896ae982399d8c2431e91ec1d6c9ae77a57"
+  },
+  "calibration": {
+    "family": "pilgrim",
+    "target_firing_fraction": 0.5,
+    "mode": "Frozen active calibration accepted before held-out encoding and sampling",
+    "methods": {
+      "cfp": {
+        "parameter": 0.42423152178525925,
+        "fired": 2,
+        "eligible": 4
+      },
+      "clabs": {
+        "parameter": -0.05587855788433127,
+        "fired": 2,
+        "eligible": 4,
+        "controller": {
+          "mean": 0.358528058975935,
+          "std": 0.2637349801931543,
+          "epsilon": 1e-06,
+          "setpoint": 0.75,
+          "proportional_gain": 1.0,
+          "integral_gain": 0.2,
+          "beta": 0.2
+        }
+      }
+    }
+  },
+  "metric": "Equal-case mean of finished Ink Wash ON minus OFF using the mean SigLIP2 positive-minus-neutral margin over four rubric pairs",
+  "constant_control": "Match each case\u2019s realized integrated strength over native sigma intervals.",
+  "equal_case_weight": true,
+  "summary": {
+    "cfp": {
+      "means": {
+        "gate_ON_minus_OFF": -0.0013530743890441954,
+        "constant_ON_minus_OFF": -0.0011806283728219569,
+        "gate_minus_constant": -0.00017244601622223854
+      },
+      "paired_integrity_passes": 4,
+      "heldout_fired": 14,
+      "heldout_eligible": 16,
+      "tied_cases": 3,
+      "lower_cases": 1
+    },
+    "clabs": {
+      "means": {
+        "gate_ON_minus_OFF": -0.0013530743890441954,
+        "constant_ON_minus_OFF": -0.0011806283728219569,
+        "gate_minus_constant": -0.00017244601622223854
+      },
+      "paired_integrity_passes": 4,
+      "heldout_fired": 14,
+      "heldout_eligible": 16,
+      "tied_cases": 3,
+      "lower_cases": 1
+    }
+  },
+  "qualified_unique_finished_images": 9,
+  "native_sampling_calls": 9,
+  "optimizer_updates": 0,
+  "new_teacher_calls": 0,
+  "cases": [
+    {
+      "family": "mountain-waterfall",
+      "case": "d42ed04bda73905a81ff726d934913e779423c97fe464940ecf643a9855af44e",
+      "seed": 3559837771,
+      "gate_ON_minus_OFF": -0.002756113186478615,
+      "constant_ON_minus_OFF": -0.002756113186478615,
+      "gate_minus_constant": 0.0,
+      "matched_constant_strength": 0.6666666666666666,
+      "method_traces": {
+        "cfp": {
+          "fired": 4,
+          "eligible": 4,
+          "fired_mask": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "effective_strengths": [
+            0.6666666666666666,
+            0.6666666666666666,
+            0.6666666666666666,
+            0.6666666666666666
+          ],
+          "fire_probabilities": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "pre_edit_projections": [
+            -0.005640951916575432,
+            -0.46484750509262085,
+            -0.9960572123527527,
+            -1.5250680446624756
+          ],
+          "gate_seed": null,
+          "activation_trace": {
+            "bytes": 3103,
+            "sha256": "b00765f63617357824f448fceaa204d29771d1331dc52b6d36b9ead4ae5d2be4"
+          }
+        },
+        "clabs": {
+          "fired": 4,
+          "eligible": 4,
+          "fired_mask": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "effective_strengths": [
+            0.6666666666666666,
+            0.6666666666666666,
+            0.6666666666666666,
+            0.6666666666666666
+          ],
+          "fire_probabilities": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "pre_edit_projections": [
+            -0.005640951916575432,
+            -0.46484750509262085,
+            -0.9960572123527527,
+            -1.5250680446624756
+          ],
+          "gate_seed": 15289386809175543898,
+          "activation_trace": {
+            "bytes": 3317,
+            "sha256": "31fd95c6f4ae7492d6aed18f33a3aee6e4d1357a0ca96d6217d2e9745b609d34"
+          },
+          "exact_CFP_trajectory_reuse": {
+            "bytes": 2455,
+            "sha256": "4606efcc6c31ccf7e138bc1d2008de5e608e38e76f20d8a635abfac06577ff3c"
+          }
+        }
+      },
+      "categorical_integrity_pass": true,
+      "observations": {
+        "OFF": {
+          "output": {
+            "bytes": 510957,
+            "sha256": "e879ed5d63dce5fff61789a6bfeb9c056e68c335985569e9fe186b044b3c57e2"
+          },
+          "intensity": -0.05056083155795932,
+          "integrity": "pass",
+          "integrity_reason": "A waterfall cascades between steep rocky cliffs into a pool below, with distant mountains visible under bright sky.",
+          "effect_first": {
+            "bytes": 1287,
+            "sha256": "461acb4926d539a2fbcf1d4ab535fc169b7d6766a1002eb3a7a8daf8e71a9fa4"
+          },
+          "integrity_first": {
+            "bytes": 4689,
+            "sha256": "f28fc3de530397381bc5d7a6832774486f6fab11bef6004cc568d05b56f4cad4"
+          }
+        },
+        "gate": {
+          "output": {
+            "bytes": 517832,
+            "sha256": "30c34a118382279ba9cc472136dd2ca7eb877166b9433a270eae46459e5c7fe0"
+          },
+          "intensity": -0.05331694474443793,
+          "integrity": "pass",
+          "integrity_reason": "A waterfall cascades between steep rocky cliffs into a pool below, with natural lighting and detailed textures.",
+          "effect_first": {
+            "bytes": 1292,
+            "sha256": "510e6b97237c8a5646f82dcd8f15ec81da2bb9c29f9d2783730d0e6131e58a81"
+          },
+          "integrity_first": {
+            "bytes": 4732,
+            "sha256": "395e216e77ad5f938df426a822ce8f57892b733891f7de86145c5a722704b9b9"
+          }
+        },
+        "constant": {
+          "output": {
+            "bytes": 517832,
+            "sha256": "30c34a118382279ba9cc472136dd2ca7eb877166b9433a270eae46459e5c7fe0"
+          },
+          "intensity": -0.05331694474443793,
+          "integrity": "pass",
+          "integrity_reason": "A waterfall cascades between steep rocky cliffs into a pool below, with natural lighting and detailed textures.",
+          "effect_first": {
+            "bytes": 1292,
+            "sha256": "510e6b97237c8a5646f82dcd8f15ec81da2bb9c29f9d2783730d0e6131e58a81"
+          },
+          "integrity_first": {
+            "bytes": 4732,
+            "sha256": "395e216e77ad5f938df426a822ce8f57892b733891f7de86145c5a722704b9b9"
+          }
+        }
+      },
+      "constant_control_route": "same native output reused for the identical uniform schedule"
+    },
+    {
+      "family": "greenhouse-succulents",
+      "case": "a56a8c5b19125261a48f6b9122200221fc9336ef7387fffd78cd15cde698ccd6",
+      "seed": 2775223387,
+      "gate_ON_minus_OFF": 0.000344639178365469,
+      "constant_ON_minus_OFF": 0.000344639178365469,
+      "gate_minus_constant": 0.0,
+      "matched_constant_strength": 0.6666666666666666,
+      "method_traces": {
+        "cfp": {
+          "fired": 4,
+          "eligible": 4,
+          "fired_mask": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "effective_strengths": [
+            0.6666666666666666,
+            0.6666666666666666,
+            0.6666666666666666,
+            0.6666666666666666
+          ],
+          "fire_probabilities": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "pre_edit_projections": [
+            -0.009700477123260498,
+            -0.27099621295928955,
+            -0.5163130760192871,
+            -0.7454835772514343
+          ],
+          "gate_seed": null,
+          "activation_trace": {
+            "bytes": 3103,
+            "sha256": "f45b722361b812a9012490fbb4b87fbe69aa8b5dacc035d9c24f310ff00109cb"
+          }
+        },
+        "clabs": {
+          "fired": 4,
+          "eligible": 4,
+          "fired_mask": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "effective_strengths": [
+            0.6666666666666666,
+            0.6666666666666666,
+            0.6666666666666666,
+            0.6666666666666666
+          ],
+          "fire_probabilities": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "pre_edit_projections": [
+            -0.009700477123260498,
+            -0.27099621295928955,
+            -0.5163130760192871,
+            -0.7454835772514343
+          ],
+          "gate_seed": 11919493686679982689,
+          "activation_trace": {
+            "bytes": 3317,
+            "sha256": "fca9f8c58608e29f961637e99e8b3dd88a89a34ae7ad65309faec85726be95fa"
+          },
+          "exact_CFP_trajectory_reuse": {
+            "bytes": 2461,
+            "sha256": "14b17685fbf81676345d930833f95a167735e566e1fca9848395442023436172"
+          }
+        }
+      },
+      "categorical_integrity_pass": true,
+      "observations": {
+        "OFF": {
+          "output": {
+            "bytes": 377693,
+            "sha256": "ff2b380a7339c54da0dedb14124098b82acd5f1431f0e2e8f645ee5754ca6f24"
+          },
+          "intensity": -0.04282891238108277,
+          "integrity": "pass",
+          "integrity_reason": "A silver watering can and potted cacti on a table near a window",
+          "effect_first": {
+            "bytes": 1287,
+            "sha256": "e7e1bd3ac79bb9684bb5385aa6a2e223411e4a41c0f79522b17e6e0a659664c4"
+          },
+          "integrity_first": {
+            "bytes": 4481,
+            "sha256": "a5b5fe37b1723d16885a557210a95671a3013524f680092c60057c6518ab1113"
+          }
+        },
+        "gate": {
+          "output": {
+            "bytes": 387796,
+            "sha256": "8000373baf7aa472621e829eb5c31f4f25adccab5634d798860c14c3bc96bbf5"
+          },
+          "intensity": -0.042484273202717304,
+          "integrity": "pass",
+          "integrity_reason": "A silver watering can and potted plants on a table near a window.",
+          "effect_first": {
+            "bytes": 1289,
+            "sha256": "9542a687e0112c7fec6859f88e3ff6a5f209a280d33139f518c225e4e75a96a7"
+          },
+          "integrity_first": {
+            "bytes": 4548,
+            "sha256": "701ff133be748efacc3cb8ff2106c9d54cc1d978a3fd6f488387e61b41033cc9"
+          }
+        },
+        "constant": {
+          "output": {
+            "bytes": 387796,
+            "sha256": "8000373baf7aa472621e829eb5c31f4f25adccab5634d798860c14c3bc96bbf5"
+          },
+          "intensity": -0.042484273202717304,
+          "integrity": "pass",
+          "integrity_reason": "A silver watering can and potted plants on a table near a window.",
+          "effect_first": {
+            "bytes": 1289,
+            "sha256": "9542a687e0112c7fec6859f88e3ff6a5f209a280d33139f518c225e4e75a96a7"
+          },
+          "integrity_first": {
+            "bytes": 4548,
+            "sha256": "701ff133be748efacc3cb8ff2106c9d54cc1d978a3fd6f488387e61b41033cc9"
+          }
+        }
+      },
+      "constant_control_route": "same native output reused for the identical uniform schedule"
+    },
+    {
+      "family": "observatory-telescope",
+      "case": "3533325e115369c86065bc8de8e210fb4cae53c9b70e2a74c3cf0cae09ccc43e",
+      "seed": 892547678,
+      "gate_ON_minus_OFF": -0.0026137742679566145,
+      "constant_ON_minus_OFF": -0.0026137742679566145,
+      "gate_minus_constant": 0.0,
+      "matched_constant_strength": 0.6666666666666666,
+      "method_traces": {
+        "cfp": {
+          "fired": 4,
+          "eligible": 4,
+          "fired_mask": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "effective_strengths": [
+            0.6666666666666666,
+            0.6666666666666666,
+            0.6666666666666666,
+            0.6666666666666666
+          ],
+          "fire_probabilities": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "pre_edit_projections": [
+            -0.00850784219801426,
+            -0.8255546689033508,
+            -1.6971209049224854,
+            -2.52266526222229
+          ],
+          "gate_seed": null,
+          "activation_trace": {
+            "bytes": 3099,
+            "sha256": "782c3db4a410546dc9abfdbcd7215a3a7a0bd68b29bbafa4dc83cfd6d67f65cd"
+          }
+        },
+        "clabs": {
+          "fired": 4,
+          "eligible": 4,
+          "fired_mask": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "effective_strengths": [
+            0.6666666666666666,
+            0.6666666666666666,
+            0.6666666666666666,
+            0.6666666666666666
+          ],
+          "fire_probabilities": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "pre_edit_projections": [
+            -0.00850784219801426,
+            -0.8255546689033508,
+            -1.6971209049224854,
+            -2.52266526222229
+          ],
+          "gate_seed": 3833463087421417928,
+          "activation_trace": {
+            "bytes": 3312,
+            "sha256": "91b908ddffea50e3dffd45fb2ba4ffc469db1e1af5eea3547f8c8e74fbb5706d"
+          },
+          "exact_CFP_trajectory_reuse": {
+            "bytes": 2462,
+            "sha256": "57304102d4149855476308bfa486f69520a6064866c744cd586568a09f6b35a7"
+          }
+        }
+      },
+      "categorical_integrity_pass": true,
+      "observations": {
+        "OFF": {
+          "output": {
+            "bytes": 363890,
+            "sha256": "e0dc2bf7a47889ebcb090ac3ba70e6b17d2ad7d7a77caf1f5e7d9cf7d360581c"
+          },
+          "intensity": -0.048115028999745846,
+          "integrity": "pass",
+          "integrity_reason": "A brass telescope on a tripod inside a domed wooden observatory with a skylight.",
+          "effect_first": {
+            "bytes": 1289,
+            "sha256": "48883274a35095589b03e04d479f7540d918a03cf2534a53275db3af1f2506c8"
+          },
+          "integrity_first": {
+            "bytes": 4549,
+            "sha256": "e3f55e07fb0ccae3658cfca56d025fb2f2fa21cbb74f42ef32d2e10d4f8e894b"
+          }
+        },
+        "gate": {
+          "output": {
+            "bytes": 374468,
+            "sha256": "6e9deafdc5754d353423137020b41bcca5549b8a792a5fe96d2dae6f692aebf6"
+          },
+          "intensity": -0.05072880326770246,
+          "integrity": "pass",
+          "integrity_reason": "A brass telescope on a tripod inside a domed wooden observatory with skylights.",
+          "effect_first": {
+            "bytes": 1289,
+            "sha256": "9e63f06c5a10b0943866c695c818f5860687d071a18e160f05cc3a6ac7a8bf37"
+          },
+          "integrity_first": {
+            "bytes": 4604,
+            "sha256": "aeb9ff734300cb7fc68948db3443fce73b762b6101bfe1b9cb95390e2ac57009"
+          }
+        },
+        "constant": {
+          "output": {
+            "bytes": 374468,
+            "sha256": "6e9deafdc5754d353423137020b41bcca5549b8a792a5fe96d2dae6f692aebf6"
+          },
+          "intensity": -0.05072880326770246,
+          "integrity": "pass",
+          "integrity_reason": "A brass telescope on a tripod inside a domed wooden observatory with skylights.",
+          "effect_first": {
+            "bytes": 1289,
+            "sha256": "9e63f06c5a10b0943866c695c818f5860687d071a18e160f05cc3a6ac7a8bf37"
+          },
+          "integrity_first": {
+            "bytes": 4604,
+            "sha256": "aeb9ff734300cb7fc68948db3443fce73b762b6101bfe1b9cb95390e2ac57009"
+          }
+        }
+      },
+      "constant_control_route": "same native output reused for the identical uniform schedule"
+    },
+    {
+      "family": "ceramic-fox-sculpture",
+      "case": "a3baff80d40e62f35f7a9915c89357054cf1b73d45ee2b2057cf2c53b67b4068",
+      "seed": 2746941312,
+      "gate_ON_minus_OFF": -0.00038704928010702133,
+      "constant_ON_minus_OFF": 0.00030273478478193283,
+      "gate_minus_constant": -0.0006897840648889542,
+      "matched_constant_strength": 0.3333333333333333,
+      "method_traces": {
+        "cfp": {
+          "fired": 2,
+          "eligible": 4,
+          "fired_mask": [
+            true,
+            true,
+            false,
+            false
+          ],
+          "effective_strengths": [
+            0.6666666666666666,
+            0.6666666666666666,
+            0.0,
+            0.0
+          ],
+          "fire_probabilities": [
+            1.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          "pre_edit_projections": [
+            0.03299916535615921,
+            0.26958203315734863,
+            0.5507689118385315,
+            0.8827995657920837
+          ],
+          "gate_seed": null,
+          "activation_trace": {
+            "bytes": 3040,
+            "sha256": "c4b1c986c14dd4c62c493b1ae1a97aa06f142b9531356a3f35dda100f6f04ea6"
+          }
+        },
+        "clabs": {
+          "fired": 2,
+          "eligible": 4,
+          "fired_mask": [
+            true,
+            true,
+            false,
+            false
+          ],
+          "effective_strengths": [
+            0.6666666666666666,
+            0.6666666666666666,
+            0.0,
+            0.0
+          ],
+          "fire_probabilities": [
+            1.0,
+            1.0,
+            0.05164103197215081,
+            0.0
+          ],
+          "pre_edit_projections": [
+            0.03299916535615921,
+            0.26958203315734863,
+            0.5507689118385315,
+            0.8827995657920837
+          ],
+          "gate_seed": 11798023102629044979,
+          "activation_trace": {
+            "bytes": 3270,
+            "sha256": "176bb5cc13b01994686fdaafe131c3bf3e469f281fa87519eb07e8a1b003f314"
+          },
+          "exact_CFP_trajectory_reuse": {
+            "bytes": 2413,
+            "sha256": "a5f4e699c34bba938f157be964f02c20a91784c09ae563f6676d974602baf947"
+          }
+        }
+      },
+      "categorical_integrity_pass": true,
+      "observations": {
+        "OFF": {
+          "output": {
+            "bytes": 245432,
+            "sha256": "6e902cc2c6145a57b6635c26016a281d53f7e61d585ea164d385c7ad090fafe5"
+          },
+          "intensity": -0.017974885180592537,
+          "integrity": "pass",
+          "integrity_reason": "A statue of a fox sitting on a marble pedestal in an art gallery with framed pictures on the wall.",
+          "effect_first": {
+            "bytes": 1282,
+            "sha256": "6f8d03032124cf8f6f952dcbdb22631ccfc415b3fb932acda892ed7a03f2580f"
+          },
+          "integrity_first": {
+            "bytes": 4621,
+            "sha256": "6d3fcebfcde0b24eaadc42eba950b8a41ffc34eb852a62576f11cff7a786c52b"
+          }
+        },
+        "gate": {
+          "output": {
+            "bytes": 243345,
+            "sha256": "1edc2021c72a5a70336be55a775aa627ee7458f230c6745cc186c118885d1bfe"
+          },
+          "intensity": -0.018361934460699558,
+          "integrity": "pass",
+          "integrity_reason": "A statue of a fox sitting on a marble pedestal in an art gallery with framed pictures on the walls.",
+          "effect_first": {
+            "bytes": 1286,
+            "sha256": "961ea69d3d6ac16aadeadeb7c4c2e36f5dfec4a3d7d0f9a3cd89f95f891e4c12"
+          },
+          "integrity_first": {
+            "bytes": 4684,
+            "sha256": "605ee1012338ca230ae1070809c5904e4794c92818cda3e959810ad3458b5753"
+          }
+        },
+        "constant": {
+          "output": {
+            "bytes": 245629,
+            "sha256": "ebcb7400af9a81a52f5ac30aa81aabeb0e9c993f6fdd21b98cca323f6efe0dce"
+          },
+          "intensity": -0.017672150395810604,
+          "integrity": "pass",
+          "integrity_reason": "A statue of a fox sitting on a marble pedestal in an art gallery with framed pictures on the walls.",
+          "effect_first": {
+            "bytes": 1284,
+            "sha256": "a0b44b6c5ed8fcf55709e9a5fef865f14a70e24c3d2b94942643eee9630f7ca5"
+          },
+          "integrity_first": {
+            "bytes": 4684,
+            "sha256": "2156a7389045ed37b912f81b52c8262027eb6ce0f17f39f07472f9f7ba40680b"
+          }
+        }
+      },
+      "constant_control_route": "separate native constant at the realized integrated dose"
+    }
+  ],
+  "source_receipts": {
+    "final_observation": {
+      "bytes": 48193,
+      "sha256": "956ee90ebdbf497b9c91ce8a31357151aed5c2c049ee3af7db7c8f7f987c7610"
+    },
+    "native_study": {
+      "bytes": 85583,
+      "sha256": "58ea142bc49f62cc3e2e75afc8df01c410e987c75dd33b99903cd8f3cd658a83"
+    },
+    "fresh_case_freeze": {
+      "bytes": 8471,
+      "sha256": "f9a4604a2ace358d9beafaa321fa8b3a2ccb230c041d12562b138976bdf61c46"
+    },
+    "native_audit": {
+      "bytes": 21294,
+      "sha256": "2b5f65e305878c1940f6fc2de0ae4ea4bdfe2cf84262699c7ab5fad61b87e617"
+    },
+    "finished_observer_audit": {
+      "bytes": 7924,
+      "sha256": "6b176abef1c962241f8f96527cc9d05964cc133c426126cb82e252f97de99e3e"
+    },
+    "accepted_calibration": {
+      "bytes": 1610,
+      "sha256": "73eddf506d93334ff49f8c47326721c39f5d5639af43dbea74ac31ebd105db9d"
+    },
+    "original_half_budget_publication": {
+      "bytes": 6007,
+      "sha256": "aff35c437582e646d2ff9c1413943d66c786cb3165d97df2c801a0d397c99b8d"
+    },
+    "original_lower_budget_publication": {
+      "bytes": 6897,
+      "sha256": "c3f60ff8d79de47c39fd70ffb00b14bbf755d8892a08842127ffb83e69e5410c"
+    },
+    "decode_guard": {
+      "bytes": 243,
+      "sha256": "8cea6d14258922d7168b4912d4bf0c5d7147731870e15a8cae61fbbdf502ac8f"
+    },
+    "effect_guard": {
+      "bytes": 245,
+      "sha256": "b311e09e0a678dbcb46b2abc22c4c4017748fc49dad3077c85b50fee9f4e9087"
+    },
+    "integrity_guard": {
+      "bytes": 2279,
+      "sha256": "202554eebf511b13170142dcf1352c52416b5ad7cb422cc39b435b9c5d58df14"
+    },
+    "native_guard": {
+      "bytes": 285,
+      "sha256": "569067b5d2e8dc08bd52cd8b74a7d3bb28ae90edbb41cac893588d8cde066b87"
+    }
+  }
+}

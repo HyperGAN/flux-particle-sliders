@@ -219,6 +219,23 @@ checks. The replay made zero new render or scorer calls. Each method averaged
 +0.002331 over OFF and tied the equal-dose constant on both cases.
 [Lower-budget replay and resolved strengths](docs/ink-wash-raw18-lower-budget-replay.json).
 
+The fresh panel used the frozen 50% calibration on four preregistered,
+family-disjoint cases. Each gate had fired on two of four intervals on the
+calibration case and fired on 14 of 16 intervals on the fresh panel. Both gates had
+the same effective strengths and finished images. The three fully active
+cases tied their dose-matched constants. On ceramic fox sculpture, both
+gates fired on the first two steps and scored 0.000689784 below the
+dose-matched constant.
+
+| Method | Mean effect ON minus OFF | Mean gain over dose-matched constant | Qualified pairs |
+| --- | ---: | ---: | ---: |
+| CFP | −0.001353074 | −0.000172446 | 4/4 |
+| CLABS | −0.001353074 | −0.000172446 | 4/4 |
+
+The dose-matched constants averaged −0.001180628 over OFF. Independent
+integrity checks passed for all nine distinct images. [Fresh panel scores,
+resolved strengths and receipts](docs/ink-wash-raw18-family-disjoint-50pct.json).
+
 For LR work, rank only the equal-case intended-effect ON−OFF mean in finished
 outputs. Preserve ties/zeros/negatives and reuse existing completed measurements.
 Teacher SSE and GAN diagnostics are not selectors. Integrate the shared
