@@ -1,0 +1,284 @@
+{
+  "schema": "flux-ink-wash-raw18-active-calibration-heldout-v1",
+  "profile": "Flux Ink Wash RAW18",
+  "model": {
+    "id": "black-forest-labs/FLUX.1-schnell",
+    "revision": "741f7c3ce8b383c54771c7003378a50191e9efe9"
+  },
+  "raw_checkpoint_sha256": "8a8fcaa08d2f1eef2431058917a7bf7dd2524d1bf99541f226f8ae8c1e5e32b0",
+  "raw_checkpoint_bytes": 19065095,
+  "weights": "raw",
+  "ema_decay": null,
+  "sampler": {
+    "name": "Native BF16 Euler",
+    "steps": 4,
+    "guidance_scale": 0,
+    "true_cfg_scale": 1,
+    "height": 512,
+    "width": 512,
+    "image_tokens": 1024,
+    "sigmas": [
+      1,
+      0.75,
+      0.5,
+      0.25,
+      0
+    ],
+    "nominal_strength": 0.6666666666666666,
+    "eligible_intervals_per_case": 4
+  },
+  "probe": {
+    "signal": "mean pre-edit packed Flux latent channels in FP32",
+    "fit_families": [
+      "musician",
+      "fisherman"
+    ],
+    "fit_vectors": 16,
+    "dimension": 64,
+    "dictionary_width": 128,
+    "sweeps": 1,
+    "direction_encoding": "Little-endian IEEE 754 binary32 in packed channel order",
+    "direction_sha256": "0bfaa92067261421af20d23c1394ff1afc34a70aa50e4ca63c0867ddfe793eff",
+    "shared_core_revision": "b1f780decc516808cfd3019d5e5b674457161f86",
+    "shared_core_module_sha256": "5fc2a5256a935eca9cecc365d9ac62e5e94cdc375d2ab33c5dc26eb344241814",
+    "archive_probe_receipt_sha256": "738ba9d24d3a95ddbcfe823279a48896ae982399d8c2431e91ec1d6c9ae77a57"
+  },
+  "calibration": {
+    "frozen_utc": "2026-11-22T13:36:21.931020+00:00",
+    "roster_sha256": "5c35306721cc1fda8a98def6b21f8f6bb77e1470dbef2822e28a05c5ecaeae7b",
+    "families": [
+      "white-stork",
+      "stone-windmill",
+      "tailor-dress-form",
+      "racing-bicycle"
+    ],
+    "target_rate": 0.5,
+    "methods": {
+      "cfp": {
+        "parameter": 0.019794910214841303,
+        "target_rate": 0.5,
+        "usage": {
+          "fired": 8,
+          "eligible": 16
+        },
+        "native_calibration_receipt_sha256": "7ca1304dcfd855520df893cc16a7aff6c6e8646783ec016838432a5f9e3256ef"
+      },
+      "clabs": {
+        "parameter": -0.47567788926645077,
+        "target_rate": 0.5,
+        "usage": {
+          "fired": 8,
+          "eligible": 16
+        },
+        "native_calibration_receipt_sha256": "d42d830e13d2a06ea4002fc7f02b9bb34fb2ecbf268098b2e9c0790cb4dc0f71",
+        "controller": {
+          "mean": 0.30097714019939303,
+          "std": 0.6902084805741568,
+          "epsilon": 1e-06,
+          "setpoint": 0.75,
+          "proportional_gain": 1.0,
+          "integral_gain": 0.2,
+          "beta": 0.2
+        }
+      }
+    }
+  },
+  "metric": "Equal-case mean of finished Ink Wash ON minus OFF using the mean SigLIP2 positive-minus-neutral margin over four rubric pairs",
+  "equal_case_weight": true,
+  "control_definition": "The constant has the same integrated binary32 strength across the four original Euler intervals.",
+  "evidence": {
+    "heldout_observation_sha256": "01ff09fbd58666dcdd77ab259b2334dda3c6a1cd9c2ba80d73b401eb35b2e04b",
+    "independent_verification_sha256": "b257359fa06322c26f81d9ff3211e557e048c4c67a1a29f5bde530b5c610e5f9",
+    "native_clabs_sha256": "0c62ef1347de3c10b8cc54cfe1152529fb0cf8c1b525a4f8213574541e65fef7",
+    "native_cfp_sha256": "486d07450c9999d3f981ac858c87a8882467b1c7ab9fcfee2bd9bdfb45d69fd9"
+  },
+  "summary": {
+    "qualified_cases": 4,
+    "means": {
+      "gate_ON_minus_OFF": 0.0021450789645314217,
+      "constant_ON_minus_OFF": 0.0014838666247669607,
+      "gate_minus_constant": 0.0006612123397644609
+    },
+    "gate_vs_constant_wins": 1,
+    "gate_vs_constant_losses": 1,
+    "gate_vs_constant_ties": 2,
+    "both_gates_share_identical_native_step_strengths_and_outputs": true,
+    "same_dose_residual_zero_all_cases": true,
+    "reused_CFP_native_firsts": true,
+    "new_optimizer_updates": 0
+  },
+  "cases": [
+    {
+      "case": "8c33f66014ee8f17313e247b21f46bd015d24edcefa589fb980325f57711d046",
+      "family": "stone-viaduct",
+      "seed": 2352215648,
+      "step_strengths": [
+        0.6666666666666666,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "same_dose_control": {
+        "binary32_constant": 0.1666666716337204,
+        "adaptive_dose": "11184811/67108864",
+        "constant_dose": "11184811/67108864",
+        "coefficient_residual": "0"
+      },
+      "observations": {
+        "OFF": {
+          "intensity": -0.05995440180413425,
+          "png_sha256": "64c169657d4220b61c851de81e85dc8e3f441e63b2bed5c151c6b86d019613e6",
+          "effect_first_sha256": "c7e554fbab21cf4c75ba9f3afbb51ee1478f3410a9b33c7662b4cdc4fde88b73",
+          "integrity_first_sha256": "9127c4eae8870ccc5e8daa682a28c13eb462e088cc7557898fc53246da238115",
+          "integrity": "pass"
+        },
+        "gate": {
+          "intensity": -0.05933057121001184,
+          "png_sha256": "2651c6266f94c91c5c0f186be6e38189def833d22a0facd1db7fcf419fdecb77",
+          "effect_first_sha256": "6d1518ad5b02108e71daac4a06f279ee8cf2dbe905f9ad745fb4c4527875b4b9",
+          "integrity_first_sha256": "2e57119c10318c4d508c86173a584a9ce1bbb92160c5e81e54fb25c29201aabb",
+          "integrity": "pass"
+        },
+        "constant": {
+          "intensity": -0.05772333696950227,
+          "png_sha256": "4b07a9c8cbb6d1611e08bf73906df0befb61d69b85636cec0a4959705533affb",
+          "effect_first_sha256": "8669fa5989ed989bf132d169c5722e11caf3b15051b330a7f0a80588ee1d0f54",
+          "integrity_first_sha256": "288af6a130192ba2211eb473a4bdaf1682263c041f41225f3d9fb27600982142",
+          "integrity": "pass"
+        }
+      },
+      "gate_ON_minus_OFF": 0.0006238305941224098,
+      "constant_ON_minus_OFF": 0.0022310648346319795,
+      "gate_minus_constant": -0.0016072342405095696
+    },
+    {
+      "case": "8fff2f8fa84af1172161edfb6c559056acac07caaac6bffeeba0285dcea727a7",
+      "family": "scarab-beetle",
+      "seed": 2415865743,
+      "step_strengths": [
+        0.6666666666666666,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "same_dose_control": {
+        "binary32_constant": 0.1666666716337204,
+        "adaptive_dose": "11184811/67108864",
+        "constant_dose": "11184811/67108864",
+        "coefficient_residual": "0"
+      },
+      "observations": {
+        "OFF": {
+          "intensity": -0.024477564729750156,
+          "png_sha256": "1aecdd9f9c512382cfed411d1310755e218e76c2e05d325e43e75c697c959f09",
+          "effect_first_sha256": "b54ad7b6cda700096d96aa5b714edb807f92e9adeada76a69b1d657ee2124a5c",
+          "integrity_first_sha256": "a11286ba00e54cc12ee37fe82b51486e903e5a53450623510ab996d3809768be",
+          "integrity": "pass"
+        },
+        "gate": {
+          "intensity": -0.01778528466820717,
+          "png_sha256": "6764f58b44d81abf4d959cddd3a667fc924fc8da9b5dd430ba2cae6dcc057396",
+          "effect_first_sha256": "7de5bffff1836333f17677ca2bfb45a93ffce399332dc475859b8b8ad49a5a22",
+          "integrity_first_sha256": "b631e84d38e4ba2337765614f98adfb4a93e1aa48dee0cb057b552f9bcabd8dd",
+          "integrity": "pass"
+        },
+        "constant": {
+          "intensity": -0.022037368267774582,
+          "png_sha256": "8c5365f8ad8d9ac53ab7f781fd988e5c5c12957fa73c866a6a295ca146356481",
+          "effect_first_sha256": "dded1aac79f731cf77f454730f65238f0a4567d6aee155e19880d0db40a74777",
+          "integrity_first_sha256": "661c0f1129977fef0b8caf0680b153a22b762789abab3a4238dd0f9bf6a1f25d",
+          "integrity": "pass"
+        }
+      },
+      "gate_ON_minus_OFF": 0.006692280061542988,
+      "constant_ON_minus_OFF": 0.0024401964619755745,
+      "gate_minus_constant": 0.004252083599567413
+    },
+    {
+      "case": "9902249794fd14c4dfd3aab9a6d0878853e65d31e3f78bb91794ab8aaabcc92f",
+      "family": "municipal-snowplow",
+      "seed": 2567054487,
+      "step_strengths": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "same_dose_control": {
+        "binary32_constant": 0.0,
+        "adaptive_dose": "0",
+        "constant_dose": "0",
+        "coefficient_residual": "0"
+      },
+      "observations": {
+        "OFF": {
+          "intensity": -0.05984293483197689,
+          "png_sha256": "c94e2540842d60c5ac847e2fb56d494dbde5a74676cb49846ab67e3c593ab5b6",
+          "effect_first_sha256": "8dfc84d451819500101e46c215ca270c0549dca548e69f1459cd2c9291bbaea7",
+          "integrity_first_sha256": "2d6a07389542825011e86713567b889e04f0fe957814bf2d6f506a4f0ad897bb",
+          "integrity": "pass"
+        },
+        "gate": {
+          "intensity": -0.05984293483197689,
+          "png_sha256": "c94e2540842d60c5ac847e2fb56d494dbde5a74676cb49846ab67e3c593ab5b6",
+          "effect_first_sha256": "8dfc84d451819500101e46c215ca270c0549dca548e69f1459cd2c9291bbaea7",
+          "integrity_first_sha256": "2d6a07389542825011e86713567b889e04f0fe957814bf2d6f506a4f0ad897bb",
+          "integrity": "pass"
+        },
+        "constant": {
+          "intensity": -0.05984293483197689,
+          "png_sha256": "c94e2540842d60c5ac847e2fb56d494dbde5a74676cb49846ab67e3c593ab5b6",
+          "effect_first_sha256": "8dfc84d451819500101e46c215ca270c0549dca548e69f1459cd2c9291bbaea7",
+          "integrity_first_sha256": "2d6a07389542825011e86713567b889e04f0fe957814bf2d6f506a4f0ad897bb",
+          "integrity": "pass"
+        }
+      },
+      "gate_ON_minus_OFF": 0.0,
+      "constant_ON_minus_OFF": 0.0,
+      "gate_minus_constant": 0.0
+    },
+    {
+      "case": "9d4136e816e217887ccd66eb2a639306a74fdcaadfeee7dad91b5bd6f23b3fe9",
+      "family": "apothecary-shelves",
+      "seed": 2638296808,
+      "step_strengths": [
+        0.6666666666666666,
+        0.6666666666666666,
+        0.6666666666666666,
+        0.6666666666666666
+      ],
+      "same_dose_control": {
+        "binary32_constant": 0.6666666865348816,
+        "adaptive_dose": "11184811/16777216",
+        "constant_dose": "11184811/16777216",
+        "coefficient_residual": "0"
+      },
+      "observations": {
+        "OFF": {
+          "intensity": -0.03766686178278178,
+          "png_sha256": "9e47bca8c2c8e2e6ddababf736fe569905db37fbfb672f121a7e017119fd24ce",
+          "effect_first_sha256": "6dc8e3cf5dc786a3f3dbec750e6cf5b71389b7a167289672bc9843d1d1829ef6",
+          "integrity_first_sha256": "02be6900125664927ac08c927591ac0967ca415d4ec82d968d981062c68c5050",
+          "integrity": "pass"
+        },
+        "gate": {
+          "intensity": -0.03640265658032149,
+          "png_sha256": "a4c9c96cee24692b18a19cb502d0d3eed6d7172045422d07fde252a059ed3467",
+          "effect_first_sha256": "754535bcb6288faa9b2c44292eb9c81bd83295c0c23a9cabb5a9e92d95f198f4",
+          "integrity_first_sha256": "996196da11df08275a6292b339ede7bcb80ef140d0c6b908a16337ed7697c4b6",
+          "integrity": "pass"
+        },
+        "constant": {
+          "intensity": -0.03640265658032149,
+          "png_sha256": "a4c9c96cee24692b18a19cb502d0d3eed6d7172045422d07fde252a059ed3467",
+          "effect_first_sha256": "754535bcb6288faa9b2c44292eb9c81bd83295c0c23a9cabb5a9e92d95f198f4",
+          "integrity_first_sha256": "996196da11df08275a6292b339ede7bcb80ef140d0c6b908a16337ed7697c4b6",
+          "integrity": "pass"
+        }
+      },
+      "gate_ON_minus_OFF": 0.001264205202460289,
+      "constant_ON_minus_OFF": 0.001264205202460289,
+      "gate_minus_constant": 0.0
+    }
+  ]
+}
