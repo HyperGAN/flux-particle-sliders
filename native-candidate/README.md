@@ -236,6 +236,15 @@ The dose-matched constants averaged −0.001180628 over OFF. Independent
 integrity checks passed for all nine distinct images. [Fresh panel scores,
 resolved strengths and receipts](docs/ink-wash-raw18-family-disjoint-50pct.json).
 
+A later four-family calibration reached the paper’s 50% budget for each
+gate. The fixed threshold was 0.01979491 for CFP and the calibrated bias
+was −0.47567789 for CLABS. The four disjoint evaluation cases produced
+identical per-step strengths and outputs for both gates. All four passed
+independent integrity checks and exact binary32 dose matching. Mean
+finished Ink Wash effect was +0.00214508 versus OFF and +0.00066121
+versus the same-dose constant. The gates won one case, lost one, and
+tied two. [Calibration and per-case held-out results](docs/ink-wash-raw18-active-calibration-heldout.json).
+
 For LR work, rank only the equal-case intended-effect ON−OFF mean in finished
 outputs. Preserve ties/zeros/negatives and reuse existing completed measurements.
 Teacher SSE and GAN diagnostics are not selectors. Integrate the shared
