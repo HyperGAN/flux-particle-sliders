@@ -8,6 +8,10 @@ from sys import float_info
 from .activation_gate import LatentGatePlan
 from .adapter import FluxLoRA
 from .native import NativeRuntime
+from .velocity_steering import VelocitySteeringPlan, _render_velocity
+
+
+_DEFAULT_STRENGTH = object()
 
 
 def resolve(strength, steps, step_gains):
@@ -21,8 +25,9 @@ def resolve(strength, steps, step_gains):
     return strengths
 
 
-def render(session, *, step_gains=None, gate_plan=None, strength=1.0, steps=4, **request):
-    """Apply fixed gains or a calibrated gate on the original strict RAW renderer."""
+def render(session, *, step_gains=None, gate_plan=None, velocity_plan=None, constant_coefficient=None,
+           strength=_DEFAULT_STRENGTH, steps=4, **request):
+    """Use fixed gains, a calibrated LoRA gate, or a fitted output-velocity edit."""
     session._open()
     if session.selection != "raw" or session.binding.render is None:
         raise ValueError("Flux scheduling requires an open RAW render session")
@@ -36,8 +41,19 @@ def render(session, *, step_gains=None, gate_plan=None, strength=1.0, steps=4, *
     runtime, adapter = runtimes[0], adapters[0]
     if type(steps) is not int or not 1 <= steps <= 50:
         raise ValueError("Flux requires its supported native step count")
+    if strength is _DEFAULT_STRENGTH:
+        if velocity_plan is not None:
+            raise ValueError("Supply the native RAW strength for the Flux S-PSR fit")
+        strength = 1.0
     if type(strength) not in (int, float) or not 0 <= strength <= 1:
         raise ValueError("Flux nominal strength must be in [0,1]")
+    if velocity_plan is not None:
+        if step_gains is not None or gate_plan is not None or not isinstance(velocity_plan, VelocitySteeringPlan):
+            raise ValueError("Choose one Flux schedule, gate or fitted velocity plan")
+        return _render_velocity(session, runtime, adapter, velocity_plan, strength=strength, steps=steps,
+                                constant_coefficient=constant_coefficient, request=request)
+    if constant_coefficient is not None:
+        raise ValueError("A Flux constant coefficient requires its fitted velocity plan")
     if gate_plan is None:
         values = resolve(strength, steps, step_gains)
     else:

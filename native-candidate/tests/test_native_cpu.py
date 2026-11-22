@@ -5,7 +5,10 @@ and the exact external HNDL builder. No pretrained weights/network/download.
 The tiny loader fixture is labeled synthetic and never claims a model lock.
 """
 from copy import deepcopy
+from hashlib import sha256
+from itertools import pairwise
 import json
+from math import fsum
 from pathlib import Path
 from statistics import fmean, pstdev
 from unittest.mock import patch
@@ -22,7 +25,7 @@ from particle_sliders.engine import _hash
 
 from ps_flux_native.adapter import FluxLoRA
 from ps_flux_native.cache import CONDITION_POLICY, CachedResponses, write_row
-from ps_flux_native.contracts import INITIALIZATION_POLICY, PROTOCOL, file_hash, geometry
+from ps_flux_native.contracts import INITIALIZATION_POLICY, PROTOCOL, digest, file_hash, geometry
 from ps_flux_native.native import NativeRuntime, PackedFluxResponse
 from ps_flux_native.lifecycle import open_training, NATIVE_BACKEND
 from ps_flux_native.render import native_pipeline_state, render_pair
@@ -393,3 +396,200 @@ def test_actual_native_live_gate_replay_off_and_scope_restore(tmp_path, flux_ste
             assert inference.binding.network.strength == 0.0
             assert not reopened.transformer._forward_pre_hooks and not reopened.transformer._forward_hooks
             assert render(inference, **native, gate_plan=off_gate).tobytes() == off.tobytes()
+
+
+@pytest.fixture
+def flux_velocity_wheel():
+    import os
+
+    path = os.environ.get("FLUX_TEST_VELOCITY_WHEEL")
+    if not path:
+        pytest.skip("supply the published shared PromptSteering wheel to exercise Flux S-PSR")
+    return Path(path)
+
+
+def test_native_spsr_edits_euler_velocity_at_fixed_raw_and_matches_coefficient_dose(tmp_path, flux_velocity_wheel):
+    from particle_sliders.inference import open_inference
+    import ps_flux_native.lifecycle as life
+    from ps_flux_native.scheduled_render import render
+    from ps_flux_native.velocity_steering import VelocitySteeringPlan
+
+    config = configuration(tmp_path, runtime := FixtureRuntime(tmp_path))
+    with open_training(config, runtime=runtime) as training:
+        training.step()
+        raw = training.export_inference(selection="raw")
+    reopened = FixtureRuntime(tmp_path)
+    original_scheduler = reopened.pipe.scheduler
+    native = dict(prompt="a x", steps=4, strength=0.5, seed=7)
+    options = {key: config.options[key] for key in ("model_dir", "model_lock_sha256", "device", "base_precision")}
+    direction = torch.linspace(-0.1, 0.1, 64)
+    probe_weight = torch.zeros(64)
+    probe_weight[0] = 1.0
+    bias = torch.tensor([1.0])
+    fit = tmp_path / "synthetic-velocity-fit.pt"
+    fit_record = dict(weights="raw", ema_decay=None, native_raw_strength=native["strength"],
+        geometry=raw["specification"]["configuration"]["geometry"], sigmas=[1., .75, .5, .25, 0.],
+        raw_packet_sha256=raw["sha256"], model_identity_sha256=digest(reopened.identity),
+        probe={"probe.weight": probe_weight[None], "probe.bias": bias, "direction.weight": direction[None]})
+    torch.save(fit_record, fit)
+    plan = VelocitySteeringPlan(core_wheel=flux_velocity_wheel, fit_path=fit)
+    rng = torch.get_rng_state()
+    plan._probe_for("cpu")
+    assert torch.equal(torch.get_rng_state(), rng)
+
+    original_step = FlowMatchEulerDiscreteScheduler.step
+    unedited = []
+    euler_inputs = []
+
+    def native_output(_model, _args, output):
+        unedited.append(output[0].clone())
+
+    def euler_step(scheduler, model_output, *args, **kwargs):
+        euler_inputs.append((inference.binding.network.strength, model_output.clone()))
+        return original_step(scheduler, model_output, *args, **kwargs)
+
+    def check_edit(image, constant=None):
+        schedule = image.info["strength_schedule"]
+        assert schedule["effective_strengths"] == [native["strength"]] * 4
+        receipt = schedule["velocity_steering"]
+        assert receipt["fit_sha256"] == sha256(fit.read_bytes()).hexdigest()
+        assert receipt["ema_decay"] is None
+        assert receipt["native_raw_strength"] == native["strength"]
+        assert receipt["raw_packet_sha256"] == raw["sha256"]
+        assert receipt["model_identity_sha256"] == digest(reopened.identity)
+        assert receipt["geometry"] == fit_record["geometry"]
+        widths = [start - end for start, end in pairwise(schedule["sigmas"])]
+        coefficients, applied_coefficients, realized = [], [], []
+        for index, (before, (scale, after), row) in enumerate(zip(unedited, euler_inputs, receipt["steps"], strict=True)):
+            assert scale == row["raw_strength"] == native["strength"]
+            assert row["interval"] == index
+            pooled = before.mean(dim=(0, 1), dtype=torch.float32)
+            coefficient = float((pooled @ probe_weight + bias).relu()) if constant is None else constant
+            assert row["velocity_channel_mean"] == pooled.tolist()
+            assert row["coefficient"] == pytest.approx(coefficient)
+            assert row["applied_coefficient"] == torch.tensor(row["coefficient"], dtype=torch.float32).item()
+            expected = (before + row["applied_coefficient"] * direction).to(before.dtype)
+            assert torch.equal(after, expected)
+            actual = float(torch.linalg.vector_norm(after - before, dim=-1).mean())
+            assert row["realized_mean_edit_norm"] == pytest.approx(actual)
+            coefficients.append(row["coefficient"])
+            applied_coefficients.append(row["applied_coefficient"])
+            realized.append(actual)
+        assert len(coefficients) == 4
+        assert receipt["coefficient_dose"] == fsum(w * c for w, c in zip(widths, coefficients, strict=True))
+        assert receipt["fp32_coefficient_dose"] == fsum(w * c for w, c in zip(widths, applied_coefficients, strict=True))
+        assert receipt["velocity_edit_dose"] == pytest.approx(receipt["coefficient_dose"] * float(direction.norm()))
+        assert receipt["realized_velocity_edit_dose"] == fsum(w * a for w, a in zip(widths, realized, strict=True))
+        unedited.clear()
+        euler_inputs.clear()
+        return receipt
+
+    with patch.object(life, "NativeRuntime", return_value=reopened):
+        with open_inference(raw, backend=NATIVE_BACKEND, options=options,
+                            native_request=dict(prompt="a x", steps=4)) as inference:
+            baseline = inference.render(**native)
+            with (reopened.transformer.register_forward_hook(native_output),
+                  patch.object(FlowMatchEulerDiscreteScheduler, "step", euler_step)):
+                adaptive = render(inference, **native, velocity_plan=plan)
+                adaptive_receipt = check_edit(adaptive)
+                assert adaptive_receipt["method"] == "s-psr"
+                assert len({row["coefficient"] for row in adaptive_receipt["steps"]}) > 1
+                assert adaptive.tobytes() != baseline.tobytes()
+                matched = adaptive_receipt["matched_constant_coefficient"]
+                constant = render(inference, **native, velocity_plan=plan, constant_coefficient=matched)
+                constant_receipt = check_edit(constant, matched)
+                assert constant_receipt["method"] == "same-atom-constant"
+                assert constant_receipt["coefficient_dose"] == adaptive_receipt["coefficient_dose"]
+                zero = render(inference, **native, velocity_plan=plan, constant_coefficient=0)
+                assert check_edit(zero, 0)["coefficient_dose"] == 0
+                assert zero.tobytes() == baseline.tobytes()
+
+            for changes, pattern in [({"strength": 0.4}, "fit's fixed native RAW strength"),
+                                     ({"steps": 3}, "fit's native step count"),
+                                     ({"step_gains": [1.] * 4}, "one Flux schedule"),
+                                     ({"constant_coefficient": float("nan")}, "nonnegative same-atom")]:
+                with pytest.raises(ValueError, match=pattern):
+                    render(inference, **{**native, **changes}, velocity_plan=plan)
+            with pytest.raises(ValueError, match="Supply the native RAW strength"):
+                render(inference, prompt="a x", velocity_plan=plan)
+            incompatible_fit = tmp_path / "incompatible.pt"
+            for changes, pattern in [({"raw_packet_sha256": "a" * 64}, "exact RAW packet"),
+                                     ({"model_identity_sha256": "b" * 64}, "exact RAW packet"),
+                                     ({"geometry": geometry({"height": 80, "width": 64})}, "original native geometry")]:
+                torch.save({**fit_record, **changes}, incompatible_fit)
+                wrong_plan = VelocitySteeringPlan(core_wheel=flux_velocity_wheel, fit_path=incompatible_fit)
+                with pytest.raises(ValueError, match=pattern):
+                    render(inference, **native, velocity_plan=wrong_plan)
+            torch.save(dict(fit_record, sigmas=[1., .875, .5, .25, 0.]), incompatible_fit)
+            wrong_grid = VelocitySteeringPlan(core_wheel=flux_velocity_wheel, fit_path=incompatible_fit)
+            with pytest.raises(RuntimeError, match="Euler sigmas differ"):
+                render(inference, **native, velocity_plan=wrong_grid)
+
+            with patch.object(FlowMatchEulerDiscreteScheduler, "step", side_effect=RuntimeError("Euler failed")):
+                with pytest.raises(RuntimeError, match="Euler failed"):
+                    render(inference, **native, velocity_plan=plan)
+            assert reopened.pipe.scheduler is original_scheduler
+            assert inference.binding.network.strength == 0.0
+            assert not reopened.transformer._forward_pre_hooks and not reopened.transformer._forward_hooks
+            assert render(inference, **native, velocity_plan=plan).tobytes() == adaptive.tobytes()
+
+
+def test_spsr_requires_no_ema_and_verified_equations(tmp_path, flux_velocity_wheel):
+    from zipfile import ZipFile
+
+    from ps_flux_native.velocity_steering import CORE_MODULE, VelocitySteeringPlan
+
+    fit_path = tmp_path / "probe.pt"
+    probe = {"probe.weight": torch.zeros(1, 64), "probe.bias": torch.zeros(1), "direction.weight": torch.ones(1, 64)}
+    fit = dict(weights="raw", ema_decay=0.99, native_raw_strength=0.5, probe=probe,
+        geometry=geometry({"height": 64, "width": 64}), sigmas=[1., 0.],
+        raw_packet_sha256="a" * 64, model_identity_sha256="b" * 64)
+    torch.save(fit, fit_path)
+    with pytest.raises(ValueError, match="EMA disabled"):
+        VelocitySteeringPlan(core_wheel=flux_velocity_wheel, fit_path=fit_path)
+
+    torch.save(dict(fit, ema_decay=None), fit_path)
+    forged = tmp_path / "unverified.whl"
+    with ZipFile(forged, "w") as archive:
+        archive.writestr(CORE_MODULE, "raise AssertionError('never execute changed wheel bytes')\n")
+    with pytest.raises(ValueError, match="exact shared prompt-steering module"):
+        VelocitySteeringPlan(core_wheel=forged, fit_path=fit_path)
+
+
+def test_native_velocity_hook_with_owner_callbacks_and_bf16_exposure(flux_velocity_wheel):
+    from ps_flux_native.velocity_steering import _render_native_velocity, _shared_prompt_steering
+
+    class PackedVelocity(torch.nn.Module):
+        def forward(self, velocity):
+            return (velocity,)
+
+    transformer = PackedVelocity()
+    probe = _shared_prompt_steering(flux_velocity_wheel)(2).requires_grad_(False)
+    probe.direction.weight.copy_(torch.tensor([[0.125, 0.375]]))
+    sigmas = [1.0, 0.5, 0.0]
+    scheduler = FlowMatchEulerDiscreteScheduler()
+    scheduler.set_timesteps(sigmas=sigmas[:-1])
+    scheduler.set_begin_index(0)
+    original = torch.full((1, 3, 2), 0.5, dtype=torch.bfloat16)
+    strength = 2 / 3
+    observed = []
+
+    def owner_render():
+        latent = torch.zeros_like(original)
+        for timestep in scheduler.timesteps:
+            edited, = transformer(original)
+            observed.append(edited)
+            latent, = scheduler.step(edited, timestep, latent, return_dict=False)
+        return latent
+
+    _, receipt = _render_native_velocity(owner_render, transformer=transformer,
+        current_scheduler=lambda: scheduler, current_strength=lambda: strength, strength=strength,
+        sigmas=sigmas, shape=original.shape, probe_for=lambda _device: probe, constant_coefficient=0.1)
+    applied = torch.tensor(0.1, dtype=torch.float32)
+    edit = (original.float() + applied * probe.direction.weight[0]).to(torch.bfloat16)
+    assert len(observed) == 2 and all(torch.equal(value, edit) for value in observed)
+    assert receipt["coefficient_dose"] == 0.1
+    assert receipt["fp32_coefficient_dose"] == float(applied) != receipt["coefficient_dose"]
+    assert receipt["realized_velocity_edit_dose"] == float(torch.linalg.vector_norm(edit.float() - original.float(), dim=-1).mean())
+    assert receipt["realized_velocity_edit_dose"] != receipt["velocity_edit_dose"]
+    assert not transformer._forward_hooks

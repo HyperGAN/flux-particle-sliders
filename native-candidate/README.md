@@ -244,6 +244,57 @@ boundary before more candidate updates/resume/promotion; weak effect is not
 failure, missing/error is unmeasured. This Source does not invent a universal
 renderer or claim automatic qualified all-product deployment.
 
+### Fitted S-PSR on native Euler velocity
+
+Flux can apply one additive residual edit to the packed velocity the native
+Euler scheduler consumes. At each step the shared `PromptSteering` affine-ReLU
+probe reads the FP32 channel mean of that step's velocity. Flux adds the fitted
+direction times the resulting coefficient to each packed image position. This
+uses the paper's single-layer intervention with one coefficient per Flux step.
+The caller supplies the RAW adapter strength, which stays fixed in all arms.
+[Steer Like the LLM](https://proceedings.mlr.press/v306/heyman26a.html).
+
+Use a `PromptSteering` fit learned on aligned steering-prompt and neutral-prompt
+velocity pairs for this RAW adapter, strength and native sampling setup. The
+fit artifact stores `weights="raw"`, `ema_decay=None`, `native_raw_strength`,
+and the fitted `PromptSteering.state_dict()` as `probe`. It records the measured
+`sigmas` including the terminal sigma, `geometry` from
+`inference.manifest["specification"]["configuration"]["geometry"]`,
+`raw_packet_sha256` from `inference.manifest["sha256"]`, and
+`model_identity_sha256` from
+`ps_flux_native.contracts.digest(inference.binding.identity["model"])`. Flux
+checks those identities and the actual native grid at replay. Keep fit families
+and seeds separate from finished-output evaluation. This interface has no
+measured Flux preset or demonstrated effect gain.
+
+```python
+from ps_flux_native.scheduled_render import render
+from ps_flux_native.velocity_steering import VelocitySteeringPlan
+
+plan = VelocitySteeringPlan(core_wheel=shared_psr_wheel, fit_path=measured_fit)
+request = dict(prompt=prompt, seed=seed, steps=steps, strength=raw_strength)
+adaptive = render(inference, **request, velocity_plan=plan)
+trace = adaptive.info["strength_schedule"]["velocity_steering"]
+constant = render(
+    inference, **request, velocity_plan=plan,
+    constant_coefficient=trace["matched_constant_coefficient"],
+)
+off = inference.render(**request)
+```
+
+The constant uses the same fitted direction, RAW strength, native grid and
+seed. Its coefficient is the adaptive coefficients' average weighted by each
+interval's sigma width. The receipt records the fit and shared equation hashes,
+native sigmas, configured coefficient dose, actual FP32 coefficient dose, and
+the integrated mean L2 velocity edit delivered to Euler. Rounding the constant
+to FP32 can move its applied coefficient dose away from the configured dose.
+Native dtype rounding along the two sampling paths can also change the realized
+L2 dose.
+
+This public interface binds the modern strict RAW packet. A historical RAW18
+experiment uses its separately authenticated original native owner to call the
+same private Euler hook.
+
 ## Native T5 tokenizer dependencies
 
 The native package explicitly requires SentencePiece 0.2.3 and protobuf 7.36.2,
